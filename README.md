@@ -12,8 +12,7 @@ your favorite text editor. Place the following tag between the <tomcat-users>
 
 
 Open the conf/web.xml file. Search the file for the text org.apache.jasper.servlet
-.JspServlet. Below the tag that contains this text are two <init-param> tags. You
-learn about Servlet init parameters in the next chapter, but for now add the following init
+.JspServlet. Below the tag that contains this text are two <init-param> tags add the following init
 parameters below the existing init parameters:
 
 <init-param>
