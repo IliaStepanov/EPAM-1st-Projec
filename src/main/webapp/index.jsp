@@ -9,7 +9,12 @@
   <body>
   <h1>Hello World!</h1>
 
-  <a href="/app/listAllUsers"> List me users.</a>
+
+
+  <form action="${pageContext.request.contextPath}/users/getById" method="POST">
+    <input type="number" name="id"/> Enter UserID to show.
+    <input type="submit" name="Search">
+  </form>
 
   </body>
 </html>
