@@ -8,13 +8,6 @@
   </head>
   <body>
   <h1>Hello World!</h1>
-
-
-
-  <form action="${pageContext.request.contextPath}/users/getById" method="POST">
-    <input type="number" name="id"/> Enter UserID to show.
-    <input type="submit" name="Search">
-  </form>
-
+<a href="views/users.jsp"> User CRUD page.</a>
   </body>
 </html>

@@ -25,8 +25,8 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-web', version: '5.1.4.RELEASE'
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.5.0'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.1.Final'
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    apt 'org.projectlombok:lombok:1.18.4'
+    compile'org.projectlombok:lombok:1.18.4'
+
 
 
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.4.RELEASE'
@@ -43,4 +43,3 @@ dependencies {
 
 
 }
-

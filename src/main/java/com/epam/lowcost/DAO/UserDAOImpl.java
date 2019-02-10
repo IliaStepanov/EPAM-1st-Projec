@@ -90,8 +90,8 @@ public class UserDAOImpl implements UserDAO {
             if (insert == 1){
                 ResultSet rs = stm.executeQuery("SELECT * FROM USERS");
                 rs.last();
-                long newid = rs.getLong("id");
-                user.setId(newid);
+                long newId = rs.getLong("id");
+                user.setId(newId);
                 return user;
             }
 
