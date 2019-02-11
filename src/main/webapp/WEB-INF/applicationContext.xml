@@ -15,7 +15,7 @@
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
 
-    <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize" c:dataSource-ref="idDataSource"/>
+    <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize" c:dataSource-ref="idDataSource" init-method="initiateDB"/>
 
     <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="idDataSource"/>
 

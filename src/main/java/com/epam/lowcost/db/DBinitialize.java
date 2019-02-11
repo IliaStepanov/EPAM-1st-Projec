@@ -20,7 +20,6 @@ public class DBinitialize {
 
     public DBinitialize(DataSource dataSource) {
         this.dataSource = dataSource;
-        initiateDB();
     }
 
 
