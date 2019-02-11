@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/user")
-
 public class UserController {
 
     @Autowired
@@ -27,7 +26,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping(value = "/id")
+    @GetMapping(value = "/id")
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("user", userService.getById(id));
         return "users";
@@ -35,32 +34,47 @@ public class UserController {
 
     @PostMapping(value = "/add")
     public String addUser(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("user", userService.addUser(new User(1,
-                params.get("email"),
-                params.get("password"),
-                Boolean.valueOf(params.get("isAdmin")),
-                params.get("firstName"),
-                params.get("lastName"),
-                params.get("documentInfo"),
-                LocalDateTime.parse(params.get("birthday")))));
+        model.addAttribute("user", userService.addUser(
+                User.builder()
+                        .email(params.get("email"))
+                        .password(params.get("password"))
+                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+                        .firstName(params.get("firstName"))
+                        .lastName(params.get("lastName"))
+                        .documentInfo(params.get("documentInfo"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .build()));
+
         model.addAttribute("message", "User successfully added");
         return "users";
     }
 
     @PostMapping(value = "/update")
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("user", userService.updateUser(new User(
-                Long.valueOf(params.get("id")),
-                params.get("email"),
-                params.get("password"),
-                Boolean.valueOf(params.get("isAdmin")),
-                params.get("firstName"),
-                params.get("lastName"),
-                params.get("documentInfo"),
-                LocalDateTime.parse(params.get("birthday")))));
+        model.addAttribute("user", userService.updateUser(
+                User.builder()
+                        .id(Long.valueOf(params.get("id")))
+                        .email(params.get("email"))
+                        .password(params.get("password"))
+                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+                        .firstName(params.get("firstName"))
+                        .lastName(params.get("lastName"))
+                        .documentInfo(params.get("documentInfo"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .build()));
         model.addAttribute("message", "User successfully updated");
         return "users";
     }
 
 
 }
+// model.addAttribute("user", userService.addUser(User.builder()
+//         .id(Long.valueOf(params.get("id")))
+//         .email(params.get("email"))
+//         .password(params.get("password"))
+//         .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+//         .firstName(params.get("firstName"))
+//         .lastName(params.get("lastName"))
+//         .documentInfo(params.get("documentInfo"))
+//         .birthday(LocalDateTime.parse(params.get("birthday")))
+//         .build()));
