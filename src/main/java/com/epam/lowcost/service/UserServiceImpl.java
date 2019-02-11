@@ -1,4 +1,4 @@
-package com.epam.lowcost.sevice;
+package com.epam.lowcost.service;
 
 import com.epam.lowcost.DAO.UserDAO;
 import com.epam.lowcost.model.User;

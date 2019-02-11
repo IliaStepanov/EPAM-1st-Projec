@@ -8,6 +8,14 @@
   </head>
   <body>
   <h1>Hello World!</h1>
-<a href="views/users.jsp"> User CRUD page.</a>
+
+
+
+
+<a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
+
+
+
+
   </body>
 </html>
