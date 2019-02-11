@@ -43,7 +43,6 @@ public class PlaneDAOImpl implements PlaneDAO{
 
     @Override
     public Plane getById(long planeId) {
-        Plane plane = null;
         String sql = String.format("SELECT * FROM PLANES WHERE id='%d'", planeId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
@@ -55,18 +54,40 @@ public class PlaneDAOImpl implements PlaneDAO{
                 int businessPlacesNumber = rs.getInt("businessPlacesNumber");
                 int economPlaces = rs.getInt("economPlacesNumber");
 
-                return plane = new Plane(id, model, businessPlacesNumber, economPlaces);
+                return new Plane(id, model, businessPlacesNumber, economPlaces);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return plane;
+        return null;
     }
 
     @Override
     public Plane addPlane(Plane plane) {
-        return null;
+        String sql = String.format(
+                "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, " +
+                        "VALUES ('%s', %d, %d)",
+
+                plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber());
+
+        try (Connection connection = dataSource.getConnection();
+             Statement stm = connection.createStatement()
+        ) {
+            int insert = stm.executeUpdate(sql);
+            if (insert == 1){
+                ResultSet rs = stm.executeQuery("SELECT * FROM PLANES");
+                rs.last();
+                long newId = rs.getLong("id");
+                plane.setId(newId);
+                return plane;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        plane = null;
+        return plane;
     }
 
     @Override

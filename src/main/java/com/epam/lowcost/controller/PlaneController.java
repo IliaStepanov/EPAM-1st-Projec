@@ -22,9 +22,24 @@ public class PlaneController {
         model.addAttribute("planes",planeService.getAllPlanes());
         return "planes";
     }
+
     @PostMapping(value = "/id")
     public String getById(@RequestParam long id, Model model)
     {   model.addAttribute("plane",planeService.getById(id));
         return "planes";
+    }
+
+    @PostMapping (value = "/add")
+    public String addUser(@RequestParam Map<String,String> params, Model model){
+        model.addAttribute("user", userService.addUser(new User(1,
+                params.get("email"),
+                params.get("password"),
+                Boolean.valueOf(params.get("isAdmin")),
+                params.get("firstName"),
+                params.get("lastName"),
+                params.get("documentInfo"),
+                LocalDateTime.parse(params.get("birthday")))));
+        model.addAttribute("message","User successfully added");
+        return "users";
     }
 }
