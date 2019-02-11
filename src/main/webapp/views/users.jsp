@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,8 +8,6 @@
 <h2>Users in DB:</h2><br/><br/>
 
 <a href="${pageContext.request.contextPath}/user/all">List all Users!</a><br/><br/>
-
-
 
 
 <c:forEach items="${users}" var="user">
@@ -22,14 +20,14 @@ ${user}<br/> <h4>${message}</h4>
 
 
 <h4>Find User by ID.</h4>
-<form action="${pageContext.request.contextPath}/user/id" method="post">
+<form action="${pageContext.request.contextPath}/user" method="get">
     <input type="number" name="id"/>
     <input type="submit" name="Find User."/>
 </form>
 <br/><br/>
 <h4>Add new User.</h4>
-<form action="${pageContext.request.contextPath}/user/add" method="post">
-    <input type="text" name="email"/>  Email.<br/>
+<form action="${pageContext.request.contextPath}/user" method="post">
+    <input type="text" name="email"/> Email.<br/>
     <input type="text" name="password"/> Password.<br/>
     <input type="text" name="isAdmin"/> Admin role.<br/>
     <input type="text" name="firstName"/> First name. <br/>

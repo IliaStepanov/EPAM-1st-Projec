@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		  http://www.springframework.org/schema/context
@@ -14,16 +15,15 @@
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
 
+    <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize" c:dataSource-ref="idDataSource"/>
 
-    <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize">
-        <constructor-arg ref="idDataSource"/>
-    </bean>
+    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="idDataSource"/>
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl">
-        <constructor-arg ref="idDataSource"/>
-    </bean>
-    <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl">
-        <constructor-arg ref="userDAO"/>
+    <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
+
+
+    <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
+        <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
     </bean>
 
     <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl">
@@ -39,9 +39,9 @@
         <property name="username" value="ca"/>
         <property name="password" value=""/>
     </bean>
-    <bean class = "org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name = "prefix" value = "/views/" />
-        <property name = "suffix" value = ".jsp" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
 
