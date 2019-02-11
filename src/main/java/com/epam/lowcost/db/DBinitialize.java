@@ -24,7 +24,7 @@ public class DBinitialize {
     }
 
 
-    private void initiateDB(){
+    private void initiateDB() {
         File fl = new File(this.getClass().getResource("/createTable").getFile());
         List<String> sqlBatch = new ArrayList<>();
         try {
@@ -40,7 +40,7 @@ public class DBinitialize {
                     stm.addBatch(s);
                 }
                 stm.executeBatch();
-                } catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         } catch (SQLException e) {

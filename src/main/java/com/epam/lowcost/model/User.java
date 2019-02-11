@@ -1,9 +1,11 @@
 package com.epam.lowcost.model;
-import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Data
