@@ -17,8 +17,7 @@
 
     <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize" c:dataSource-ref="idDataSource"/>
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="idDataSource"
-          c:formatter-ref="dateTimeFormatter"/>
+    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="idDataSource"/>
 
     <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
 

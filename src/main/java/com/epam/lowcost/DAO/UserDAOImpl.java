@@ -8,19 +8,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
-    private DateTimeFormatter formatter;
     private DataSource dataSource;
 
-    public UserDAOImpl(DataSource dataSource, DateTimeFormatter formatter) {
+    public UserDAOImpl(DataSource dataSource) {
 
         this.dataSource = dataSource;
-        this.formatter = formatter;
+
     }
 
     @Override
