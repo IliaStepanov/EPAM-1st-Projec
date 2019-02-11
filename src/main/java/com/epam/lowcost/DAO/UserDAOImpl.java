@@ -14,10 +14,13 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
 
+    private DateTimeFormatter formatter;
     private DataSource dataSource;
 
-    public UserDAOImpl(DataSource dataSource) {
+    public UserDAOImpl(DataSource dataSource, DateTimeFormatter formatter) {
+
         this.dataSource = dataSource;
+        this.formatter = formatter;
     }
 
     @Override
@@ -93,14 +96,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User addUser(User user) {
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         String sql = String.format(
                 "INSERT INTO USERS (email, password, isAdmin, " +
                         "firstName, lastName, documentInfo, birthday) " +
                         "VALUES ('%s', '%s',%b,'%s','%s','%s','%s')",
 
                 user.getEmail(), user.getPassword(), user.isAdmin(),
-                user.getFirstName(), user.getLastName(), user.getDocumentInfo(), f.format(user.getBirthday()));
+                user.getFirstName(), user.getLastName(), user.getDocumentInfo(), formatter.format(user.getBirthday()));
 
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()

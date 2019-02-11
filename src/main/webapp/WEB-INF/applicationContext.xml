@@ -20,10 +20,16 @@
 
     <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl">
         <constructor-arg ref="idDataSource"/>
+        <constructor-arg ref="dateTimeFormatter"/>
     </bean>
     <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl">
         <constructor-arg ref="userDAO"/>
     </bean>
+
+    <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
+        <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
+    </bean>
+
 
     <bean id="idDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.h2.Driver"/>
