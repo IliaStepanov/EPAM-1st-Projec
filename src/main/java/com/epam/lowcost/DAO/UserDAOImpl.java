@@ -35,9 +35,11 @@ public class UserDAOImpl implements UserDAO {
                 String documentInfo = rs.getString("documentInfo");
                 LocalDateTime birthday = rs.getTimestamp("birthday").toLocalDateTime();
 
-                user = new User(id, email, password, isAdmin, firstName, lastName, documentInfo, birthday);
-
-                allUsers.add(user);
+                allUsers.add(User.builder()
+                        .id(id).email(email).password(password)
+                        .isAdmin(isAdmin).firstName(firstName)
+                        .lastName(lastName).documentInfo(documentInfo)
+                        .birthday(birthday).build());
             }
 
         } catch (SQLException e) {
@@ -63,7 +65,10 @@ public class UserDAOImpl implements UserDAO {
                 String documentInfo = rs.getString("documentInfo");
                 LocalDateTime birthday = rs.getTimestamp("birthday").toLocalDateTime();
 
-                return user = new User(id, email, password, isAdmin, firstName, lastName, documentInfo, birthday);
+                return User.builder().id(id).email(email)
+                        .password(password).isAdmin(isAdmin)
+                        .firstName(firstName).lastName(lastName)
+                        .documentInfo(documentInfo).birthday(birthday).build();
             }
 
         } catch (SQLException e) {

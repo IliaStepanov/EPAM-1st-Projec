@@ -1,5 +1,6 @@
 package com.epam.lowcost.model;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class User {
 
     private long id;
