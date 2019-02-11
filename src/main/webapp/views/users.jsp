@@ -20,13 +20,13 @@ ${user}<br/> <h4>${message}</h4>
 
 
 <h4>Find User by ID.</h4>
-<form action="${pageContext.request.contextPath}/user/id" method="post">
+<form action="${pageContext.request.contextPath}/user" method="get">
     <input type="number" name="id"/>
     <input type="submit" name="Find User."/>
 </form>
 <br/><br/>
 <h4>Add new User.</h4>
-<form action="${pageContext.request.contextPath}/user/add" method="post">
+<form action="${pageContext.request.contextPath}/user" method="post">
     <input type="text" name="email"/> Email.<br/>
     <input type="text" name="password"/> Password.<br/>
     <input type="text" name="isAdmin"/> Admin role.<br/>

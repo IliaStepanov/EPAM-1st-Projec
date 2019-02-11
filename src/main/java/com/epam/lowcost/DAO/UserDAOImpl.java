@@ -1,6 +1,7 @@
 package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.util.DateFormatter;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -64,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
                         "VALUES ('%s', '%s',%b,'%s','%s','%s','%s')",
 
                 user.getEmail(), user.getPassword(), user.isAdmin(),
-                user.getFirstName(), user.getLastName(), user.getDocumentInfo(), formatter.format(user.getBirthday()));
+                user.getFirstName(), user.getLastName(), user.getDocumentInfo(), DateFormatter.format(user.getBirthday()));
 
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()
@@ -91,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
                 "UPDATE USERS SET email='%s',password='%s',isAdmin='%b',firstName='%s'," +
                         "lastName='%s',documentInfo='%s',birthday='%s' WHERE id=%d",
                 user.getEmail(), user.getPassword(), user.isAdmin(), user.getFirstName(),
-                user.getLastName(), user.getDocumentInfo(), formatter.format(user.getBirthday()), user.getId());
+                user.getLastName(), user.getDocumentInfo(), DateFormatter.format(user.getBirthday()), user.getId());
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement()) {
             int update = stm.executeUpdate(sql);
@@ -101,7 +102,6 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        user = null;
         return user;
     }
 
