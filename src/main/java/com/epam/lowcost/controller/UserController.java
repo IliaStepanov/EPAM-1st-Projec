@@ -68,13 +68,3 @@ public class UserController {
 
 
 }
-// model.addAttribute("user", userService.addUser(User.builder()
-//         .id(Long.valueOf(params.get("id")))
-//         .email(params.get("email"))
-//         .password(params.get("password"))
-//         .isAdmin(Boolean.valueOf(params.get("isAdmin")))
-//         .firstName(params.get("firstName"))
-//         .lastName(params.get("lastName"))
-//         .documentInfo(params.get("documentInfo"))
-//         .birthday(LocalDateTime.parse(params.get("birthday")))
-//         .build()));
