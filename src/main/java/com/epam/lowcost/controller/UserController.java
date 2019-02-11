@@ -11,24 +11,25 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller()
+@RequestMapping(value = "/user")
 
 public class UserController {
 
     @Autowired
     UserServiceImpl userService;
 
-    @GetMapping(value = "user/all")
+    @GetMapping(value = "/all")
     public String listAllUsers(Model model)
     {
         model.addAttribute("users",userService.getAllUsers());
         return "users";
     }
-    @PostMapping (value = "/user/id")
+    @PostMapping (value = "/id")
     public String getById(@RequestParam long id, Model model)
     {   model.addAttribute("user",userService.getById(id));
         return "users";
     }
-    @PostMapping (value = "/user/add")
+    @PostMapping (value = "/add")
     public String addUser(@RequestParam Map<String,String> params, Model model){
         model.addAttribute("user", userService.addUser(new User(1,
                 params.get("email"),
@@ -41,7 +42,7 @@ public class UserController {
         model.addAttribute("message","User successfully added");
                 return "users";
     }
-    @PostMapping (value = "/user/update")
+    @PostMapping (value = "/update")
     public String updateUser(@RequestParam Map<String,String> params, Model model){
        model.addAttribute("user",userService.updateUser(new User(
                Long.valueOf(params.get("id")),
