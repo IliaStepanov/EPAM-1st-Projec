@@ -1,5 +1,6 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/plane")
@@ -31,15 +34,11 @@ public class PlaneController {
 
     @PostMapping (value = "/add")
     public String addUser(@RequestParam Map<String,String> params, Model model){
-        model.addAttribute("user", userService.addUser(new User(1,
-                params.get("email"),
-                params.get("password"),
-                Boolean.valueOf(params.get("isAdmin")),
-                params.get("firstName"),
-                params.get("lastName"),
-                params.get("documentInfo"),
-                LocalDateTime.parse(params.get("birthday")))));
-        model.addAttribute("message","User successfully added");
-        return "users";
+        model.addAttribute("plane", planeService.addPlane(new Plane(1,
+                params.get("model"),
+                Integer.valueOf(params.get("businessPlacesNumber")),
+                Integer.valueOf(params.get("economPlacesNumber")))));
+        model.addAttribute("message","Plane successfully added");
+        return "planes";
     }
 }

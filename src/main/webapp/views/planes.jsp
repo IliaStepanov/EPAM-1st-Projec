@@ -27,18 +27,14 @@ ${plane}<br/> <h4>${message}</h4>
     <input type="submit" name="Find Plane."/>
 </form>
 <br/><br/>
-<%--<h4>Add new User.</h4>--%>
-<%--<form action="${pageContext.request.contextPath}/user/add" method="post">--%>
-    <%--<input type="text" name="email"/>  Email.<br/>--%>
-    <%--<input type="text" name="password"/> Password.<br/>--%>
-    <%--<input type="text" name="isAdmin"/> Admin role.<br/>--%>
-    <%--<input type="text" name="firstName"/> First name. <br/>--%>
-    <%--<input type="text" name="lastName"/> Last name. <br/>--%>
-    <%--<input type="text" name="documentInfo"/> Document. <br/>--%>
-    <%--<input type="text" name="birthday"/> Birthday. <br/>--%>
-    <%--<input type="submit" value="AddUser"/>--%>
-<%--</form>--%>
-<%--<br/><br/>--%>
+<h4>Add new Plane.</h4>
+<form action="${pageContext.request.contextPath}/plane/add" method="post">
+    <input type="text" name="model"/>  Model.<br/>
+    <input type="number" name="businessPlacesNumber"/> Number of business places.<br/>
+    <input type="number" name="economPlacesNumber"/> Number of econom places.<br/>
+    <input type="submit" value="AddPlane"/>
+</form>
+<br/><br/>
 <%--<h4>Update User.</h4>--%>
 <%--<form action="${pageContext.request.contextPath}/user/update" method="post">--%>
     <%--<input type="text" name="id"/> User ID.<br/>--%>

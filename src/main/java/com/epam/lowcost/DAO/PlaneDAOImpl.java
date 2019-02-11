@@ -66,7 +66,7 @@ public class PlaneDAOImpl implements PlaneDAO{
     @Override
     public Plane addPlane(Plane plane) {
         String sql = String.format(
-                "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, " +
+                "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber) " +
                         "VALUES ('%s', %d, %d)",
 
                 plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber());
