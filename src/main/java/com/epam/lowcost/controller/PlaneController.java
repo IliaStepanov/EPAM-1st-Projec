@@ -20,25 +20,40 @@ public class PlaneController {
     PlaneService planeService;
 
     @GetMapping(value = "/all")
-    public String listAllUsers(Model model)
-    {
-        model.addAttribute("planes",planeService.getAllPlanes());
+    public String listAllUsers(Model model) {
+        model.addAttribute("planes", planeService.getAllPlanes());
         return "planes";
     }
 
-    @PostMapping(value = "/id")
-    public String getById(@RequestParam long id, Model model)
-    {   model.addAttribute("plane",planeService.getById(id));
+    @GetMapping
+    public String getById(@RequestParam long id, Model model) {
+        model.addAttribute("plane", planeService.getById(id));
+        model.addAttribute("message", "Here is your Plane!");
         return "planes";
     }
 
-    @PostMapping (value = "/add")
-    public String addUser(@RequestParam Map<String,String> params, Model model){
-        model.addAttribute("plane", planeService.addPlane(new Plane(1,
-                params.get("model"),
-                Integer.valueOf(params.get("businessPlacesNumber")),
-                Integer.valueOf(params.get("economPlacesNumber")))));
-        model.addAttribute("message","Plane successfully added");
+    @PostMapping
+    public String addUser(@RequestParam Map<String, String> params, Model model) {
+        model.addAttribute("plane", planeService.addPlane(
+                Plane.builder()
+                        .model(params.get("model"))
+                        .businessPlacesNumber(Integer.valueOf(params.get("businessPlacesNumber")))
+                        .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
+                        .build()));
+
+        model.addAttribute("message", "Plane successfully added");
+        return "planes";
+    }
+
+    @PostMapping(value = "/update")
+    public String updatePlane(@RequestParam Map<String, String> params, Model model) {
+        model.addAttribute("plane", planeService.updatePlane(
+                Plane.builder()
+                        .id(Long.valueOf(params.get("id")))
+                        .model(params.get("model"))
+                        .businessPlacesNumber(Integer.valueOf(params.get("businessPlacesNumber")))
+                        .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
+                        .build()));
         return "planes";
     }
 }

@@ -10,29 +10,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaneDAOImpl implements PlaneDAO{
+public class PlaneDAOImpl implements PlaneDAO {
 
     private DataSource dataSource;
 
-    public PlaneDAOImpl(DataSource dataSource) {this.dataSource = dataSource;}
+    public PlaneDAOImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public List<Plane> getAllPlanes() {
         List<Plane> allPlanes = new ArrayList<>();
-        Plane plane;
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM PLANES")) {
             while (rs.next()) {
-
-                long id = rs.getLong("id");
-                String model = rs.getString("model");
-                int businessPlacesNumber = rs.getInt("businessPlacesNumber");
-                int economPlaces = rs.getInt("economPlacesNumber");
-
-                plane = new Plane(id, model, businessPlacesNumber, economPlaces);
-
-                allPlanes.add(plane);
+                allPlanes.add(getPlanesFromDB(rs));
             }
 
         } catch (SQLException e) {
@@ -43,24 +36,19 @@ public class PlaneDAOImpl implements PlaneDAO{
 
     @Override
     public Plane getById(long planeId) {
+        Plane plane = null;
         String sql = String.format("SELECT * FROM PLANES WHERE id='%d'", planeId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-
-                long id = rs.getLong("id");
-                String model = rs.getString("model");
-                int businessPlacesNumber = rs.getInt("businessPlacesNumber");
-                int economPlaces = rs.getInt("economPlacesNumber");
-
-                return new Plane(id, model, businessPlacesNumber, economPlaces);
+                return getPlanesFromDB(rs);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return plane;
     }
 
     @Override
@@ -68,14 +56,12 @@ public class PlaneDAOImpl implements PlaneDAO{
         String sql = String.format(
                 "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber) " +
                         "VALUES ('%s', %d, %d)",
-
                 plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber());
-
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()
         ) {
             int insert = stm.executeUpdate(sql);
-            if (insert == 1){
+            if (insert == 1) {
                 ResultSet rs = stm.executeQuery("SELECT * FROM PLANES");
                 rs.last();
                 long newId = rs.getLong("id");
@@ -92,6 +78,27 @@ public class PlaneDAOImpl implements PlaneDAO{
 
     @Override
     public Plane updatePlane(Plane plane) {
-        return null;
+        String sql = String.format(
+                "UPDATE PLANES SET model='%s',businessPlacesNumber=%d,economPlacesNumber=%d WHERE id=%d",
+                plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber(), plane.getId());
+        try (Connection conn = dataSource.getConnection();
+             Statement stm = conn.createStatement()) {
+            int update = stm.executeUpdate(sql);
+            if (update == 1) {
+                return plane;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return plane;
+    }
+
+    private Plane getPlanesFromDB(ResultSet rs) throws SQLException {
+        return Plane.builder()
+                .id(rs.getLong("id"))
+                .model(rs.getString("model"))
+                .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
+                .economPlacesNumber(rs.getInt("economPlacesNumber"))
+                .build();
     }
 }
