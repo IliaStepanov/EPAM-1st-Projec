@@ -9,6 +9,7 @@
 
 
 <a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
+<a href="${pageContext.request.contextPath}/views/planes.jsp"> Plane CRUD page.</a>
 
 
 </body>
