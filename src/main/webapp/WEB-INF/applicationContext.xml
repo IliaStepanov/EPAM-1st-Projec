@@ -15,19 +15,16 @@
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
 
-    <bean id="dBinitialize" class="com.epam.lowcost.db.DBinitialize" c:dataSource-ref="idDataSource" init-method="initiateDB"/>
-
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="idDataSource"/>
+    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource"/>
 
     <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
-
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
     </bean>
 
 
-    <bean id="idDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="ca"/>

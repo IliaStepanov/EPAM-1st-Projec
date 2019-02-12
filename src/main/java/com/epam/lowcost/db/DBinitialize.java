@@ -1,7 +1,7 @@
 package com.epam.lowcost.db;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,22 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class DBinitialize {
-    private DataSource dataSource;
+public class DBinitialize extends DriverManagerDataSource {
+
     private Connection conn;
     private Statement stm;
-
-
-    public DBinitialize(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
 
     private void initiateDB() {
         File fl = new File(this.getClass().getResource("/createTable").getFile());
         List<String> sqlBatch = new ArrayList<>();
         try {
-            conn = dataSource.getConnection();
+            conn = this.getConnection();
             stm = conn.createStatement();
             try (Stream<String> str = Files.lines(fl.toPath())) {
                 str.forEach(sqlBatch::add);
