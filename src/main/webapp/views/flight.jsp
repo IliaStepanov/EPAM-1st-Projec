@@ -28,18 +28,27 @@ ${flight}<br/> <h4>${message}</h4>
 <h4>Add new flight.</h4>
 <form action="${pageContext.request.contextPath}/flight" method="post">
     <input type="text" name="initialPrice"/> Price.<br/>
+    <input type="text" name="plane_id"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
     <input type="text" name="arrivalDate"/> Arrival Date. <br/>
     <input type="submit" value="Add flight"/>
 </form>
 <br/><br/>
 <h4>Update flight.</h4>
-<form action="${pageContext.request.contextPath}/flight" method="post">
+<form action="${pageContext.request.contextPath}/flight/updateFlight" method="post">
     <input type="text" name="id"/> Id.<br/>
     <input type="text" name="initialPrice"/> Price.<br/>
+    <input type="text" name="plane_id"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
     <input type="text" name="arrivalDate"/> Arrival Date. <br/>
     <input type="submit" value="Update Flight"/>
+</form>
+
+<br/><br/>
+<h4>Delete flight.</h4>
+<form action="${pageContext.request.contextPath}/flight/deleteFlight" method="post">
+    <input type="text" name="id"/> Id.<br/>
+    <input type="submit" value="Delete Flight"/>
 </form>
 
 </body>

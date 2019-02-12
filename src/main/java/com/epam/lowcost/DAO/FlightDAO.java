@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface FlightDAO {
     List<Flight> getAllFlights();
-    Flight getFlightById(long id);
+    Flight getFlightById(Long id);
     Flight addNewFlight(Flight flight);
-    //void deleteFlight(int id);
+    Flight deleteFlight(Long id);
     Flight updateFlight(Flight flight);
+
 }

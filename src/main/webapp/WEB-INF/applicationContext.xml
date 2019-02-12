@@ -25,7 +25,6 @@
 
 
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
-    <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="ca"/>
@@ -35,10 +34,19 @@
 
     <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
         <constructor-arg ref="idDataSource"/>
+        <constructor-arg ref="planeDAO"/>
     </bean>
 
-    <bean id="flightService" class="com.epam.lowcost.sevice.FlightServiceImpl">
+    <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl">
+        <constructor-arg ref="idDataSource"/>
+    </bean>
+
+    <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
+    </bean>
+
+    <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl">
+        <constructor-arg ref="planeDAO"/>
     </bean>
 
     <bean

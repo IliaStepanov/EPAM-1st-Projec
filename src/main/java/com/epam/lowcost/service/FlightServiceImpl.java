@@ -1,7 +1,8 @@
-package com.epam.lowcost.sevice;
+package com.epam.lowcost.service;
 
 import com.epam.lowcost.DAO.FlightDAO;
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.service.FlightService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flight getFlightById(long id) {
+    public Flight getFlightById(Long id) {
         return flightDAO.getFlightById(id);
     }
 
@@ -29,4 +30,7 @@ public class FlightServiceImpl implements FlightService {
     public Flight updateFlight(Flight flight) {
         return flightDAO.updateFlight(flight);
     }
+
+    @Override
+    public Flight deleteFlight(Long id) { return flightDAO.deleteFlight(id); }
 }
