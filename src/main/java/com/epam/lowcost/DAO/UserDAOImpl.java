@@ -26,10 +26,9 @@ public class UserDAOImpl implements UserDAO {
         List<User> allUsers = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM USERS")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM USERS WHERE isDeleted=false")) {
             while (rs.next()) {
-                if (!rs.getBoolean("isDeleted"))
-                    allUsers.add(getUserFromDB(rs));
+                allUsers.add(extractUserFromRS(rs));
             }
 
         } catch (SQLException e) {
@@ -42,14 +41,12 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(long userId) {
         User user = null;
-        String sql = String.format("SELECT * FROM USERS WHERE id='%d'", userId);
+        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and idDelete=false", userId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                if (rs.getBoolean("isDeleted")) return null;
-
-                return getUserFromDB(rs);
+                return extractUserFromRS(rs);
             }
 
         } catch (SQLException e) {
@@ -125,7 +122,7 @@ public class UserDAOImpl implements UserDAO {
         return ("User was not deleted");
     }
 
-    private User getUserFromDB(ResultSet rs) throws SQLException {
+    private User extractUserFromRS(ResultSet rs) throws SQLException {
         return User.builder()
                 .id(rs.getLong("id"))
                 .email(rs.getString("email"))
