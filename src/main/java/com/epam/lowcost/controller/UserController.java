@@ -44,6 +44,7 @@ public class UserController {
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
                         .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .isDeleted(false)
                         .build()));
 
         model.addAttribute("message", "User successfully added");
@@ -52,7 +53,8 @@ public class UserController {
 
     @PostMapping(value = "/update")
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("user", userService.updateUser(
+
+        User user = userService.updateUser(
                 User.builder()
                         .id(Long.valueOf(params.get("id")))
                         .email(params.get("email"))
@@ -62,8 +64,19 @@ public class UserController {
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
                         .birthday(LocalDateTime.parse(params.get("birthday")))
-                        .build()));
-        model.addAttribute("message", "User successfully updated");
+                        .build());
+        if (user == null) {
+            model.addAttribute("message", "No such user or it has been deleted!");
+        } else {
+            model.addAttribute("user", user);
+            model.addAttribute("message", "User successfully updated");
+        }
+        return "users";
+    }
+
+    @PostMapping(value = "/delete")
+    public String deleteUser(@RequestParam long id, Model model) {
+        model.addAttribute("message", userService.deleteUser(id));
         return "users";
     }
 
