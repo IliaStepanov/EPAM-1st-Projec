@@ -25,9 +25,31 @@
 
 
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
+    <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="ca"/>
+        <property name="password" value=""/>
+    </bean>
+
+
+    <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
+        <constructor-arg ref="idDataSource"/>
+    </bean>
+
+    <bean id="flightService" class="com.epam.lowcost.sevice.FlightServiceImpl">
+        <constructor-arg ref="flightDAO"/>
+    </bean>
+
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+    <bean id="idDataSource" class="org.h2.jdbcx.JdbcDataSource">
+        <property name="URL" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
+        <property name="user" value="ca"/>
         <property name="password" value=""/>
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

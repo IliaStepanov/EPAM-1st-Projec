@@ -1,15 +1,14 @@
+
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
-<head>
+  <head>
     <title>Title of web app!</title>
-</head>
-<body>
-<h1>Hello World!</h1>
+  </head>
+  <body>
+  <h1>Hello World!</h1>
 
-
-<a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
-
-
-</body>
+  <a href="/flight/getAllFlights"> List me flights.</a>
+  </body>
 </html>
