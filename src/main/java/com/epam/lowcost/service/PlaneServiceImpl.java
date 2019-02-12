@@ -28,4 +28,9 @@ public class PlaneServiceImpl implements PlaneService{
     public Plane updatePlane(Plane plane) {
         return planeDAO.updatePlane(plane);
     }
+
+    @Override
+    public String deletePlane(long planeId) {
+        return planeDAO.deletePlane(planeId);
+    }
 }

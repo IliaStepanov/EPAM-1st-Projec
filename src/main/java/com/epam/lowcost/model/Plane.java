@@ -14,4 +14,5 @@ public class Plane {
     private String model;
     private int businessPlacesNumber;
     private int economPlacesNumber;
+    private boolean isDeleted;
 }

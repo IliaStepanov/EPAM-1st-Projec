@@ -23,9 +23,9 @@ public class PlaneDAOImpl implements PlaneDAO {
         List<Plane> allPlanes = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM PLANES")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM PLANES WHERE isDeleted=false")) {
             while (rs.next()) {
-                allPlanes.add(getPlanesFromDB(rs));
+                    allPlanes.add(extractUserFromRS(rs));
             }
 
         } catch (SQLException e) {
@@ -37,12 +37,12 @@ public class PlaneDAOImpl implements PlaneDAO {
     @Override
     public Plane getById(long planeId) {
         Plane plane = null;
-        String sql = String.format("SELECT * FROM PLANES WHERE id='%d'", planeId);
+        String sql = String.format("SELECT * FROM PLANES WHERE id=%d AND isDeleted=false", planeId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return getPlanesFromDB(rs);
+                return extractUserFromRS(rs);
             }
 
         } catch (SQLException e) {
@@ -54,8 +54,8 @@ public class PlaneDAOImpl implements PlaneDAO {
     @Override
     public Plane addPlane(Plane plane) {
         String sql = String.format(
-                "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber) " +
-                        "VALUES ('%s', %d, %d)",
+                "INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) " +
+                        "VALUES ('%s', %d, %d, false)",
                 plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber());
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()
@@ -78,6 +78,9 @@ public class PlaneDAOImpl implements PlaneDAO {
 
     @Override
     public Plane updatePlane(Plane plane) {
+        if (getById(plane.getId()) == null){
+            return null;
+        }
         String sql = String.format(
                 "UPDATE PLANES SET model='%s',businessPlacesNumber=%d,economPlacesNumber=%d WHERE id=%d",
                 plane.getModel(), plane.getBusinessPlacesNumber(), plane.getEconomPlacesNumber(), plane.getId());
@@ -93,12 +96,29 @@ public class PlaneDAOImpl implements PlaneDAO {
         return plane;
     }
 
-    private Plane getPlanesFromDB(ResultSet rs) throws SQLException {
+    @Override
+    public String deletePlane(long planeId) {
+        String sql = String.format("UPDATE PLANES SET isDeleted=true WHERE id=%d", planeId);
+        try (Connection conn = dataSource.getConnection();
+             Statement stm = conn.createStatement()) {
+            int update = stm.executeUpdate(sql);
+            if (update == 1) {
+                return String.format("Plane %d successfully deleted", planeId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ("Plane was not deleted");
+    }
+
+    private Plane extractUserFromRS(ResultSet rs) throws SQLException {
         return Plane.builder()
                 .id(rs.getLong("id"))
                 .model(rs.getString("model"))
                 .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))
+                .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
     }
 }

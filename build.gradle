@@ -20,7 +20,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.4.RELEASE'
 
-    сompile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
     compile 'org.projectlombok:lombok:1.18.4'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'

@@ -20,7 +20,7 @@ public class PlaneController {
     PlaneService planeService;
 
     @GetMapping(value = "/all")
-    public String listAllUsers(Model model) {
+    public String getAllUsers(Model model) {
         model.addAttribute("planes", planeService.getAllPlanes());
         return "planes";
     }
@@ -39,6 +39,7 @@ public class PlaneController {
                         .model(params.get("model"))
                         .businessPlacesNumber(Integer.valueOf(params.get("businessPlacesNumber")))
                         .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
+                        .isDeleted(false)
                         .build()));
 
         model.addAttribute("message", "Plane successfully added");
@@ -47,13 +48,25 @@ public class PlaneController {
 
     @PostMapping(value = "/update")
     public String updatePlane(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("plane", planeService.updatePlane(
+        Plane plane = planeService.updatePlane(
                 Plane.builder()
                         .id(Long.valueOf(params.get("id")))
                         .model(params.get("model"))
                         .businessPlacesNumber(Integer.valueOf(params.get("businessPlacesNumber")))
                         .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
-                        .build()));
+                        .build());
+        if (plane == null) {
+            model.addAttribute("message", "No such plane or it has been deleted!");
+        } else {
+            model.addAttribute("plane", plane);
+            model.addAttribute("message", "Plane seccessfully updated");
+        }
+        return "planes";
+    }
+
+    @PostMapping(value = "/delete")
+    public String deleteUser(@RequestParam long id, Model model) {
+        model.addAttribute("message", planeService.deletePlane(id));
         return "planes";
     }
 }

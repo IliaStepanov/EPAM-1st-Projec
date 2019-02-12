@@ -42,6 +42,12 @@ ${plane}<br/> <h4>${message}</h4>
     <input type="submit" value="UpdatePlane"/>
 </form>
 
+<h4>Delete Plane by ID.</h4>
+<form action="${pageContext.request.contextPath}/plane/delete" method="post">
+    <input type="number" name="id"/>
+    <input type="submit" name="Delete User."/>
+</form>
+
 
 </body>
 </html>
