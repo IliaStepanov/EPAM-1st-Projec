@@ -50,6 +50,12 @@ ${user}<br/> <h4>${message}</h4>
     <input type="submit" value="UpdateUser"/>
 </form>
 
+<h4>Delete User by ID.</h4>
+<form action="${pageContext.request.contextPath}/user/delete" method="post">
+    <input type="number" name="id"/>
+    <input type="submit" name="Delete User."/>
+</form>
+
 
 </body>
 </html>

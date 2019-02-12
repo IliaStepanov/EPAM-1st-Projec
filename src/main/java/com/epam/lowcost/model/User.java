@@ -22,5 +22,6 @@ public class User {
     private String lastName;
     private String documentInfo;
     private LocalDateTime birthday;
+    private boolean isDeleted;
 
 }
