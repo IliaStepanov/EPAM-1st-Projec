@@ -30,8 +30,5 @@ dependencies {
     compile group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version: '1.2.5'
     compile group: 'org.apache.taglibs', name: 'taglibs-standard-spec', version: '1.2.5'
 
-
-
-
-
 }
+
