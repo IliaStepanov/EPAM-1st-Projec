@@ -41,7 +41,7 @@ public class FlightController {
         System.out.println("here");
         model.addAttribute("flight",
                 flightService.addNewFlight(Flight.builder().initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(planeService.getPlaneById(Long.valueOf(params.get("plane_id")))).
+                        plane(planeService.getById(Long.valueOf(params.get("plane_id")))).
                         departureDate(LocalDateTime.parse(params.get("departureDate"))).
                         arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flight";
@@ -52,7 +52,7 @@ public class FlightController {
         model.addAttribute("flight",
                 flightService.updateFlight(Flight.builder().id(Long.valueOf(params.get("id"))).
                         initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(planeService.getPlaneById(Long.valueOf(params.get("plane_id")))).
+                        plane(planeService.getById(Long.valueOf(params.get("plane_id")))).
                         departureDate(LocalDateTime.parse(params.get("departureDate"))).
                         arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flight";
