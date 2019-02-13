@@ -7,7 +7,7 @@
 <body>
 <h2> Flight in DB:</h2><br/><br/>
 
-<a href="${pageContext.request.contextPath}/flights/getAllFlights">Show all Flights!</a><br/><br/>
+<a href="${pageContext.request.contextPath}/flights/all">Show all Flights!</a><br/><br/>
 
 
 <c:forEach items="${flights}" var="flight">

@@ -37,12 +37,12 @@
 
     <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
         <constructor-arg ref="idDataSource"/>
-        <constructor-arg ref="planeDAO"/>
     </bean>
 
 
     <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
+        <constructor-arg ref="planeService"/>
     </bean>
 
 

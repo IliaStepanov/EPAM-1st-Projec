@@ -15,11 +15,9 @@ import java.util.List;
 
 public class FlightDAOImpl implements FlightDAO {
     private DataSource dataSource;
-    private PlaneDAO planeDAO;
 
-    public FlightDAOImpl(DataSource dataSource, PlaneDAO planeDAO) {
+    public FlightDAOImpl(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.planeDAO = planeDAO;
     }
 
 
@@ -28,19 +26,10 @@ public class FlightDAOImpl implements FlightDAO {
         List<Flight> flights = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS  ")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
+                     "ON FLIGHTS.plane_id = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
-                Long id = rs.getLong("id");
-                Long price = rs.getLong("initialPrice");
-                LocalDateTime departureDate = rs.getTimestamp("departureDate").toLocalDateTime();
-                LocalDateTime arrivalDate = rs.getTimestamp("arrivalDate").toLocalDateTime();
-                Long plane_id = rs.getLong("plane_id");
-                Plane plane = planeDAO.getById(plane_id);
-                Boolean isDeleted = rs.getBoolean("isDeleted");
-                if (!isDeleted)
-                    flights.add(Flight.builder().id(id).initialPrice(price).plane(plane).
-                            departureDate(departureDate).arrivalDate(arrivalDate).build());
-
+                flights.add(extractFlightFromRS(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,20 +38,15 @@ public class FlightDAOImpl implements FlightDAO {
     }
 
     @Override
-    public Flight getFlightById(Long id) {
+    public Flight getById(Long id) {
         Flight flight = new Flight();
-        String sql = String.format("SELECT * FROM FLIGHTS WHERE id = '%d' AND isDeleted=FALSE", id);
+        String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
+                " ON FLIGHTS.plane_id = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             if (rs.next()) {
-                Long price = rs.getLong("initialPrice");
-                LocalDateTime departureDate = rs.getTimestamp("departureDate").toLocalDateTime();
-                LocalDateTime arrivalDate = rs.getTimestamp("arrivalDate").toLocalDateTime();
-                Long plane_id = rs.getLong("plane_id");
-                Plane plane = planeDAO.getById(plane_id);
-                return Flight.builder().id(id).plane(plane).initialPrice(price).
-                        departureDate(departureDate).arrivalDate(arrivalDate).build();
+                return extractFlightFromRS(rs);
 
             }
         } catch (SQLException e) {
@@ -79,7 +63,11 @@ public class FlightDAOImpl implements FlightDAO {
         Long plane_id = flight.getPlane().getId();
 
         String sql = String.format("INSERT INTO Flights (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
-                " VALUES (%d,%d,'%s','%s','%s')", price, plane_id, DateFormatter.format(depatureDate), DateFormatter.format(arrivalDate), "FALSE");
+                        " VALUES (%d,%d,'%s','%s','%s')", price,
+                plane_id,
+                DateFormatter.format(depatureDate),
+                DateFormatter.format(arrivalDate),
+                "FALSE");
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
@@ -100,7 +88,7 @@ public class FlightDAOImpl implements FlightDAO {
 
     @Override
     public Flight deleteFlight(Long id) {
-        Flight flight = getFlightById(id);
+        Flight flight = getById(id);
         flight.setDeleted(true);
         String sql = String.format("UPDATE Flights SET isDeleted = TRUE WHERE id = '%d'", id);
         try (Connection conn = dataSource.getConnection();
@@ -120,7 +108,7 @@ public class FlightDAOImpl implements FlightDAO {
 
     @Override
     public Flight updateFlight(Flight flight) {
-        if (getFlightById(flight.getId())==null)
+        if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
                         "arrivalDate='%s', plane_id='%d' WHERE id = %d",
@@ -141,6 +129,21 @@ public class FlightDAOImpl implements FlightDAO {
         }
         flight = null;
         return flight;
+    }
+
+    private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
+        return Flight.builder()
+                .id(rs.getLong("id"))
+                .initialPrice(rs.getLong("initialPrice"))
+                .plane(Plane.builder().id(rs.getLong("plane_id"))
+                        .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
+                        .economPlacesNumber(rs.getInt("economPlacesNumber"))
+                        .model(rs.getString("model"))
+                        .build())
+                .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
+                .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
+                .isDeleted(rs.getBoolean("isDeleted"))
+                .build();
     }
 
 

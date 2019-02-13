@@ -12,4 +12,3 @@ INSERT INTO FLIGHTS(initialPrice,plane_id, isDeleted, departureDate,arrivalDate)
 INSERT INTO FLIGHTS(initialPrice,plane_id, isDeleted, departureDate,arrivalDate) VALUES ('1200','2',FALSE,'2019-01-14 05:45:00', '2019-01-14 08:10:00');
 INSERT INTO FLIGHTS(initialPrice,plane_id, isDeleted, departureDate,arrivalDate) VALUES ('1500','2',FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00');
 INSERT INTO FLIGHTS(initialPrice,plane_id, isDeleted, departureDate,arrivalDate) VALUES ('2000', '3',FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00');
-
