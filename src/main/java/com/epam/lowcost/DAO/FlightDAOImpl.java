@@ -39,7 +39,7 @@ public class FlightDAOImpl implements FlightDAO {
 
     @Override
     public Flight getById(Long id) {
-        Flight flight = new Flight();
+        Flight flight = null;
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
                 " ON FLIGHTS.plane_id = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
@@ -135,14 +135,18 @@ public class FlightDAOImpl implements FlightDAO {
         return Flight.builder()
                 .id(rs.getLong("id"))
                 .initialPrice(rs.getLong("initialPrice"))
-                .plane(Plane.builder().id(rs.getLong("plane_id"))
-                        .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
-                        .economPlacesNumber(rs.getInt("economPlacesNumber"))
-                        .model(rs.getString("model"))
-                        .build())
+                .plane(extractPlaneFromRS(rs))
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
                 .isDeleted(rs.getBoolean("isDeleted"))
+                .build();
+    }
+
+    private Plane extractPlaneFromRS(ResultSet rs) throws SQLException {
+        return  Plane.builder().id(rs.getLong("plane_id"))
+                .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
+                .economPlacesNumber(rs.getInt("economPlacesNumber"))
+                .model(rs.getString("model"))
                 .build();
     }
 

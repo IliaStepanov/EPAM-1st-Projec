@@ -40,7 +40,7 @@ public class FlightController {
         return "flights";
     }
 
-    @PostMapping(value = "/updateFlight")
+    @PostMapping(value = "/update")
     public String updateFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
                 flightService.updateFlight(Flight.builder().id(Long.valueOf(params.get("id"))).
@@ -51,7 +51,7 @@ public class FlightController {
         return "flights";
     }
 
-    @PostMapping (value = "/deleteFlight")
+    @PostMapping (value = "/delete")
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
         return "flights";
