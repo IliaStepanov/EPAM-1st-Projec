@@ -35,7 +35,7 @@ public class FlightDAOImpl implements FlightDAO {
                 LocalDateTime departureDate = rs.getTimestamp("departureDate").toLocalDateTime();
                 LocalDateTime arrivalDate = rs.getTimestamp("arrivalDate").toLocalDateTime();
                 Long plane_id = rs.getLong("plane_id");
-                Plane plane = planeDAO.getPlaneById(plane_id);
+                Plane plane = planeDAO.getById(plane_id);
                 Boolean isDeleted = rs.getBoolean("isDeleted");
                 if (!isDeleted)
                     flights.add(Flight.builder().id(id).initialPrice(price).plane(plane).
@@ -60,7 +60,7 @@ public class FlightDAOImpl implements FlightDAO {
                 LocalDateTime departureDate = rs.getTimestamp("departureDate").toLocalDateTime();
                 LocalDateTime arrivalDate = rs.getTimestamp("arrivalDate").toLocalDateTime();
                 Long plane_id = rs.getLong("plane_id");
-                Plane plane = planeDAO.getPlaneById(plane_id);
+                Plane plane = planeDAO.getById(plane_id);
                 return Flight.builder().id(id).plane(plane).initialPrice(price).
                         departureDate(departureDate).arrivalDate(arrivalDate).build();
 
