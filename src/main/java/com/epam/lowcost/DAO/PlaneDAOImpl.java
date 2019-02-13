@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaneDAOImpl implements PlaneDAO {
 
@@ -23,7 +25,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM PLANES WHERE isDeleted=false")) {
             while (rs.next()) {
-                    allPlanes.add(extractUserFromRS(rs));
+                allPlanes.add(extractUserFromRS(rs));
             }
 
         } catch (SQLException e) {
@@ -87,6 +89,12 @@ public class PlaneDAOImpl implements PlaneDAO {
             int update = stm.executeUpdate(sql);
             if (update == 1) {
                 return plane;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return plane;
+    }
 
     @Override
     public String deletePlane(long planeId) {

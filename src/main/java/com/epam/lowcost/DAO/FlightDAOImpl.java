@@ -28,7 +28,7 @@ public class FlightDAOImpl implements FlightDAO {
         List<Flight> flights = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHT  ")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS  ")) {
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 Long price = rs.getLong("initialPrice");
@@ -51,7 +51,7 @@ public class FlightDAOImpl implements FlightDAO {
     @Override
     public Flight getFlightById(Long id) {
         Flight flight = new Flight();
-        String sql = String.format("SELECT * FROM FLIGHT WHERE id = '%d' AND isDeleted=FALSE", id);
+        String sql = String.format("SELECT * FROM FLIGHTS WHERE id = '%d' AND isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -78,13 +78,13 @@ public class FlightDAOImpl implements FlightDAO {
         LocalDateTime arrivalDate = flight.getArrivalDate();
         Long plane_id = flight.getPlane().getId();
 
-        String sql = String.format("INSERT INTO Flight (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
+        String sql = String.format("INSERT INTO Flights (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
                 " VALUES (%d,%d,'%s','%s','%s')", price, plane_id, DateFormatter.format(depatureDate), DateFormatter.format(arrivalDate), "FALSE");
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
             if (lines == 1) {
-                ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHT");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS");
                 rs.last();
                 long newId = rs.getLong("id");
                 flight.setId(newId);
@@ -102,7 +102,7 @@ public class FlightDAOImpl implements FlightDAO {
     public Flight deleteFlight(Long id) {
         Flight flight = getFlightById(id);
         flight.setDeleted(true);
-        String sql = String.format("UPDATE Flight SET isDeleted = TRUE WHERE id = '%d'", id);
+        String sql = String.format("UPDATE Flights SET isDeleted = TRUE WHERE id = '%d'", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
@@ -122,7 +122,7 @@ public class FlightDAOImpl implements FlightDAO {
     public Flight updateFlight(Flight flight) {
         if (getFlightById(flight.getId())==null)
             return null;
-        String sql = String.format("UPDATE Flight SET initialPrice='%d',departureDate='%s'," +
+        String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
                         "arrivalDate='%s', plane_id='%d' WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),

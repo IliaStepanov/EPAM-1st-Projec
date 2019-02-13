@@ -40,17 +40,11 @@
         <constructor-arg ref="planeDAO"/>
     </bean>
 
-    <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl">
-        <constructor-arg ref="idDataSource"/>
-    </bean>
 
     <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
     </bean>
 
-    <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl">
-        <constructor-arg ref="planeDAO"/>
-    </bean>
 
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
