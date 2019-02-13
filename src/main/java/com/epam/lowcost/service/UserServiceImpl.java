@@ -37,4 +37,12 @@ public class UserServiceImpl implements UserService {
     public String deleteUser(long userId) {
         return userDAO.deleteUser(userId);
     }
+
+    @Override
+    public String verifyUser(String log, String pass) {
+        User user = userDAO.findByEmail(log, pass);
+
+        return user == null ? "wrong user" : user.isAdmin() ? "admin" : "user";
+
+    }
 }

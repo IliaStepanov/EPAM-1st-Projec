@@ -2,6 +2,9 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.util.DateFormatter;
+import com.epam.lowcost.util.UserRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,9 +17,10 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
 
-    public UserDAOImpl(DataSource dataSource) {
-
+    public UserDAOImpl(DataSource dataSource, JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
         this.dataSource = dataSource;
 
     }
@@ -41,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(long userId) {
         User user = null;
-        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and idDelete=false", userId);
+        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and isDeleted=false", userId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
@@ -53,6 +57,21 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return user;
+    }
+
+
+    @Override
+    public User findByEmail(String log, String pass) {
+
+
+        try {
+            User user = jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE email=? and password=?", new UserRowMapper(), log, pass);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
+
     }
 
     @Override

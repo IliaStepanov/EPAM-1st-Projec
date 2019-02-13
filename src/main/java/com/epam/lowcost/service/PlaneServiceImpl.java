@@ -5,14 +5,18 @@ import com.epam.lowcost.model.Plane;
 
 import java.util.List;
 
-public class PlaneServiceImpl implements PlaneService{
+public class PlaneServiceImpl implements PlaneService {
 
     private PlaneDAO planeDAO;
 
-    public PlaneServiceImpl(PlaneDAO planeDAO) {this.planeDAO = planeDAO;}
+    public PlaneServiceImpl(PlaneDAO planeDAO) {
+        this.planeDAO = planeDAO;
+    }
 
     @Override
-    public List<Plane> getAllPlanes() {return planeDAO.getAllPlanes();}
+    public List<Plane> getAllPlanes() {
+        return planeDAO.getAllPlanes();
+    }
 
     @Override
     public Plane getById(long planeId) {
