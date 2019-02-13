@@ -26,9 +26,9 @@ public class UserDAOImpl implements UserDAO {
         List<User> allUsers = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT * FROM USERS")) {
+             ResultSet rs = stm.executeQuery("SELECT * FROM USERS WHERE isDeleted=false")) {
             while (rs.next()) {
-                allUsers.add(getUserFromDB(rs));
+                allUsers.add(extractUserFromRS(rs));
             }
 
         } catch (SQLException e) {
@@ -41,12 +41,12 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(long userId) {
         User user = null;
-        String sql = String.format("SELECT * FROM USERS WHERE id='%d'", userId);
+        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and idDelete=false", userId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return getUserFromDB(rs);
+                return extractUserFromRS(rs);
             }
 
         } catch (SQLException e) {
@@ -59,8 +59,8 @@ public class UserDAOImpl implements UserDAO {
     public User addUser(User user) {
         String sql = String.format(
                 "INSERT INTO USERS (email, password, isAdmin, " +
-                        "firstName, lastName, documentInfo, birthday) " +
-                        "VALUES ('%s', '%s',%b,'%s','%s','%s','%s')",
+                        "firstName, lastName, documentInfo, birthday, isDeleted) " +
+                        "VALUES ('%s', '%s',%b,'%s','%s','%s','%s',false)",
 
                 user.getEmail(), user.getPassword(), user.isAdmin(),
                 user.getFirstName(), user.getLastName(), user.getDocumentInfo(), DateFormatter.format(user.getBirthday()));
@@ -86,14 +86,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User updateUser(User user) {
-        String sql = String.format(
+        if (getById(user.getId()) == null) {
+            return null;
+        }
+        String updateSql = String.format(
                 "UPDATE USERS SET email='%s',password='%s',isAdmin='%b',firstName='%s'," +
                         "lastName='%s',documentInfo='%s',birthday='%s' WHERE id=%d",
                 user.getEmail(), user.getPassword(), user.isAdmin(), user.getFirstName(),
                 user.getLastName(), user.getDocumentInfo(), DateFormatter.format(user.getBirthday()), user.getId());
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement()) {
-            int update = stm.executeUpdate(sql);
+            int update = stm.executeUpdate(updateSql);
             if (update == 1) {
                 return user;
             }
@@ -103,7 +106,23 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-    private User getUserFromDB(ResultSet rs) throws SQLException {
+    @Override
+    public String deleteUser(long userId) {
+        String sql = String.format("UPDATE USERS SET isDeleted=true WHERE id=%d", userId);
+        try (Connection conn = dataSource.getConnection();
+             Statement stm = conn.createStatement()) {
+            int update = stm.executeUpdate(sql);
+            if (update == 1) {
+                return String.format("User %d successfully deleted", userId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ("User was not deleted");
+    }
+
+    private User extractUserFromRS(ResultSet rs) throws SQLException {
         return User.builder()
                 .id(rs.getLong("id"))
                 .email(rs.getString("email"))
@@ -113,6 +132,7 @@ public class UserDAOImpl implements UserDAO {
                 .lastName(rs.getString("lastName"))
                 .documentInfo(rs.getString("documentInfo"))
                 .birthday(rs.getTimestamp("birthday").toLocalDateTime())
+                .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
     }
 

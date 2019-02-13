@@ -23,6 +23,9 @@
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
     </bean>
 
+    <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl" c:dataSource-ref="dataSource"/>
+
+    <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
 
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>

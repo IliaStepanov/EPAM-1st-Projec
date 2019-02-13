@@ -5,10 +5,14 @@
 <html>
   <head>
     <title>Title of web app!</title>
-  </head>
-  <body>
-  <h1>Hello World!</h1>
+</head>
+<body>
+<h1>Hello World!</h1>
 
-  <a href="/flight/getAllFlights"> List me flights.</a>
+
+<a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
+<a href="${pageContext.request.contextPath}/views/planes.jsp"> Plane CRUD page.</a>
+<a href="${pageContext.request.contextPath}/views/flight.jsp"> Flight CRUD page.</a>
+
   </body>
 </html>
