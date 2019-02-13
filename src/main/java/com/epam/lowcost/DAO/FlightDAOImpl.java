@@ -61,7 +61,6 @@ public class FlightDAOImpl implements FlightDAO {
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
         Long plane_id = flight.getPlane().getId();
-
         String sql = String.format("INSERT INTO Flights (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
                         " VALUES (%d,%d,'%s','%s','%s')", price,
                 plane_id,
@@ -70,16 +69,23 @@ public class FlightDAOImpl implements FlightDAO {
                 "FALSE");
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
-            int lines = stmt.executeUpdate(sql);
-            if (lines == 1) {
-                ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS");
-                rs.last();
-                long newId = rs.getLong("id");
-                flight.setId(newId);
+            int lines = stmt.executeUpdate(sql, 1);
+            System.out.println(lines);
+            if (lines != 0) {
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        rs.last();
+                        flight.setId(rs.getLong("id"));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("there");
+                    e.printStackTrace();
+
+                }
                 return flight;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException k) {
+            k.printStackTrace();
 
         }
         flight = null;
@@ -143,7 +149,7 @@ public class FlightDAOImpl implements FlightDAO {
     }
 
     private Plane extractPlaneFromRS(ResultSet rs) throws SQLException {
-        return  Plane.builder().id(rs.getLong("plane_id"))
+        return Plane.builder().id(rs.getLong("plane_id"))
                 .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))
                 .model(rs.getString("model"))
