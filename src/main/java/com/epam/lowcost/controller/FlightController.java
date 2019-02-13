@@ -35,10 +35,10 @@ public class FlightController {
 
     @PostMapping
     public String addNewFlight(@RequestParam Map<String, String> params, Model model) {
-        System.out.println("here");
-        System.out.println(Long.valueOf(params.get("plane_id")));
-        System.out.println(planeService);
-        System.out.println("here");
+        //System.out.println("here");
+        //System.out.println(Long.valueOf(params.get("plane_id")));
+        //System.out.println(planeService);
+        //System.out.println("here");
         model.addAttribute("flight",
                 flightService.addNewFlight(Flight.builder().initialPrice(Long.valueOf(params.get("initialPrice"))).
                         plane(planeService.getById(Long.valueOf(params.get("plane_id")))).

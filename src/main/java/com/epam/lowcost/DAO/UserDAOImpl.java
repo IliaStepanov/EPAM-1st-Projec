@@ -41,7 +41,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getById(long userId) {
         User user = null;
-        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and idDelete=false", userId);
+        String sql = String.format("SELECT * FROM USERS WHERE id='%d' and isDeleted=false", userId);
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {

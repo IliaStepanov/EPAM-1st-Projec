@@ -28,7 +28,7 @@ public class FlightDAOImpl implements FlightDAO {
         List<Flight> flights = new ArrayList<>();
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHT  ")) {
+             ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS  ")) {
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 Long price = rs.getLong("initialPrice");
@@ -51,7 +51,7 @@ public class FlightDAOImpl implements FlightDAO {
     @Override
     public Flight getFlightById(Long id) {
         Flight flight = new Flight();
-        String sql = String.format("SELECT * FROM FLIGHT WHERE id = '%d' AND isDeleted=FALSE", id);
+        String sql = String.format("SELECT * FROM FLIGHTS WHERE id = '%d' AND isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -84,7 +84,7 @@ public class FlightDAOImpl implements FlightDAO {
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
             if (lines == 1) {
-                ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHT");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS");
                 rs.last();
                 long newId = rs.getLong("id");
                 flight.setId(newId);
