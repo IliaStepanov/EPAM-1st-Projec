@@ -21,9 +21,9 @@ public class LoginController {
     public String login(@RequestParam Map<String, String> logPass, Model model) {
 
         String verification = userService.verifyUser(logPass.get("login"), logPass.get("password"));
-        System.out.println("VERIFICATION  " + verification);
+
         if (verification.equalsIgnoreCase("user") || verification.equalsIgnoreCase("admin")) {
-            return "users";
+            return "admin";
         } else {
             model.addAttribute("message", "No such User found.");
         }

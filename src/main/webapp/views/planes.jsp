@@ -7,8 +7,10 @@
 <body>
 <h2>Planes in DB:</h2><br/><br/>
 
-<a href="${pageContext.request.contextPath}/plane/all">List all Planes!</a><br/><br/>
+<a  href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
 
+<br/><br/>
+<a href="${pageContext.request.contextPath}/plane/all">List all Planes!</a><br/><br/>
 
 <c:forEach items="${planes}" var="plane">
     <c:out value="${plane.toString()}"/><br/>

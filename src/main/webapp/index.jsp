@@ -5,12 +5,8 @@
     <title>Title of web app!</title>
 </head>
 <body>
-<h1>Hello World!</h1>
+<h1>Login page.</h1>
 
-
-<a href="${pageContext.request.contextPath}/WEB-INF/views/users.jsp"> User CRUD page.</a>
-<a href="${pageContext.request.contextPath}/WEB-INF/views/planes.jsp"> Plane CRUD page.</a>
-<br/>
 
     <form action="${pageContext.request.contextPath}/login" method="post">
         <input type="text" name="login"  placeholder="Login"/>

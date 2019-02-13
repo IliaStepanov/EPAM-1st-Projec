@@ -6,10 +6,11 @@
 </head>
 <body>
 <h2>Users in DB:</h2><br/><br/>
-                                                                                              <a  href="${pageContext.request.contextPath}/"> Home.</a>
+<a  href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
 
+
+<br/><br/>
 <a href="${pageContext.request.contextPath}/user/all">List all Users!</a><br/><br/>
-
 
 <c:forEach items="${users}" var="user">
     <c:out value="${user.toString()}"/><br/>
