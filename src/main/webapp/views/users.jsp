@@ -6,7 +6,8 @@
 </head>
 <body>
 <h2>Users in DB:</h2><br/><br/>
-<a  href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
+
+<a href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
 
 
 <br/><br/>

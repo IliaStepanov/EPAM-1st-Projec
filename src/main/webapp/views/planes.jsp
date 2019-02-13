@@ -1,4 +1,4 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,7 +7,7 @@
 <body>
 <h2>Planes in DB:</h2><br/><br/>
 
-<a  href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
+<a href="${pageContext.request.contextPath}/views/admin.jsp">Admin page.</a>
 
 <br/><br/>
 <a href="${pageContext.request.contextPath}/plane/all">List all Planes!</a><br/><br/>
@@ -29,7 +29,7 @@ ${plane}<br/> <h4>${message}</h4>
 <br/><br/>
 <h4>Add new Plane.</h4>
 <form action="${pageContext.request.contextPath}/plane" method="post">
-    <input type="text" name="model"/>  Model.<br/>
+    <input type="text" name="model"/> Model.<br/>
     <input type="number" name="businessPlacesNumber"/> Number of business places.<br/>
     <input type="number" name="economPlacesNumber"/> Number of econom places.<br/>
     <input type="submit" value="AddPlane"/>

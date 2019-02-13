@@ -15,7 +15,8 @@
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource" c:jdbcTemplate-ref="jdbcTemplate"/>
+    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource"
+          c:jdbcTemplate-ref="jdbcTemplate"/>
 
     <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
 
@@ -26,7 +27,6 @@
     <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl" c:dataSource-ref="dataSource"/>
 
     <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
-
 
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" c:dataSource-ref="dataSource"/>

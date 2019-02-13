@@ -15,5 +15,5 @@ public interface UserService {
 
     String deleteUser(long userId);
 
-    String verifyUser(String log, String pass);
+    User verifyUser(String log, String pass);
 }

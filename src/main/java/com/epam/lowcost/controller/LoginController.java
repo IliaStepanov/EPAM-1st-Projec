@@ -1,5 +1,6 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,14 +21,14 @@ public class LoginController {
     @PostMapping
     public String login(@RequestParam Map<String, String> logPass, Model model) {
 
-        String verification = userService.verifyUser(logPass.get("login"), logPass.get("password"));
+        User user = userService.verifyUser(logPass.get("login"), logPass.get("password"));
 
-        if (verification.equalsIgnoreCase("user") || verification.equalsIgnoreCase("admin")) {
+        if (user == null) {
+            model.addAttribute("message", "No such User found. Maybe you want to: ");
+        } else if (user.isAdmin() || !user.isAdmin()) {
+
             return "admin";
-        } else {
-            model.addAttribute("message", "No such User found.");
         }
-
         return "login";
     }
 

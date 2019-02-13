@@ -12,12 +12,12 @@
 </head>
 <body>
 
-<h4>${message}</h4>
+<h4>${message}</h4><a href="${pageContext.request.contextPath}/views/registration.jsp">Sign in?</a>
 <br/>
 
 <h3>Enter login and password!</h3>
 <form action="${pageContext.request.contextPath}/login" method="post">
-    <input type="text" name="login"  placeholder="Login"/>
+    <input type="text" name="login" placeholder="Login"/>
     <input type="text" name="password" placeholder="password"/>
     <input type="submit" name="Log In!"/>
 </form>
