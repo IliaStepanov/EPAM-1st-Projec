@@ -2,6 +2,7 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
+import com.epam.lowcost.util.DateFormatter;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -9,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,9 +77,9 @@ public class FlightDAOImpl implements FlightDAO {
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
         Long plane_id = flight.getPlane().getId();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+
         String sql = String.format("INSERT INTO Flight (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
-                " VALUES (%d,%d,'%s','%s','%s')", price, plane_id, formatter.format(depatureDate), formatter.format(arrivalDate), "FALSE");
+                " VALUES (%d,%d,'%s','%s','%s')", price, plane_id, DateFormatter.format(depatureDate), DateFormatter.format(arrivalDate), "FALSE");
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
@@ -122,12 +122,11 @@ public class FlightDAOImpl implements FlightDAO {
     public Flight updateFlight(Flight flight) {
         if (getFlightById(flight.getId())==null)
             return null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         String sql = String.format("UPDATE Flight SET initialPrice='%d',departureDate='%s'," +
                         "arrivalDate='%s', plane_id='%d' WHERE id = %d",
                 flight.getInitialPrice(),
-                formatter.format(flight.getDepartureDate()),
-                formatter.format(flight.getArrivalDate()),
+                DateFormatter.format(flight.getDepartureDate()),
+                DateFormatter.format(flight.getArrivalDate()),
                 flight.getPlane().getId(),
                 flight.getId());
         try (Connection conn = dataSource.getConnection();
