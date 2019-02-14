@@ -2,6 +2,7 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Plane;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface PlaneDAO {
@@ -15,4 +16,5 @@ public interface PlaneDAO {
     Plane updatePlane (Plane plane);
 
     String deletePlane(long planeId);
+
 }
