@@ -3,6 +3,7 @@ package com.epam.lowcost.DAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.util.DateFormatter;
 import com.epam.lowcost.util.FlightRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class FlightDAOImpl implements FlightDAO {
     private DataSource dataSource;
+    private RowMapper<Flight> flightRowMapper;
 
-    public FlightDAOImpl(DataSource dataSource) {
+    public FlightDAOImpl(DataSource dataSource, RowMapper<Flight> flightRowMapper) {
         this.dataSource = dataSource;
+        this.flightRowMapper = flightRowMapper;
     }
 
 
@@ -29,7 +32,7 @@ public class FlightDAOImpl implements FlightDAO {
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
                      "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
-                flights.add(FlightRowMapper.getInstance().mapRow(rs, 1));
+                flights.add(flightRowMapper.mapRow(rs, 1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,7 +49,7 @@ public class FlightDAOImpl implements FlightDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             if (rs.next()) {
-                return FlightRowMapper.getInstance().mapRow(rs, 1);
+                return flightRowMapper.mapRow(rs, 1);
 
             }
         } catch (SQLException e) {

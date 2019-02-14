@@ -1,9 +1,10 @@
 package com.epam.lowcost.DAO;
 
 
+import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
-import com.epam.lowcost.util.FlightRowMapper;
-import com.epam.lowcost.util.UserRowMapper;
+import com.epam.lowcost.model.User;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -16,8 +17,14 @@ import java.util.List;
 public class TicketDAOImpl implements TicketDAO{
 
     private DataSource dataSource;
+    private RowMapper<User> userRowMapper;
+    private RowMapper<Flight> flightRowMapper;
 
-    public TicketDAOImpl(DataSource dataSource) { this.dataSource = dataSource;}
+    public TicketDAOImpl(DataSource dataSource, RowMapper<User> userRowMapper, RowMapper<Flight> flightRowMapper) {
+        this.dataSource = dataSource;
+        this.userRowMapper = userRowMapper;
+        this.flightRowMapper = flightRowMapper;
+    }
 
     @Override
     public List <Ticket> getAllUserTickets(long currentUserId) {
@@ -162,8 +169,8 @@ public class TicketDAOImpl implements TicketDAO{
     private Ticket extractTicketFromRS (ResultSet rs) throws SQLException {
         return Ticket.builder()
                 .id(rs.getLong("id"))
-                .flight(FlightRowMapper.getInstance().mapRow(rs,1))
-                .user(UserRowMapper.getInstance().mapRow(rs,1))
+                .flight(flightRowMapper.mapRow(rs,1))
+                .user(userRowMapper.mapRow(rs,1))
                 .isBusiness(rs.getBoolean("isBusiness"))
                 .hasLuggage(rs.getBoolean("hasLuggage"))
                 .placePriority(rs.getBoolean("placePriority"))

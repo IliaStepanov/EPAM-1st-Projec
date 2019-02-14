@@ -1,11 +1,9 @@
 package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.PlaneService;
-import com.epam.lowcost.service.UserService;
-import com.epam.lowcost.util.PlaneRowMapper;
 
 import javax.sql.DataSource;
+import org.springframework.jdbc.core.RowMapper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,10 +14,13 @@ import java.util.List;
 public class PlaneDAOImpl implements PlaneDAO {
 
     private DataSource dataSource;
+    private RowMapper<Plane> planeRowMapper;
 
 
-    public PlaneDAOImpl(DataSource dataSource) {
+    public PlaneDAOImpl(DataSource dataSource, RowMapper <Plane> planeRowMapper) {
+
         this.dataSource = dataSource;
+        this.planeRowMapper = planeRowMapper;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM PLANES WHERE isDeleted=false")) {
             while (rs.next()) {
-                allPlanes.add(PlaneRowMapper.getInstance().mapRow(rs, 1));
+                allPlanes.add(planeRowMapper.mapRow(rs, 1));
             }
 
         } catch (SQLException e) {
@@ -46,7 +47,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return PlaneRowMapper.getInstance().mapRow(rs, 1);
+                return planeRowMapper.mapRow(rs, 1);
             }
 
         } catch (SQLException e) {
