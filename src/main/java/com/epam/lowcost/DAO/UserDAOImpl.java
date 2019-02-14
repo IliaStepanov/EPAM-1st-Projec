@@ -4,7 +4,7 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.util.DateFormatter;
 import com.epam.lowcost.util.UserRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,14 +14,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
 
 
     public UserDAOImpl(DataSource dataSource) {
         this.dataSource = dataSource;
-        super.setDataSource(dataSource);
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
     @Override
     public User findByEmail(String email) {
         try {
-            return this.getJdbcTemplate().queryForObject("SELECT * FROM USERS WHERE email=?", UserRowMapper.userRowMapperInstance, email);
+            return jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE email=?", UserRowMapper.getInstance(), email);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

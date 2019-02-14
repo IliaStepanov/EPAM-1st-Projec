@@ -1,16 +1,21 @@
 package com.epam.lowcost.util;
 
 import com.epam.lowcost.model.User;
+import lombok.Data;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public final class UserRowMapper implements RowMapper<User> {
-    public static final RowMapper<User> userRowMapperInstance = new UserRowMapper();
+public  final class UserRowMapper implements RowMapper<User> {
+    private static final RowMapper<User> userRowMapperInstance = new UserRowMapper();
 
     private UserRowMapper() {
+    }
+
+    public static RowMapper<User> getInstance(){
+        return userRowMapperInstance;
     }
 
     @Override
