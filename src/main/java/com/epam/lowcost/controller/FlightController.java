@@ -34,7 +34,7 @@ public class FlightController {
     public String addNewFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
                 flightService.addNewFlight(Flight.builder().initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(Plane.builder().id(Long.valueOf(params.get("plane_id"))).build()).
+                        plane(Plane.builder().id(Long.valueOf(params.get("planeId"))).build()).
                         departureDate(LocalDateTime.parse(params.get("departureDate"))).
                         arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flights";
@@ -45,7 +45,7 @@ public class FlightController {
         model.addAttribute("flight",
                 flightService.updateFlight(Flight.builder().id(Long.valueOf(params.get("id"))).
                         initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(Plane.builder().id(Long.valueOf(params.get("plane_id"))).build()).
+                        plane(Plane.builder().id(Long.valueOf(params.get("planeId"))).build()).
                         departureDate(LocalDateTime.parse(params.get("departureDate"))).
                         arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flights";
