@@ -2,6 +2,7 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.util.DateFormatter;
+import com.epam.lowcost.util.UserRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM USERS WHERE isDeleted=false")) {
             while (rs.next()) {
-                allUsers.add(extractUserFromRS(rs));
+                allUsers.add(UserRowMapper.getInstance().mapRow(rs, 1));
             }
 
         } catch (SQLException e) {
@@ -51,7 +52,7 @@ public class UserDAOImpl implements UserDAO {
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return extractUserFromRS(rs);
+                return UserRowMapper.getInstance().mapRow(rs, 1);
             }
 
         } catch (SQLException e) {
@@ -137,19 +138,4 @@ public class UserDAOImpl implements UserDAO {
 
         return ("User was not deleted");
     }
-
-    private User extractUserFromRS(ResultSet rs) throws SQLException {
-        return User.builder()
-                .id(rs.getLong("id"))
-                .email(rs.getString("email"))
-                .password(rs.getString("password"))
-                .isAdmin(rs.getBoolean("isAdmin"))
-                .firstName(rs.getString("firstName"))
-                .lastName(rs.getString("lastName"))
-                .documentInfo(rs.getString("documentInfo"))
-                .birthday(rs.getTimestamp("birthday").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }
-
 }

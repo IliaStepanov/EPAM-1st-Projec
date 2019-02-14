@@ -28,26 +28,22 @@
 
     <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
 
-
-
     <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
         <constructor-arg ref="dataSource"/>
     </bean>
-
 
     <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
         <constructor-arg ref="planeService"/>
     </bean>
 
+    <bean id="ticketDAO" class="com.epam.lowcost.DAO.TicketDAOImpl" c:dataSource-ref="dataSource"/>
 
-    <bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/views/" />
-        <property name="suffix" value=".jsp" />
+    <bean id="ticketService" class="com.epam.lowcost.service.TicketServiceImpl">
+        <constructor-arg ref="userService"/>
+        <constructor-arg ref="flightService"/>
+        <constructor-arg ref="ticketDAO"/>
     </bean>
-
-
 
 
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
@@ -55,6 +51,10 @@
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="ca"/>
         <property name="password" value=""/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
 

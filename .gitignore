@@ -2,6 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 .junk
+.directory
 ### STS ###
 .apt_generated
 .classpath
