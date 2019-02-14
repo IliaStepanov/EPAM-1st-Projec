@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User verifyUser(String log, String pass) {
-        User user = userDAO.findByEmail(log);
-        if (user != null && user.getPassword().equals(pass)) return user;
+    public User verifyUser(String email, String password) {
+        User user = userDAO.findByEmail(email);
+        if (user != null && user.getPassword().equals(password)) return user;
         return null;
     }
 }
