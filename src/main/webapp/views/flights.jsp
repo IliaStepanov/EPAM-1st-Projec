@@ -28,7 +28,7 @@ ${flight}<br/> <h4>${message}</h4>
 <h4>Add new flight.</h4>
 <form action="${pageContext.request.contextPath}/flights" method="post">
     <input type="text" name="initialPrice"/> Price.<br/>
-    <input type="text" name="plane_id"/> Plane id.<br/>
+    <input type="text" name="planeId"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
     <input type="text" name="arrivalDate"/> Arrival Date. <br/>
     <input type="submit" value="Add flight"/>
@@ -38,7 +38,7 @@ ${flight}<br/> <h4>${message}</h4>
 <form action="${pageContext.request.contextPath}/flights/update" method="post">
     <input type="text" name="id"/> Id.<br/>
     <input type="text" name="initialPrice"/> Price.<br/>
-    <input type="text" name="plane_id"/> Plane id.<br/>
+    <input type="text" name="planeId"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
     <input type="text" name="arrivalDate"/> Arrival Date. <br/>
     <input type="submit" value="Update Flight"/>
