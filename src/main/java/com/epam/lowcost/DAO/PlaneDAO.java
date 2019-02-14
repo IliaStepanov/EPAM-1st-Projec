@@ -13,7 +13,7 @@ public interface PlaneDAO {
 
     Plane addPlane(Plane plane);
 
-    Plane updatePlane (Plane plane);
+    Plane updatePlane(Plane plane);
 
     String deletePlane(long planeId);
 

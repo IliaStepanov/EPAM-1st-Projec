@@ -78,7 +78,7 @@ public class PlaneDAOImpl implements PlaneDAO {
 
     @Override
     public Plane updatePlane(Plane plane) {
-        if (getById(plane.getId()) == null){
+        if (getById(plane.getId()) == null) {
             return null;
         }
         String sql = String.format(

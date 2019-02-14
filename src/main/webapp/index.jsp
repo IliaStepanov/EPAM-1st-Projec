@@ -7,12 +7,14 @@
     <title>Title of web app!</title>
 </head>
 <body>
-<h1>Hello World!</h1>
+
+<h1>Login page.</h1>
 
 
-<a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
-<a href="${pageContext.request.contextPath}/views/planes.jsp"> Plane CRUD page.</a>
-<a href="${pageContext.request.contextPath}/views/flights.jsp"> Flight CRUD page.</a>
-
-  </body>
+<form action="${pageContext.request.contextPath}/login" method="post">
+    <input type="text" name="email" placeholder="Login"/>
+    <input type="text" name="password" placeholder="password"/>
+    <input type="submit" name="Log In!"/>
+</form>
+</body>
 </html>

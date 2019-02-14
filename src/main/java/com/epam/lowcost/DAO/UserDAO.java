@@ -9,6 +9,8 @@ public interface UserDAO {
 
     User getById(long userId);
 
+    User findByEmail(String email);
+
     User addUser(User user);
 
     User updateUser(User user);
