@@ -3,6 +3,9 @@ package com.epam.lowcost.DAO;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.util.DateFormatter;
 import com.epam.lowcost.util.UserRowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -15,11 +18,13 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
+    private RowMapper<User> rowMapper;
 
-    public UserDAOImpl(DataSource dataSource) {
+
+    public UserDAOImpl(DataSource dataSource, RowMapper<User> rowMapper) {
 
         this.dataSource = dataSource;
-
+        this.rowMapper = rowMapper;
     }
 
     @Override
@@ -54,6 +59,17 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return user;
+    }
+
+
+    @Override
+    public User findByEmail(String email) {
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            return jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE email=?", rowMapper, email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -122,19 +138,4 @@ public class UserDAOImpl implements UserDAO {
 
         return ("User was not deleted");
     }
-
-    /*static User extractUserFromRS(ResultSet rs) throws SQLException {
-        return User.builder()
-                .id(rs.getLong("id"))
-                .email(rs.getString("email"))
-                .password(rs.getString("password"))
-                .isAdmin(rs.getBoolean("isAdmin"))
-                .firstName(rs.getString("firstName"))
-                .lastName(rs.getString("lastName"))
-                .documentInfo(rs.getString("documentInfo"))
-                .birthday(rs.getTimestamp("birthday").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }*/
-
 }

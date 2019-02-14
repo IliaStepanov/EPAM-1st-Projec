@@ -1,28 +1,23 @@
 package com.epam.lowcost.util;
 
 import com.epam.lowcost.model.User;
-import lombok.Data;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public final class UserRowMapper implements RowMapper<User> {
-    private static final RowMapper<User> userRowMapperInstance = new UserRowMapper();
+public   class UserRowMapper implements RowMapper<User> {
+
 
     private UserRowMapper() {
     }
 
-    public static RowMapper<User> getInstance(){
-        return userRowMapperInstance;
-    }
-
     @Override
-    public final User mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public  User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return User.builder()
-                .id(rs.getLong("USERS.id"))
+                .id(rs.getLong("USER.id"))
                 .email(rs.getString("email"))
                 .password(rs.getString("password"))
                 .isAdmin(rs.getBoolean("isAdmin"))

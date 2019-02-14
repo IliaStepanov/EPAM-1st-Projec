@@ -15,13 +15,14 @@
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource"/>
+    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource" c:rowMapper-ref="rowMapper"/>
 
     <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
     </bean>
+    <bean id="rowMapper" class="com.epam.lowcost.util.UserRowMapper"/>
 
     <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl" c:dataSource-ref="dataSource"/>
 
@@ -45,7 +46,6 @@
     </bean>
 
 
-
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
@@ -57,4 +57,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-</beans>
+
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
