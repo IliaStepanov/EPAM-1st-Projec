@@ -26,7 +26,6 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight getById(Long id) {
-
         return flightDAO.getById(id);
     }
 

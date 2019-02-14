@@ -1,8 +1,8 @@
 package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.util.DateFormatter;
+import com.epam.lowcost.util.PlaneRowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -70,7 +70,6 @@ public class FlightDAOImpl implements FlightDAO {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql, 1);
-            System.out.println(lines);
             if (lines != 0) {
                 try (ResultSet rs = stmt.getGeneratedKeys()) {
                     if (rs.next()) {
@@ -78,7 +77,6 @@ public class FlightDAOImpl implements FlightDAO {
                         flight.setId(rs.getLong("id"));
                     }
                 } catch (SQLException e) {
-                    System.out.println("there");
                     e.printStackTrace();
 
                 }
@@ -141,20 +139,14 @@ public class FlightDAOImpl implements FlightDAO {
         return Flight.builder()
                 .id(rs.getLong("id"))
                 .initialPrice(rs.getLong("initialPrice"))
-                .plane(extractPlaneFromRS(rs))
+                .plane(PlaneRowMapper.getInstance().mapRow(rs,1))
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
     }
 
-    private Plane extractPlaneFromRS(ResultSet rs) throws SQLException {
-        return Plane.builder().id(rs.getLong("plane_id"))
-                .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
-                .economPlacesNumber(rs.getInt("economPlacesNumber"))
-                .model(rs.getString("model"))
-                .build();
-    }
+
 
 
 }
