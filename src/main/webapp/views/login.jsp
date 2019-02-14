@@ -17,7 +17,7 @@
 
 <h3>Enter login and password!</h3>
 <form action="${pageContext.request.contextPath}/login" method="post">
-    <input type="text" name="login" placeholder="Login"/>
+    <input type="text" name="email" placeholder="Login"/>
     <input type="text" name="password" placeholder="password"/>
     <input type="submit" name="Log In!"/>
 </form>
