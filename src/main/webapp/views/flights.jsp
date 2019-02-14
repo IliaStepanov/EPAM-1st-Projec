@@ -7,7 +7,7 @@
 <body>
 <h2> Flight in DB:</h2><br/><br/>
 
-<a href="${pageContext.request.contextPath}/flight/getAllFlights">Show all Flights!</a><br/><br/>
+<a href="${pageContext.request.contextPath}/flights/all">Show all Flights!</a><br/><br/>
 
 
 <c:forEach items="${flights}" var="flight">
@@ -20,13 +20,13 @@ ${flight}<br/> <h4>${message}</h4>
 
 
 <h4>Find flight by ID.</h4>
-<form action="${pageContext.request.contextPath}/flight" method="get">
+<form action="${pageContext.request.contextPath}/flights" method="get">
     <input type="number" name="id"/>
     <input type="submit" name="Find flight."/>
 </form>
 <br/><br/>
 <h4>Add new flight.</h4>
-<form action="${pageContext.request.contextPath}/flight" method="post">
+<form action="${pageContext.request.contextPath}/flights" method="post">
     <input type="text" name="initialPrice"/> Price.<br/>
     <input type="text" name="plane_id"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
@@ -35,7 +35,7 @@ ${flight}<br/> <h4>${message}</h4>
 </form>
 <br/><br/>
 <h4>Update flight.</h4>
-<form action="${pageContext.request.contextPath}/flight/updateFlight" method="post">
+<form action="${pageContext.request.contextPath}/flights/update" method="post">
     <input type="text" name="id"/> Id.<br/>
     <input type="text" name="initialPrice"/> Price.<br/>
     <input type="text" name="plane_id"/> Plane id.<br/>
@@ -46,7 +46,7 @@ ${flight}<br/> <h4>${message}</h4>
 
 <br/><br/>
 <h4>Delete flight.</h4>
-<form action="${pageContext.request.contextPath}/flight/deleteFlight" method="post">
+<form action="${pageContext.request.contextPath}/flights/delete" method="post">
     <input type="text" name="id"/> Id.<br/>
     <input type="submit" value="Delete Flight"/>
 </form>
