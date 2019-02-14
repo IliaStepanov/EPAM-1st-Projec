@@ -33,23 +33,30 @@ public class FlightController {
     @PostMapping
     public String addNewFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
-                flightService.addNewFlight(Flight.builder().initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(Plane.builder().
-                              id(Long.valueOf(params.get("planeId"))).
-                              build()).
-                        departureDate(LocalDateTime.parse(params.get("departureDate"))).
-                        arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
+                flightService.addNewFlight(Flight.builder()
+                        .initialPrice(Long.valueOf(params.get("initialPrice")))
+                        .plane(Plane.builder()
+                                .id(Long.valueOf(params.get("planeId")))
+                                .build())
+                        .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                        .departureAirport(params.get("departureAirport"))
+                        .arrivalAirport(params.get("arrivalAirport"))
+                        .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flights";
     }
 
     @PostMapping(value = "/update")
     public String updateFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
-                flightService.updateFlight(Flight.builder().id(Long.valueOf(params.get("id"))).
-                        initialPrice(Long.valueOf(params.get("initialPrice"))).
-                        plane(Plane.builder().id(Long.valueOf(params.get("planeId"))).build()).
-                        departureDate(LocalDateTime.parse(params.get("departureDate"))).
-                        arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
+                flightService.updateFlight(Flight.builder()
+                        .initialPrice(Long.valueOf(params.get("initialPrice")))
+                        .plane(Plane.builder()
+                                .id(Long.valueOf(params.get("planeId")))
+                                .build())
+                        .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                        .departureAirport(params.get("departureAirport"))
+                        .arrivalAirport(params.get("arrivalAirport"))
+                        .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
         return "flights";
     }
 
