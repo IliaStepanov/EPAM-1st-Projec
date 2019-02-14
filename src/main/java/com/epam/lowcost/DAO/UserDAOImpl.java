@@ -17,12 +17,10 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
 
 
     public UserDAOImpl(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -63,6 +61,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User findByEmail(String email) {
         try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             return jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE email=?", UserRowMapper.getInstance(), email);
         } catch (EmptyResultDataAccessException e) {
             return null;
