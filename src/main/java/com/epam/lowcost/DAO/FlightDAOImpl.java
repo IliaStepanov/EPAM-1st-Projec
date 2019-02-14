@@ -27,7 +27,7 @@ public class FlightDAOImpl implements FlightDAO {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
-                     "ON FLIGHTS.plane_id = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
+                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
                 flights.add(extractFlightFromRS(rs));
             }
@@ -41,7 +41,7 @@ public class FlightDAOImpl implements FlightDAO {
     public Flight getById(Long id) {
         Flight flight = null;
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
-                " ON FLIGHTS.plane_id = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
+                " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -60,10 +60,10 @@ public class FlightDAOImpl implements FlightDAO {
         Long price = flight.getInitialPrice();
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
-        Long plane_id = flight.getPlane().getId();
-        String sql = String.format("INSERT INTO Flights (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
+        Long planeId = flight.getPlane().getId();
+        String sql = String.format("INSERT INTO Flights (initialPrice, planeId, departureDate,arrivalDate,isDeleted)" +
                         " VALUES (%d,%d,'%s','%s','%s')", price,
-                plane_id,
+                planeId,
                 DateFormatter.format(depatureDate),
                 DateFormatter.format(arrivalDate),
                 "FALSE");
@@ -115,7 +115,7 @@ public class FlightDAOImpl implements FlightDAO {
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', plane_id='%d' WHERE id = %d",
+                        "arrivalDate='%s', planeId='%d' WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),
                 DateFormatter.format(flight.getArrivalDate()),
