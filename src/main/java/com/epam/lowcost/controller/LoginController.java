@@ -24,7 +24,7 @@ public class LoginController {
         User user = userService.verifyUser(logPass.get("login"), logPass.get("password"));
 
         if (user == null) {
-            model.addAttribute("message", "No such User found. Maybe you want to: ");
+            model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else if (user.isAdmin() || !user.isAdmin()) {
 
             return "admin";

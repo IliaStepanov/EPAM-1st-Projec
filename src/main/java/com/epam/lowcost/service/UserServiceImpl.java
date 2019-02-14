@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User verifyUser(String log, String pass) {
-        return userDAO.findByEmail(log, pass);
+        User user = userDAO.findByEmail(log);
+        if (user != null && user.getPassword().equals(pass)) return user;
+        return null;
     }
 }

@@ -6,9 +6,15 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserRowMapper implements RowMapper<User> {
+
+public final class UserRowMapper implements RowMapper<User> {
+    public static final RowMapper<User> userRowMapperInstance = new UserRowMapper();
+
+    private UserRowMapper() {
+    }
+
     @Override
-    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public final User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return User.builder()
                 .id(rs.getLong("id"))
