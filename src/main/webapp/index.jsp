@@ -1,10 +1,13 @@
+
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
-<head>
+  <head>
     <title>Title of web app!</title>
 </head>
 <body>
+
 <h1>Login page.</h1>
 
 
