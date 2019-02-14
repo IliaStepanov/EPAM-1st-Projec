@@ -1,7 +1,9 @@
+
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
-<head>
+  <head>
     <title>Title of web app!</title>
 </head>
 <body>
@@ -10,7 +12,7 @@
 
 <a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a>
 <a href="${pageContext.request.contextPath}/views/planes.jsp"> Plane CRUD page.</a>
+<a href="${pageContext.request.contextPath}/views/flights.jsp"> Flight CRUD page.</a>
 
-
-</body>
+  </body>
 </html>

@@ -1,4 +1,3 @@
---creating tables
 CREATE TABLE USERS(id LONG AUTO_INCREMENT NOT NULL, email VARCHAR(255), password VARCHAR(255), isAdmin BOOL, firstName VARCHAR(255), lastName VARCHAR(255), documentInfo VARCHAR(255), birthday DATETIME, isDeleted BOOL, PRIMARY KEY (id),UNIQUE (email));
 INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('ExampleEmail1@google.com', 'examplePassword1',true ,'Thomas1','Testyman1','№1234 bestpassport ever','2000-06-05 00:00:00',false);
 INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('ExampleEmail2@google.com', 'examplePassword2',false,'Thomas2','Testyman2','№1234 bestpassport ever','2000-06-04 00:00:00',false);
@@ -8,4 +7,8 @@ CREATE TABLE PLANES(id LONG AUTO_INCREMENT NOT NULL, model VARCHAR(255), busines
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Airbus A380',25,500,false);
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeing 777x',30,370,false);
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeinig 747-8',100,900,false);
-
+CREATE TABLE FLIGHTS(id LONG AUTO_INCREMENT NOT NULL, planeId LONG NOT NULL, initialPrice LONG, departureDate DATETIME, arrivalDate DATETIME, isDeleted BOOL, PRIMARY KEY(id), FOREIGN KEY (planeId) REFERENCES PLANES);
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate) VALUES ('500','1', FALSE, '2019-02-11 11:00:00', '2019-02-11 13:00:00');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate) VALUES ('1200','2',FALSE,'2019-01-14 05:45:00', '2019-01-14 08:10:00');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate) VALUES ('1500','2',FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate) VALUES ('2000', '3',FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00');
