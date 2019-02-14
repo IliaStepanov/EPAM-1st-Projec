@@ -21,7 +21,7 @@ public final class PlaneRowMapper implements RowMapper<Plane> {
     @Override
     public final Plane mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Plane.builder()
-                .id(rs.getLong("id"))
+                .id(rs.getLong("PLANES.id"))
                 .model(rs.getString("model"))
                 .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))

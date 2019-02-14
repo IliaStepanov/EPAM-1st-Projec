@@ -3,6 +3,7 @@ package com.epam.lowcost.DAO;
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.PlaneService;
 import com.epam.lowcost.service.UserService;
+import com.epam.lowcost.util.PlaneRowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM PLANES WHERE isDeleted=false")) {
             while (rs.next()) {
-                allPlanes.add(extractUserFromRS(rs));
+                allPlanes.add(PlaneRowMapper.getInstance().mapRow(rs, 1));
             }
 
         } catch (SQLException e) {
@@ -45,7 +46,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return extractUserFromRS(rs);
+                return PlaneRowMapper.getInstance().mapRow(rs, 1);
             }
 
         } catch (SQLException e) {
@@ -115,7 +116,7 @@ public class PlaneDAOImpl implements PlaneDAO {
         return ("Plane was not deleted");
     }
 
-    private Plane extractUserFromRS(ResultSet rs) throws SQLException {
+    /* Plane extractUserFromRS(ResultSet rs) throws SQLException {
         return Plane.builder()
                 .id(rs.getLong("id"))
                 .model(rs.getString("model"))
@@ -123,5 +124,5 @@ public class PlaneDAOImpl implements PlaneDAO {
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
-    }
+    }*/
 }

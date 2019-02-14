@@ -1,9 +1,9 @@
 package com.epam.lowcost.DAO;
 
-import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
+
 import com.epam.lowcost.model.Ticket;
-import com.epam.lowcost.model.User;
+import com.epam.lowcost.util.FlightRowMapper;
+import com.epam.lowcost.util.UserRowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -32,19 +32,11 @@ public class TicketDAOImpl implements TicketDAO{
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next()) {
-                long id = rs.getLong("id");
-                Flight flight = extractFlightFromRS(rs);
-                User user = extractUserFromRS(rs);
-                boolean isBusiness = rs.getBoolean("isBusiness");
-                boolean hasLuggage = rs.getBoolean("hasLuggage");
-                boolean placePriority = rs.getBoolean("placePriority");
-                long price = rs.getLong("price");
-                ticket = new Ticket(id, user, flight, isBusiness, hasLuggage, placePriority, price, false);
+                ticket = extractTicketFromRS(rs);
                 allTickets.add(ticket);
             }
         }
-
-            catch (SQLException e) {
+        catch (SQLException e) {
             e.printStackTrace();
         }
         return allTickets;
@@ -63,14 +55,7 @@ public class TicketDAOImpl implements TicketDAO{
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next()) {
-                long id = rs.getLong("id");
-                User user = extractUserFromRS(rs);
-                Flight flight = extractFlightFromRS(rs);
-                boolean isBusiness = rs.getBoolean("isBusiness");
-                boolean hasLuggage = rs.getBoolean("hasLuggage");
-                boolean placePriority = rs.getBoolean("placePriority");
-                long price = rs.getLong("price");
-                ticket = new Ticket(id, user, flight, isBusiness, hasLuggage, placePriority, price, false);
+                ticket = extractTicketFromRS(rs);
                 allTickets.add(ticket);
             }
         }
@@ -119,16 +104,8 @@ public class TicketDAOImpl implements TicketDAO{
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
-            while (rs.next()) {
-                long id = rs.getLong("id");
-                Flight flight = extractFlightFromRS(rs);
-                User user = extractUserFromRS(rs);
-                boolean isBusiness = rs.getBoolean("isBusiness");
-                boolean hasLuggage = rs.getBoolean("hasLuggage");
-                boolean placePriority = rs.getBoolean("placePriority");
-                long price = rs.getLong("price");
-                ticket = new Ticket(id, user, flight, isBusiness, hasLuggage, placePriority, price, false);
-            }
+            while (rs.next())
+                ticket = extractTicketFromRS(rs);
         }
 
         catch (SQLException e) {
@@ -152,9 +129,8 @@ public class TicketDAOImpl implements TicketDAO{
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql);
-            if (lines == 1) {
+            if (lines == 1)
                 return ticket;
-            }
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -183,35 +159,16 @@ public class TicketDAOImpl implements TicketDAO{
         return ticket;
     }
 
+    private Ticket extractTicketFromRS (ResultSet rs) throws SQLException {
+        return Ticket.builder()
+                .id(rs.getLong("id"))
+                .flight(FlightRowMapper.getInstance().mapRow(rs,1))
+                .user(UserRowMapper.getInstance().mapRow(rs,1))
+                .isBusiness(rs.getBoolean("isBusiness"))
+                .hasLuggage(rs.getBoolean("hasLuggage"))
+                .placePriority(rs.getBoolean("placePriority"))
+                .price(rs.getLong("price"))
+                .isDeleted(false).build();
 
-    private User extractUserFromRS(ResultSet rs) throws SQLException {
-        return User.builder()
-                .id(rs.getLong("USERS.id"))
-                .email(rs.getString("email"))
-                .password(rs.getString("password"))
-                .isAdmin(rs.getBoolean("isAdmin"))
-                .firstName(rs.getString("firstName"))
-                .lastName(rs.getString("lastName"))
-                .documentInfo(rs.getString("documentInfo"))
-                .birthday(rs.getTimestamp("birthday").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }
-
-    private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
-        return Flight.builder()
-                .id(rs.getLong("FLIGHTS.id"))
-                .initialPrice(rs.getLong("initialPrice"))
-                .plane(new Plane())
-                .plane(Plane.builder()
-                        .id(rs.getLong("plane_id"))
-                        .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
-                        .economPlacesNumber(rs.getInt("economPlacesNumber"))
-                        .model(rs.getString("model"))
-                        .build())
-                .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
-                .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
     }
 }

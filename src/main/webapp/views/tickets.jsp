@@ -35,7 +35,7 @@ ${ticket}<br/> <h4>${message}</h4>
     <input type="submit" value="AddTicket"/>
 </form>
 <br/><br/>
-<h4>Update User.</h4>
+<h4>Update Ticket.</h4>
 <form action="${pageContext.request.contextPath}/tickets/update" method="post">
     <input type="number" name="ticketId"/> ticketId.<br/>
     <input type="text" name="hasLuggage"/> hasLuggage.<br/>

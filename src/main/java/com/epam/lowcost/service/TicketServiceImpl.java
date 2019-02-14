@@ -30,12 +30,11 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket addTicket(Ticket ticket) {
-        Flight flight = flightService.getFlightById(ticket.getFlight().getId());
+        Flight flight = flightService.getById(ticket.getFlight().getId());
         User user = userService.getById(ticket.getUser().getId());
         ticket.setFlight(flight);
         ticket.setUser(user);
-        long price = countPrice(ticket.getFlight().getInitialPrice(), ticket);
-        ticket.setPrice(price);
+        ticket.setPrice(ticket.getFlight().getInitialPrice());
         return ticketDAO.addTicket(ticket);
     }
 
@@ -44,12 +43,11 @@ public class TicketServiceImpl implements TicketService {
         Ticket beforeUpdateTicket = ticketDAO.getById(ticket.getId());
         if(beforeUpdateTicket == null)
             return null;
-        Flight flight = flightService.getFlightById(beforeUpdateTicket.getFlight().getId());
+        Flight flight = flightService.getById(beforeUpdateTicket.getFlight().getId());
         User user = userService.getById(beforeUpdateTicket.getUser().getId());
         ticket.setFlight(flight);
         ticket.setUser(user);
-        long price = countPrice(ticket.getFlight().getInitialPrice(), ticket);
-        ticket.setPrice(price);
+        ticket.setPrice(ticket.getFlight().getInitialPrice());
         return ticketDAO.updateTicket(ticket);
     }
 
@@ -58,14 +56,5 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.deleteTicket(id);
     }
 
-    private long countPrice(long initialPrice, Ticket ticket){
-        if(ticket.isBusiness())
-            initialPrice+=5000;
-        if(ticket.isPlacePriority())
-            initialPrice+=500;
-        if(ticket.isHasLuggage()){
-            initialPrice+=900;
-        }
-        return initialPrice;
-    }
+
 }

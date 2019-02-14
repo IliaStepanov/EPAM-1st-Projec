@@ -2,7 +2,7 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.util.DateFormatter;
-import com.epam.lowcost.util.PlaneRowMapper;
+import com.epam.lowcost.util.FlightRowMapper;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ public class FlightDAOImpl implements FlightDAO {
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
                      "ON FLIGHTS.plane_id = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
-                flights.add(extractFlightFromRS(rs));
+                flights.add(FlightRowMapper.getInstance().mapRow(rs, 1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class FlightDAOImpl implements FlightDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             if (rs.next()) {
-                return extractFlightFromRS(rs);
+                return FlightRowMapper.getInstance().mapRow(rs, 1);
 
             }
         } catch (SQLException e) {
@@ -135,7 +135,7 @@ public class FlightDAOImpl implements FlightDAO {
         return flight;
     }
 
-    private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
+    /*private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
         return Flight.builder()
                 .id(rs.getLong("id"))
                 .initialPrice(rs.getLong("initialPrice"))
@@ -144,7 +144,7 @@ public class FlightDAOImpl implements FlightDAO {
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
-    }
+    }*/
 
 
 
