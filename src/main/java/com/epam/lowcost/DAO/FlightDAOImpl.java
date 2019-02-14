@@ -134,20 +134,5 @@ public class FlightDAOImpl implements FlightDAO {
         flight = null;
         return flight;
     }
-
-    /*private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
-        return Flight.builder()
-                .id(rs.getLong("id"))
-                .initialPrice(rs.getLong("initialPrice"))
-                .plane(PlaneRowMapper.getInstance().mapRow(rs,1))
-                .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
-                .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }*/
-
-
-
-
 }
 
