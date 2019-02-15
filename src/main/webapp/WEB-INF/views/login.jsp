@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h4>${message}</h4><a href="${pageContext.request.contextPath}/views/registration.jsp">Sign in?</a>
+<h4>${message}</h4><a href="/login/registration">Sign in?</a>
 <br/>
 
 <h3>Enter login and password!</h3>

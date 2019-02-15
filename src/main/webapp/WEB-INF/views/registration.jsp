@@ -21,7 +21,7 @@
     <input type="text" name="lastName"/> Last name. <br/>
     <input type="text" name="documentInfo"/> Document. <br/>
     <input type="text" name="birthday"/> Birthday. <br/>
-    <input type="submit" value="AddUser"/>
+    <input type="submit" value="Sing UP"/>
 </form>
 
 

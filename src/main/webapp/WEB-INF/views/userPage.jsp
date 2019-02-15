@@ -12,5 +12,7 @@
 </c:forEach>
 
 
+<a href="/flights/all">Buy more tickets</a>
+
 </body>
 </html>

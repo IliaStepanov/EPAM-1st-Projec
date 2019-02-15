@@ -9,7 +9,7 @@
 
 <h1>Login page.</h1>
 
-
+<c:redirect url="/login"/>
 
 <form action="/login" method="post">
     <input type="text" name="email" placeholder="Login"/>

@@ -26,12 +26,15 @@ public class LoginController {
             return "redirect:/tickets/myTickets";
         }
     }
+    @GetMapping(value = "/registration")
+    public String registration (){
+        return "registration";
+    }
 
     @PostMapping
     public String login(@RequestParam Map<String, String> logPass, Model model) {
 
         User user = userService.verifyUser(logPass.get("email"), logPass.get("password"));
-
 
         if (user == null) {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");

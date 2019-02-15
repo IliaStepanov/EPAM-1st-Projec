@@ -39,11 +39,8 @@ public class UserController {
     }
 
     @PostMapping
-    public String addUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam Map<String, String> params, Model model) {
-        if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/myTickets";
-        }
-        model.addAttribute("user", userService.addUser(
+    public String addUser(@RequestParam Map<String, String> params, Model model) {
+        User user = userService.addUser(
                 User.builder()
                         .email(params.get("email"))
                         .password(params.get("password"))
@@ -51,20 +48,16 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
                         .isDeleted(false)
-                        .build()));
-
+                        .build());
+        model.addAttribute("user", user );
         model.addAttribute("message", "User successfully added");
         return "users";
     }
 
     @PostMapping(value = "/update")
-    public String updateUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam Map<String, String> params, Model model) {
-        if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/myTickets";
-        }
-
+    public String updateUser(@RequestParam Map<String, String> params, Model model) {
         User user = userService.updateUser(
                 User.builder()
                         .id(Long.valueOf(params.get("id")))
@@ -74,7 +67,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");

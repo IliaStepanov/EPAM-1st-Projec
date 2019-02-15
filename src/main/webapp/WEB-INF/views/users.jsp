@@ -5,7 +5,7 @@
     <title>User DAO page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>
-<h2>Users in DB:</h2><br/><br/> <div align="right">Current user ${sessionUser.firstName} <br/><a href="/login/logOut">Log out</a></div>
+<h2>Users in DB:</h2><br/><br/> <div align="right">Current user ${sessionUser.firstName} <br/><a href="/login/log-out">Log out</a></div>
 
 <a href="/login">Admin page.</a>
 
@@ -35,7 +35,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> First name. <br/>
     <input type="text" name="lastName"/> Last name. <br/>
     <input type="text" name="documentInfo"/> Document. <br/>
-    <input type="text" name="birthday"/> Birthday. <br/>
+    <input type="date" name="birthday"/> Birthday. <br/>
     <input type="submit" value="AddUser"/>
 </form>
 <br/><br/>
@@ -48,7 +48,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> New First name. <br/>
     <input type="text" name="lastName"/> New Last name. <br/>
     <input type="text" name="documentInfo"/> New Document. <br/>
-    <input type="text" name="birthday"/> New Birthday. <br/>
+    <input type="date" name="birthday"/> New Birthday. <br/>
     <input type="submit" value="UpdateUser"/>
 </form>
 

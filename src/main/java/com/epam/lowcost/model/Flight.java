@@ -25,4 +25,5 @@ public class Flight {
     private boolean isDeleted;
 
 
+
 }
