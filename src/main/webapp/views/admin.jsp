@@ -14,7 +14,7 @@
 
 <a href="${pageContext.request.contextPath}/views/planes.jsp"> Planes CRUD page.</a><br/>
 <a href="${pageContext.request.contextPath}/views/users.jsp"> User CRUD page.</a><br/>
-<a href="${pageContext.request.contextPath}/views/flight.jsp"> Flights CRUD page.</a><br/>
+<a href="${pageContext.request.contextPath}/views/flights.jsp"> Flights CRUD page.</a><br/>
 <a href="${pageContext.request.contextPath}/views/tickets.jsp"> Tickets CRUD page.</a><br/>
 
 

@@ -1,6 +1,7 @@
 package com.epam.lowcost.util;
 
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.model.Plane;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -8,13 +9,10 @@ import java.sql.SQLException;
 
 
 public final class FlightRowMapper implements RowMapper<Flight> {
-    private static final RowMapper<Flight> planeRowMapperInstance = new FlightRowMapper();
+    private RowMapper <Plane> planeRowMapper;
 
-    private FlightRowMapper() {
-    }
-
-    public static RowMapper<Flight> getInstance() {
-        return planeRowMapperInstance;
+    private FlightRowMapper(RowMapper <Plane> planeRowMapper) {
+        this.planeRowMapper = planeRowMapper;
     }
 
     @Override
@@ -22,7 +20,7 @@ public final class FlightRowMapper implements RowMapper<Flight> {
         return Flight.builder()
                 .id(rs.getLong("FLIGHTS.id"))
                 .initialPrice(rs.getLong("initialPrice"))
-                .plane(PlaneRowMapper.getInstance().mapRow(rs,1))
+                .plane(planeRowMapper.mapRow(rs,1))
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
                 .isDeleted(rs.getBoolean("isDeleted"))

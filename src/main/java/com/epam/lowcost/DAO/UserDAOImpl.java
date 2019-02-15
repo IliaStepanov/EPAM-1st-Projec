@@ -2,7 +2,6 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.util.DateFormatter;
-import com.epam.lowcost.util.UserRowMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM USERS WHERE isDeleted=false")) {
             while (rs.next()) {
-                allUsers.add(UserRowMapper.getInstance().mapRow(rs, 1));
+                allUsers.add(rowMapper.mapRow(rs, 1));
             }
 
         } catch (SQLException e) {
@@ -52,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return UserRowMapper.getInstance().mapRow(rs, 1);
+                return rowMapper.mapRow(rs, 1);
             }
 
         } catch (SQLException e) {
