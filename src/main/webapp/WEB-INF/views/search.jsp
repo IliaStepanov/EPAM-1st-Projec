@@ -13,7 +13,12 @@
 </head>
 <body>
 <c:forEach items="${flights}" var="flight">
-    <c:out value="${flight.toString()}"/><br/>
+
+   Flight № <c:out value="${flight.id}"/><br/>
+  From:  <c:out value="${flight.departureAirport}"/><br/>
+  To: <c:out value="${flight.arrivalAirport}"/><br/>
+   At: <c:out value="${flight.departureDate.toString()}"/><br/>
+  Arrive at:  <c:out value="${flight.arrivalDate.toString()}"/><br/>
     <input type="button" id="${flight.id}" value="BUY!"/> <br>
 
 </c:forEach>

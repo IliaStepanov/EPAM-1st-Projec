@@ -48,7 +48,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")))
                         .isDeleted(false)
                         .build());
         model.addAttribute("user", user );
@@ -67,7 +67,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")))
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
