@@ -29,11 +29,7 @@ public class FlightController {
         model.addAttribute("flight", flightService.getById(id));
         return "flights";
     }
-//    @GetMapping(value = "/show")
-//    public String showAllFlights(Model model) {
-//        model.addAttribute("flights", getAllFlights(model));
-//        return "search";
-//    }
+
 
 
     @GetMapping(value = "/search")
