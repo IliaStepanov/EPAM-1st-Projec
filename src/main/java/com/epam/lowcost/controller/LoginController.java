@@ -46,7 +46,7 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping(value = "/logOut")
+    @GetMapping(value = "/log-out")
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "login";
