@@ -5,10 +5,9 @@
     <title>User DAO page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>
-<h2>Users in DB:</h2><br/><br/>
+<h2>Users in DB:</h2><br/><br/> <div align="right">Current user ${sessionUser.firstName} <br/><a href="/login/logOut">Log out</a></div>
 
 <a href="/login">Admin page.</a>
-
 
 <br/><br/>
 <a href="${pageContext.request.contextPath}/user/all">List all Users!</a><br/><br/>

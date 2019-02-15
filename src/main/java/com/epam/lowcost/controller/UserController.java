@@ -29,14 +29,20 @@ public class UserController {
     }
 
     @GetMapping
-    public String getById(@RequestParam long id, Model model) {
+    public String getById(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/myTickets";
+        }
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("message", "Here is your User!");
         return "users";
     }
 
     @PostMapping
-    public String addUser(@RequestParam Map<String, String> params, Model model) {
+    public String addUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam Map<String, String> params, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/myTickets";
+        }
         model.addAttribute("user", userService.addUser(
                 User.builder()
                         .email(params.get("email"))
@@ -54,7 +60,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/update")
-    public String updateUser(@RequestParam Map<String, String> params, Model model) {
+    public String updateUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam Map<String, String> params, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/myTickets";
+        }
 
         User user = userService.updateUser(
                 User.builder()
@@ -77,7 +86,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/delete")
-    public String deleteUser(@RequestParam long id, Model model) {
+    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/myTickets";
+        }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
     }
