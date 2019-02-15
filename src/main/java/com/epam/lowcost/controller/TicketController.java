@@ -7,15 +7,14 @@ import com.epam.lowcost.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 
 @Controller
 @RequestMapping(value = "/tickets")
+@SessionAttributes(value = "sessionUser")
 public class TicketController {
 
     @Autowired
@@ -23,7 +22,7 @@ public class TicketController {
 
 
     @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
         return "tickets";
     }
@@ -77,6 +76,13 @@ public class TicketController {
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
         return "tickets";
+    }
+
+
+    @GetMapping(value = "/myTickets")
+    public String getAllUserTickets(@ModelAttribute("sessionUser") User user, Model model){
+        model.addAttribute("currentUserTickets",ticketService.getAllUserTickets(user.getId()));
+        return "userPage";
     }
 
 
