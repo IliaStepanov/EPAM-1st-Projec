@@ -8,16 +8,19 @@ import java.sql.SQLException;
 
 
 public   class UserRowMapper implements RowMapper<User> {
-
+    private static final RowMapper<User> userRowMapper = new UserRowMapper();
 
     private UserRowMapper() {
     }
 
+    public static RowMapper<User> getInstance() {
+        return userRowMapper;
+    }
     @Override
     public  User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return User.builder()
-                .id(rs.getLong("USER.id"))
+                .id(rs.getLong("id"))
                 .email(rs.getString("email"))
                 .password(rs.getString("password"))
                 .isAdmin(rs.getBoolean("isAdmin"))

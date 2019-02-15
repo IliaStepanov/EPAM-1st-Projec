@@ -26,7 +26,7 @@ public class TicketDAOImpl implements TicketDAO{
         String sql = String.format("SELECT * FROM TICKETS " +
                         "JOIN  USERS ON TICKETS.userId=USERS.id " +
                         "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                        "JOIN  PLANES ON FLIGHTS.plane_id = PLANES.id " +
+                        "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
                         "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d", currentUserId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
@@ -49,7 +49,7 @@ public class TicketDAOImpl implements TicketDAO{
         String sql = "SELECT * FROM TICKETS " +
                 "JOIN  USERS ON TICKETS.userId=USERS.id " +
                 "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                "JOIN  PLANES ON FLIGHTS.plane_id = PLANES.id " +
+                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
                 "WHERE TICKETS.isDeleted=false";
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
@@ -99,7 +99,7 @@ public class TicketDAOImpl implements TicketDAO{
         String sql = String.format("SELECT * FROM TICKETS " +
                 "JOIN  USERS ON TICKETS.userId=USERS.id " +
                 "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                "JOIN  PLANES ON FLIGHTS.plane_id = PLANES.id " +
+                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
                 "WHERE TICKETS.isDeleted=false and TICKETS.id=%d", currentId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();

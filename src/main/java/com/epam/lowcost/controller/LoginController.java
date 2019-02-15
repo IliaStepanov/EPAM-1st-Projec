@@ -18,6 +18,15 @@ public class LoginController {
     @Autowired
     UserService userService;
 
+    @GetMapping
+    public String auth(@ModelAttribute("sessionUser") User user) {
+        if (user.isAdmin()) {
+            return "admin";
+        } else {
+            return "redirect:/tickets/myTickets";
+        }
+    }
+
     @PostMapping
     public String login(@RequestParam Map<String, String> logPass, Model model) {
 
@@ -27,20 +36,18 @@ public class LoginController {
         if (user == null) {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else if (user.isAdmin()) {
-            model.addAttribute("sessionUser",user);
+            model.addAttribute("sessionUser", user);
             return "admin";
-        }
-        else if(!user.isAdmin())
-        {
-            model.addAttribute("sessionUser",user);
-            model.addAttribute("id",user.getId());
+        } else if (!user.isAdmin()) {
+            model.addAttribute("sessionUser", user);
+            model.addAttribute("id", user.getId());
             return "redirect:/tickets/myTickets";
         }
         return "login";
     }
 
     @GetMapping(value = "/logOut")
-    public String logOut(SessionStatus sessionStatus){
+    public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "login";
     }
