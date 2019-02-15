@@ -40,7 +40,8 @@ public class FlightController {
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
-                        LocalDateTime.parse(params.get("departureDate")), LocalDateTime.parse(params.get("arrivalDate"))));
+                        LocalDateTime.parse(params.get("departureDate")+"T00:00:00"),
+                        LocalDateTime.parse(params.get("arrivalDate")+"T00:00:00")));
         return "search";
     }
 

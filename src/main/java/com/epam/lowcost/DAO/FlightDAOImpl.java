@@ -158,7 +158,7 @@ public class FlightDAOImpl implements FlightDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                flights.add(extractFlightFromRS(rs));
+                flights.add(flightRowMapper.mapRow(rs,1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,18 +166,7 @@ public class FlightDAOImpl implements FlightDAO {
         return flights;
     }
 
-    private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
-        return Flight.builder()
-                .id(rs.getLong("id"))
-                .initialPrice(rs.getLong("initialPrice"))
-                .plane(PlaneRowMapper.getInstance().mapRow(rs, 1))
-                .departureAirport(rs.getString("departureAirport").toUpperCase())
-                .arrivalAirport(rs.getString("arrivalAirport").toUpperCase())
-                .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
-                .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }
+
 
 
 }
