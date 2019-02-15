@@ -58,8 +58,9 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-
-
-
+    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer"
+          init-method="start" destroy-method="stop">
+        <constructor-arg value="-web,-webAllowOthers,-webDaemon,-webPort,8082"/>
+    </bean>
 
 </beans>
