@@ -3,6 +3,7 @@ package com.epam.lowcost.DAO;
 import com.epam.lowcost.model.Plane;
 
 import javax.sql.DataSource;
+import org.springframework.jdbc.core.RowMapper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +14,13 @@ import java.util.List;
 public class PlaneDAOImpl implements PlaneDAO {
 
     private DataSource dataSource;
+    private RowMapper<Plane> planeRowMapper;
 
-    public PlaneDAOImpl(DataSource dataSource) {
+
+    public PlaneDAOImpl(DataSource dataSource, RowMapper <Plane> planeRowMapper) {
+
         this.dataSource = dataSource;
+        this.planeRowMapper = planeRowMapper;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery("SELECT * FROM PLANES WHERE isDeleted=false")) {
             while (rs.next()) {
-                allPlanes.add(extractUserFromRS(rs));
+                allPlanes.add(planeRowMapper.mapRow(rs, 1));
             }
 
         } catch (SQLException e) {
@@ -42,7 +47,7 @@ public class PlaneDAOImpl implements PlaneDAO {
              Statement stm = connection.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             if (rs.next()) {
-                return extractUserFromRS(rs);
+                return planeRowMapper.mapRow(rs, 1);
             }
 
         } catch (SQLException e) {
@@ -78,7 +83,7 @@ public class PlaneDAOImpl implements PlaneDAO {
 
     @Override
     public Plane updatePlane(Plane plane) {
-        if (getById(plane.getId()) == null){
+        if (getById(plane.getId()) == null) {
             return null;
         }
         String sql = String.format(
@@ -112,7 +117,7 @@ public class PlaneDAOImpl implements PlaneDAO {
         return ("Plane was not deleted");
     }
 
-    private Plane extractUserFromRS(ResultSet rs) throws SQLException {
+    /* Plane extractUserFromRS(ResultSet rs) throws SQLException {
         return Plane.builder()
                 .id(rs.getLong("id"))
                 .model(rs.getString("model"))
@@ -120,5 +125,5 @@ public class PlaneDAOImpl implements PlaneDAO {
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
-    }
+    }*/
 }

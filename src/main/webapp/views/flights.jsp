@@ -66,7 +66,5 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="submit" value="Delete Flight"/>
 </form>
 
-
-
 </body>
 </html>
