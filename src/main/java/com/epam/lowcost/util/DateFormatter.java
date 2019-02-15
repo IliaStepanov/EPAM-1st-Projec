@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 @UtilityClass
 public class DateFormatter {
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00");
 
 
