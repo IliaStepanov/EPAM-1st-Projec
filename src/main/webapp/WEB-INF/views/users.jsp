@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User DAO page</title>
+    <title>User DAO page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>
 <h2>Users in DB:</h2><br/><br/>

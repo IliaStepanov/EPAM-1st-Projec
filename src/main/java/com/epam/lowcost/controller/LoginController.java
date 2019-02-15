@@ -5,15 +5,15 @@ import com.epam.lowcost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Map;
 
 
 @Controller
 @RequestMapping(value = "/login")
+@SessionAttributes(value = "sessionUser")
 public class LoginController {
     @Autowired
     UserService userService;
@@ -23,12 +23,25 @@ public class LoginController {
 
         User user = userService.verifyUser(logPass.get("email"), logPass.get("password"));
 
+
         if (user == null) {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
-        } else if (user.isAdmin() || !user.isAdmin()) {
-
+        } else if (user.isAdmin()) {
+            model.addAttribute("sessionUser",user);
             return "admin";
         }
+        else if(!user.isAdmin())
+        {
+            model.addAttribute("sessionUser",user);
+            model.addAttribute("id",user.getId());
+            return "redirect:/tickets/myTickets";
+        }
+        return "login";
+    }
+
+    @GetMapping(value = "/logOut")
+    public String logOut(SessionStatus sessionStatus){
+        sessionStatus.setComplete();
         return "login";
     }
 
