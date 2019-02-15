@@ -48,7 +48,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
                         .isDeleted(false)
                         .build());
         model.addAttribute("user", user );
@@ -67,7 +67,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
@@ -76,6 +76,24 @@ public class UserController {
             model.addAttribute("message", "User successfully updated");
         }
         return "users";
+    }
+
+    @PostMapping(value = "registration")
+    public String registration(@RequestParam Map<String, String> params,Model model){
+        userService.addUser(
+                User.builder()
+                        .email(params.get("email"))
+                        .password(params.get("password"))
+                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+                        .firstName(params.get("firstName"))
+                        .lastName(params.get("lastName"))
+                        .documentInfo(params.get("documentInfo"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")+"T00:00:00"))
+                        .isDeleted(false)
+                        .build());
+        model.addAttribute("message", "Successfully registered. Please Log in. ");
+        return "login";
+
     }
 
     @PostMapping(value = "/delete")
