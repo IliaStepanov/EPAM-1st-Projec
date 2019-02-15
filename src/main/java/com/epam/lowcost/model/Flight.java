@@ -23,8 +23,6 @@ public class Flight {
     private String departureAirport;
     private String arrivalAirport;
     private boolean isDeleted;
-    private  String departureAirport;
-    private String arrivalAirport;
 
 
 }
