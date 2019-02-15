@@ -21,6 +21,8 @@ public class Flight {
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
     private boolean isDeleted;
+    private  String departureAirport;
+    private String arrivalAirport;
 
 
 }

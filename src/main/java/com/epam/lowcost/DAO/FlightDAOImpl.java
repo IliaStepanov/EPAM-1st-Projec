@@ -27,7 +27,7 @@ public class FlightDAOImpl implements FlightDAO {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
-                     "ON FLIGHTS.plane_id = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
+                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
                 flights.add(extractFlightFromRS(rs));
             }
@@ -41,7 +41,7 @@ public class FlightDAOImpl implements FlightDAO {
     public Flight getById(Long id) {
         Flight flight = null;
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
-                " ON FLIGHTS.plane_id = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
+                " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -60,13 +60,16 @@ public class FlightDAOImpl implements FlightDAO {
         Long price = flight.getInitialPrice();
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
-        Long plane_id = flight.getPlane().getId();
-        String sql = String.format("INSERT INTO Flights (initialPrice, plane_id, departureDate,arrivalDate,isDeleted)" +
-                        " VALUES (%d,%d,'%s','%s','%s')", price,
-                plane_id,
+        Long planeId = flight.getPlane().getId();
+        String departureAirport = flight.getDepartureAirport().toUpperCase();
+        String arrivalAirport = flight.getArrivalAirport().toUpperCase();
+        String sql = String.format("INSERT INTO Flights (initialPrice, planeId, departureDate," +
+                        "arrivalDate,isDeleted, departureAirport,arrivalAirport)" +
+                        " VALUES (%d,%d,'%s','%s','%s', '%s','%s')", price,
+                planeId,
                 DateFormatter.format(depatureDate),
                 DateFormatter.format(arrivalDate),
-                "FALSE");
+                "FALSE", departureAirport, arrivalAirport);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql, 1);
@@ -115,11 +118,13 @@ public class FlightDAOImpl implements FlightDAO {
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', plane_id='%d' WHERE id = %d",
+                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s' WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),
                 DateFormatter.format(flight.getArrivalDate()),
                 flight.getPlane().getId(),
+                flight.getDepartureAirport().toUpperCase(),
+                flight.getArrivalAirport().toUpperCase(),
                 flight.getId());
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
@@ -135,18 +140,41 @@ public class FlightDAOImpl implements FlightDAO {
         return flight;
     }
 
+    @Override
+    public List <Flight> getByFromToDate(String departureAirport, String arrivalAirport,
+                                         LocalDateTime departureDate, LocalDateTime arrivalDate) {
+        List<Flight> flights = new ArrayList<>();
+        String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
+                        " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.departureAirport = '%s' " +
+                        "AND FLIGHTS.arrivalAirport = '%s' AND" +
+                        " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
+                        "AND FLIGHTS.isDeleted=FALSE",
+                departureAirport.toUpperCase(), arrivalAirport.toUpperCase(),
+                DateFormatter.customFormat(departureDate), DateFormatter.customFormat(arrivalDate)) ;
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                flights.add(extractFlightFromRS(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flights;
+    }
+
     private Flight extractFlightFromRS(ResultSet rs) throws SQLException {
         return Flight.builder()
                 .id(rs.getLong("id"))
                 .initialPrice(rs.getLong("initialPrice"))
-                .plane(PlaneRowMapper.getInstance().mapRow(rs,1))
+                .plane(PlaneRowMapper.getInstance().mapRow(rs, 1))
+                .departureAirport(rs.getString("departureAirport").toUpperCase())
+                .arrivalAirport(rs.getString("arrivalAirport").toUpperCase())
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
     }
-
-
 
 
 }

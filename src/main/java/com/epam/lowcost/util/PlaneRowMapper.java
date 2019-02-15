@@ -1,7 +1,6 @@
 package com.epam.lowcost.util;
 
 import com.epam.lowcost.model.Plane;
-import lombok.Data;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -21,7 +20,7 @@ public final class PlaneRowMapper implements RowMapper<Plane> {
     @Override
     public final Plane mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Plane.builder()
-                .id(rs.getLong("id"))
+                .id(rs.getLong("planeId"))
                 .model(rs.getString("model"))
                 .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
                 .economPlacesNumber(rs.getInt("economPlacesNumber"))
