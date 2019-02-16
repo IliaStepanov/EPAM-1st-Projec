@@ -52,7 +52,7 @@ public class LoginController {
     @GetMapping(value = "/log-out")
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "login";
+        return "redirect:/login";
     }
 
 
