@@ -23,7 +23,7 @@ public class LoginController {
         if (user.isAdmin()) {
             return "admin";
         } else {
-            return "redirect:/tickets/myTickets";
+            return "userPage";
         }
     }
     @GetMapping(value = "/registration")
