@@ -26,8 +26,8 @@
 
 <h4>Search for flight.</h4>
 <form action="${pageContext.request.contextPath}/flights/search" method="get">
-    <input type="date" name="departureDate"/> Departure Date from.<br/>
-    <input type="date" name="arrivalDate"/> Arrival Date to.<br/>
+    <input type="date" name="departureDateFrom"/> Departure Date From.<br/>
+    <input type="date" name="departureDateTo"/> Departure Date To.<br/>
     <input type="text" name="departureAirport"/> Departure Airport. <br/>
     <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
     <input type="submit" value="Search Flight"/>
