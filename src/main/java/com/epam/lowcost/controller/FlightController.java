@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -35,8 +36,8 @@ public class FlightController {
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
-                        LocalDateTime.parse(params.get("departureDate") + "T00:00:00"),
-                        LocalDateTime.parse(params.get("arrivalDate") + "T00:00:00")));
+                        LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
+                        LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
         return "search";
     }
 

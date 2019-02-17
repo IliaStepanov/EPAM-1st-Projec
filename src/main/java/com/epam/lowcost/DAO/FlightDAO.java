@@ -12,6 +12,6 @@ public interface FlightDAO {
     Flight addNewFlight(Flight flight);
     Flight deleteFlight(Long id);
     Flight updateFlight(Flight flight);
-    List <Flight> getByFromToDate (String departureAirport, String arrivalAirport, LocalDateTime departureDate,LocalDateTime arrivalDate);
+    List <Flight> getByFromToDate (String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom,LocalDateTime departureDateTo);
 
 }
