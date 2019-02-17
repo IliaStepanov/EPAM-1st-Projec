@@ -40,7 +40,7 @@ public class LoginController {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else if (user.isAdmin()) {
             model.addAttribute("sessionUser", user);
-            return "admin";
+            return "redirect:/tickets/myTickets";
         } else if (!user.isAdmin()) {
             model.addAttribute("sessionUser", user);
             model.addAttribute("id", user.getId());

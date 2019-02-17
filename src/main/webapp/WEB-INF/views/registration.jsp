@@ -13,7 +13,7 @@
 <body>
 <h5>Fill form to register.</h5>
 
-<form action="${pageContext.request.contextPath}/user/registration" method="post">
+<form action="/user/registration" method="post">
     <input type="text" name="email"/> Email.<br/>
     <input type="text" name="password"/> Password.<br/>
     <input type="hidden" name="isAdmin" value="false"/>

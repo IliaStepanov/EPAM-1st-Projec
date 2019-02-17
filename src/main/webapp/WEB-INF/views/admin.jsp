@@ -14,6 +14,7 @@
 
 <p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/login/log-out"> Log Out.</a><br/></p>
 
+
 <a href="/user/all"> User CRUD page.</a><br/>
 <a href="/plane/all"> Plane CRUD page.</a><br/>
 <a href="/flights/all"> Flights CRUD page.</a><br/>

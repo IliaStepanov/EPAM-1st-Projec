@@ -6,6 +6,7 @@
 </head>
 <body>
 <h5>Here is all your tickets</h5>
+<a href="/login"> Admin stuff.</a><br/>
 <p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/login/log-out"> Log Out.</a><br/></p>
 
 <c:forEach items="${currentUserTickets}" var="ticket">
