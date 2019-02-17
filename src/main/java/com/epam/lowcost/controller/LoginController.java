@@ -26,8 +26,9 @@ public class LoginController {
             return "userPage";
         }
     }
+
     @GetMapping(value = "/registration")
-    public String registration (){
+    public String registration() {
         return "registration";
     }
 
@@ -38,12 +39,8 @@ public class LoginController {
 
         if (user == null) {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
-        } else if (user.isAdmin()) {
+        } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/myTickets";
-        } else if (!user.isAdmin()) {
-            model.addAttribute("sessionUser", user);
-            model.addAttribute("id", user.getId());
             return "redirect:/tickets/myTickets";
         }
         return "login";

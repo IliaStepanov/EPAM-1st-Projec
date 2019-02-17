@@ -80,8 +80,8 @@ public class TicketController {
 
 
     @GetMapping(value = "/myTickets")
-    public String getAllUserTickets(@ModelAttribute("sessionUser") User user, Model model) {
-        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(user.getId()));
+    public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
         return "userPage";
     }
 
