@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-
+<spring:url value="/resources/css/main.css" var="main_css" />
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,77 +11,8 @@
     <title>Search</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-    <link href="../css/main.css" rel="stylesheet">
-    <style>.header_links {
-        margin-top: 2rem;
-        /* margin-bottom: 100px; */
-    }
+    <link href="${main_css}" rel="stylesheet">
 
-    .header_btn {
-        margin-right: 10px;
-    }
-
-    .header_log_out {
-        float: right;
-        margin-bottom: 150px;
-    }
-
-    .header_link {
-
-        background: url(../img/canada-lake-feb.jpg) no-repeat;
-        -moz-background-size: 100%;
-        -o-background-size: 100%;
-        background-size: 100%;
-
-    }
-
-    .header_button {
-        margin: 20px 0px 0px 0px;
-        padding: 0px;
-    }
-
-    .main_content {
-        padding: 0px;
-
-        /* border: 2px solid #e3e3e3;
-        /* background-color: #E9E9E9; */
-        /* border-radius: 10px; */
-        margin-top: 20px;
-
-
-    }
-
-    .text_content_main {
-        font-size: 24px;
-    }
-
-    /* s */
-
-    .control_input {
-
-    }
-
-    .date_control {
-
-    }
-
-    .search_bitton {
-        margin-top: 20px;
-    }
-
-    /* .fly {
-        padding: 10px;
-    } */
-
-    .fly_div {
-        border: 1px solid #e3e3e3;
-        /* margin: 20px; */
-        padding: 20px;
-    }
-
-    .btn_fly {
-        width: 10%;
-    }</style>
 </head>
 
 <body>
