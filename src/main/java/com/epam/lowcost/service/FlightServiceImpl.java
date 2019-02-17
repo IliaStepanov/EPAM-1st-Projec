@@ -6,6 +6,7 @@ import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.FlightService;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,4 +37,9 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight deleteFlight(Long id) { return flightDAO.deleteFlight(id); }
+
+    @Override
+    public  List <Flight>  getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate,LocalDateTime arrivalDate) {
+        return  flightDAO.getByFromToDate(departureAirport,arrivalAirport,departureDate,arrivalDate);
+    }
 }

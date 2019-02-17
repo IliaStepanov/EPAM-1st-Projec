@@ -21,13 +21,24 @@ public class FlightController {
     @GetMapping(value = "/all")
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
-        return "flights";
+        return "search";
     }
 
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         return "flights";
+    }
+
+
+
+    @GetMapping(value = "/search")
+    public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
+        model.addAttribute("flights", flightService.getByFromToDate
+                (params.get("departureAirport"), params.get("arrivalAirport"),
+                       LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
+                        LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
+        return "search";
     }
 
     @PostMapping
@@ -48,19 +59,23 @@ public class FlightController {
     @PostMapping(value = "/update")
     public String updateFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
-                flightService.updateFlight(Flight.builder()
-                        .initialPrice(Long.valueOf(params.get("initialPrice")))
-                        .plane(Plane.builder()
-                                .id(Long.valueOf(params.get("planeId")))
-                                .build())
-                        .departureDate(LocalDateTime.parse(params.get("departureDate")))
-                        .departureAirport(params.get("departureAirport"))
-                        .arrivalAirport(params.get("arrivalAirport"))
-                        .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
+                flightService.updateFlight(
+                        Flight.builder()
+                                .id(Long.valueOf(params.get("id")))
+                                .initialPrice(Long.valueOf(params.get("initialPrice")))
+                                .plane(Plane.builder()
+                                        .id(Long.valueOf(params.get("planeId")))
+                                        .build()
+                                )
+                                .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                                .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
+                                .departureAirport(params.get("departureAirport"))
+                                .arrivalAirport(params.get("arrivalAirport"))
+                                .build()));
         return "flights";
     }
 
-    @PostMapping (value = "/delete")
+    @PostMapping(value = "/delete")
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
         return "flights";

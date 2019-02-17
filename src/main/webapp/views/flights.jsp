@@ -7,8 +7,8 @@
 <body>
 <h2> Flight in DB:</h2><br/><br/>
 
-<a href="${pageContext.request.contextPath}/flights/all">Show all Flights!</a><br/><br/>
-
+<%--<a href="${pageContext.request.contextPath}/flights/all">Show all Flights!</a><br/><br/>--%>
+<a href="${pageContext.request.contextPath}/flights/all"> Search for flight.</a>
 
 <c:forEach items="${flights}" var="flight">
     <c:out value="${flight.toString()}"/><br/>
@@ -29,10 +29,23 @@ ${flight}<br/> <h4>${message}</h4>
 <form action="${pageContext.request.contextPath}/flights" method="post">
     <input type="text" name="initialPrice"/> Price.<br/>
     <input type="text" name="planeId"/> Plane id.<br/>
-    <input type="text" name="departureDate"/> Departure Date.<br/>
-    <input type="text" name="arrivalDate"/> Arrival Date. <br/>
+    <input type="datetime-local" name="departureDate"/> Departure Date.<br/>
+    <input type="datetime-local" name="arrivalDate"/> Arrival Date. <br/>
+    <input type="text" name="departureAirport"/> Departure Airport. <br/>
+    <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
     <input type="submit" value="Add flight"/>
 </form>
+
+
+<h4>Search for flight.</h4>
+<form action="${pageContext.request.contextPath}/flights/search" method="get">
+    <input type="text" name="departureDate"/> Departure Date.<br/>
+    <input type="text" name="departureAirport"/> Departure Airport. <br/>
+    <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
+    <input type="submit" value="Search Flight"/>
+</form>
+
+
 <br/><br/>
 <h4>Update flight.</h4>
 <form action="${pageContext.request.contextPath}/flights/update" method="post">
@@ -41,6 +54,8 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="text" name="planeId"/> Plane id.<br/>
     <input type="text" name="departureDate"/> Departure Date.<br/>
     <input type="text" name="arrivalDate"/> Arrival Date. <br/>
+    <input type="text" name="departureAirport"/> Departure Airport. <br/>
+    <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
     <input type="submit" value="Update Flight"/>
 </form>
 

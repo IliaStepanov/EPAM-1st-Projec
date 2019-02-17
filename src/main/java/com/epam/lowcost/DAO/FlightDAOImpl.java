@@ -64,12 +64,15 @@ public class FlightDAOImpl implements FlightDAO {
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
         Long planeId = flight.getPlane().getId();
-        String sql = String.format("INSERT INTO Flights (initialPrice, planeId, departureDate,arrivalDate,isDeleted)" +
-                        " VALUES (%d,%d,'%s','%s','%s')", price,
+        String departureAirport = flight.getDepartureAirport().toUpperCase();
+        String arrivalAirport = flight.getArrivalAirport().toUpperCase();
+        String sql = String.format("INSERT INTO Flights (initialPrice, planeId, departureDate," +
+                        "arrivalDate,isDeleted, departureAirport,arrivalAirport)" +
+                        " VALUES (%d,%d,'%s','%s','%s', '%s','%s')", price,
                 planeId,
                 DateFormatter.format(depatureDate),
                 DateFormatter.format(arrivalDate),
-                "FALSE");
+                "FALSE", departureAirport, arrivalAirport);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql, 1);
@@ -118,11 +121,13 @@ public class FlightDAOImpl implements FlightDAO {
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', planeId='%d' WHERE id = %d",
+                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s' WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),
                 DateFormatter.format(flight.getArrivalDate()),
                 flight.getPlane().getId(),
+                flight.getDepartureAirport().toUpperCase(),
+                flight.getArrivalAirport().toUpperCase(),
                 flight.getId());
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
@@ -137,5 +142,32 @@ public class FlightDAOImpl implements FlightDAO {
         flight = null;
         return flight;
     }
+
+    @Override
+    public List <Flight> getByFromToDate(String departureAirport, String arrivalAirport,
+                                         LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
+        List<Flight> flights = new ArrayList<>();
+        String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
+                        " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.departureAirport = '%s' " +
+                        "AND FLIGHTS.arrivalAirport = '%s' AND" +
+                        " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
+                        "AND FLIGHTS.isDeleted=FALSE",
+                departureAirport.toUpperCase(), arrivalAirport.toUpperCase(),
+                DateFormatter.format(departureDateFrom), DateFormatter.format(departureDateTo.plusDays(1))) ;
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                flights.add(flightRowMapper.mapRow(rs,1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flights;
+    }
+
+
+
+
 }
 
