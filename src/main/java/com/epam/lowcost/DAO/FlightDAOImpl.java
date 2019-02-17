@@ -153,7 +153,7 @@ public class FlightDAOImpl implements FlightDAO {
                         " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
                         "AND FLIGHTS.isDeleted=FALSE",
                 departureAirport.toUpperCase(), arrivalAirport.toUpperCase(),
-                DateFormatter.customFormat(departureDate), DateFormatter.customFormat(arrivalDate)) ;
+                DateFormatter.format(departureDate), DateFormatter.format(arrivalDate)) ;
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
