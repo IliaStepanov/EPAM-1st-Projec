@@ -20,11 +20,7 @@ public class LoginController {
 
     @GetMapping
     public String auth(@ModelAttribute("sessionUser") User user) {
-        if (user.isAdmin()) {
-            return "admin";
-        } else {
-            return "userPage";
-        }
+       return "userPage";
     }
 
     @GetMapping(value = "/registration")

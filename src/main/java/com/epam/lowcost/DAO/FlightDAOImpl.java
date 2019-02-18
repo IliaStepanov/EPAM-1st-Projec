@@ -145,7 +145,7 @@ public class FlightDAOImpl implements FlightDAO {
 
     @Override
     public List <Flight> getByFromToDate(String departureAirport, String arrivalAirport,
-                                         LocalDateTime departureDateFrom, LocalDateTime departurelDateTo) {
+                                         LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
         List<Flight> flights = new ArrayList<>();
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
                         " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.departureAirport = '%s' " +
@@ -153,7 +153,7 @@ public class FlightDAOImpl implements FlightDAO {
                         " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
                         "AND FLIGHTS.isDeleted=FALSE",
                 departureAirport.toUpperCase(), arrivalAirport.toUpperCase(),
-                DateFormatter.customFormat(departureDateFrom), DateFormatter.customFormat(departurelDateTo)) ;
+                DateFormatter.customFormat(departureDateFrom), DateFormatter.customFormat(departureDateTo)) ;
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
