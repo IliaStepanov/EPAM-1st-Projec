@@ -28,8 +28,8 @@
     Date/time of departure: <c:out value="${flight.departureDate}"/><br/>
     Date/time of arrival: <c:out value="${flight.arrivalDate}"/><br/>
     </h3>
-<form action="${pageContext.request.contextPath}/tickets/buy" method="get">
-    <input type="hidden" name="id" value="${flight.id}" />
+<form action="${pageContext.request.contextPath}/tickets/add" method="post">
+    <input type="hidden" name="flightId" value="${flight.id}" />
     <input type="submit"  value="BUY!" />
 </form>
 

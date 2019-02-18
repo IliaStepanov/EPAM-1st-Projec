@@ -7,6 +7,8 @@ import com.epam.lowcost.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/tickets")
+@SessionAttributes(value = "sessionUser")
 public class TicketController {
 
     @Autowired
@@ -25,7 +28,7 @@ public class TicketController {
 
 
     @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
         return "tickets";
     }
@@ -36,16 +39,17 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping
-    public String addTicket(@RequestParam Map<String, String> params, Model model) {
+    @PostMapping (value = "/add")
+    public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
+                            @RequestParam Map<String, String> params, Model model) {
         User user = new User();
-        user.setId(Long.parseLong(params.get("userId")));
+        user.setId(sessionUser.getId());
         Flight flight = new Flight();
         flight.setId(Long.parseLong(params.get("flightId")));
 
         model.addAttribute("ticket", ticketService.addTicket(
                 Ticket.builder()
-                        .user(user)
+                        .user(sessionUser)
                         .flight(flight)
                         .hasLuggage(Boolean.parseBoolean(params.get("hasLuggage")))
                         .placePriority(Boolean.parseBoolean(params.get("placePriority")))
@@ -53,7 +57,7 @@ public class TicketController {
                         .build()));
 
         model.addAttribute("message", "Ticket successfully added");
-        return "tickets";
+        return "buy";
     }
 
     @PostMapping(value = "/update")
@@ -80,14 +84,10 @@ public class TicketController {
         model.addAttribute("message", ticketService.deleteTicket(id));
         return "tickets";
     }
-
-    @GetMapping(value = "/buy")
-    private String buyTicket(@RequestParam long id, Model model) {
-        Map<String, String> params = new HashMap<>();
-        params.put("flightId", String.valueOf(id));
-        params.put("userId", "1");
-        addTicket(params, model);
-        return "buy";
+    @GetMapping(value = "/my-tickets")
+    public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
+        return "userPage";
     }
 
 }

@@ -15,16 +15,16 @@
 <h3>
     <form action="${pageContext.request.contextPath}/tickets/update" method="post">
         First Name:
-        <output name="firstName">${ticket.user.firstName}</output>
+        <output name="firstName">${sessionUser.firstName}</output>
         <br/>
         Last Name:
-        <output name="lastName">${ticket.user.lastName}</output>
+        <output name="lastName">${sessionUser.lastName}</output>
         <br/>
         Passport:
-        <output name="Passport">${ticket.user.documentInfo}</output>
+        <output name="Passport">${sessionUser.documentInfo}</output>
         <br/>
         Birthdate:
-        <output name="Birthdate">${ticket.user.birthday}</output>
+        <output name="Birthdate">${sessionUser.birthday}</output>
         <br/>
         From:
         <output name="from">${ticket.flight.departureAirport}</output>

@@ -2,7 +2,6 @@ package com.epam.lowcost.DAO;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.util.DateFormatter;
-import com.epam.lowcost.util.FlightRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
