@@ -1,7 +1,8 @@
-package com.epam.lowcost.service;
+package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.UserDAO;
+import com.epam.lowcost.DAO.interfaces.UserDAO;
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.service.interfaces.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
