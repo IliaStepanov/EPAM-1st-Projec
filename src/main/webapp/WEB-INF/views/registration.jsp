@@ -20,7 +20,7 @@
     <input type="text" name="firstName"/> First name. <br/>
     <input type="text" name="lastName"/> Last name. <br/>
     <input type="text" name="documentInfo"/> Document. <br/>
-    <input type="date" name="birthday"/> Birthday. <br/>
+    <input type="datetime-local" name="birthday"/> Birthday. <br/>
     <input type="submit" value="Sing UP"/>
 </form>
 

@@ -14,17 +14,19 @@
 </head>
 <body>
 
+<a href="/tickets/my-tickets">Back to my page.</a>
+
 Change personal information.<br/>
 
 <form action="/user/update" method="post">
     <input type="hidden" name="id" value="${sessionUser.id}"/>
-    <input type="email" name="email" /> New Email. <br/>
+    <input type="email" placeholder="${sessionUser.email}" name="email" /> New Email. <br/>
     <input type="hidden" name="password" value="${sessionUser.password}"/>
     <input type="hidden" name="isAdmin" value="false"/>
-    <input type="text" name="firstName"/> New First name. <br/>
-    <input type="text" name="lastName"/> New Last name. <br/>
-    <input type="text" name="documentInfo"/> New Document. <br/>
-    <input type="datetime-local" name="birthday"/> New Birthday. <br/>
+    <input type="text" name="firstName" placeholder="${sessionUser.firstName}"/> New First name. <br/>
+    <input type="text" name="lastName" placeholder="${sessionUser.lastName}"/> New Last name. <br/>
+    <input type="text" name="documentInfo" placeholder="${sessionUser.documentInfo}"/> New Document. <br/>
+    <input type="datetime-local" name="birthday" placeholder="${sessionUser.birthday}"/> New Birthday. <br/>
     <input type="hidden" name="userUpdate" value="fromUser"/>
     <input type="submit" value="UpdateUser"/>
 </form>
