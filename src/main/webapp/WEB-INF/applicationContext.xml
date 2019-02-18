@@ -26,34 +26,34 @@
     </bean>
 
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource"
+    <bean id="userDAO" class="com.epam.lowcost.DAO.implementations.UserDAOImpl" c:dataSource-ref="dataSource"
           c:rowMapper-ref="userowMapper"/>
 
-    <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
+    <bean id="userService" class="com.epam.lowcost.service.implementations.UserServiceImpl" c:userDAO-ref="userDAO"/>
 
 
-    <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl" c:dataSource-ref="dataSource"
+    <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
           c:planeRowMapper-ref="planerowMapper"/>
 
-    <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
+    <bean id="planeService" class="com.epam.lowcost.service.implementations.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
 
-    <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
+    <bean id="flightDAO" class="com.epam.lowcost.DAO.implementations.FlightDAOImpl">
         <constructor-arg ref="dataSource"/>
         <constructor-arg ref="flightrowMapper"/>
     </bean>
 
-    <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
+    <bean id="flightService" class="com.epam.lowcost.service.implementations.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
         <constructor-arg ref="planeService"/>
     </bean>
 
-    <bean id="ticketDAO" class="com.epam.lowcost.DAO.TicketDAOImpl">
+    <bean id="ticketDAO" class="com.epam.lowcost.DAO.implementations.TicketDAOImpl">
         <constructor-arg ref="dataSource"/>
         <constructor-arg ref="userowMapper"/>
         <constructor-arg ref="flightrowMapper"/>
     </bean>
 
-    <bean id="ticketService" class="com.epam.lowcost.service.TicketServiceImpl">
+    <bean id="ticketService" class="com.epam.lowcost.service.implementations.TicketServiceImpl">
         <constructor-arg ref="userService"/>
         <constructor-arg ref="flightService"/>
         <constructor-arg ref="ticketDAO"/>
@@ -65,6 +65,24 @@
         <property name="url" value="jdbc:h2:mem:/test;DB_CLOSE_DELAY=-1"/>
         <property name="username" value="ca"/>
         <property name="password" value=""/>
+    </bean>
+
+
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:lang" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru" />
     </bean>
 
     <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
