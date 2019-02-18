@@ -17,8 +17,9 @@
     <h4>${message}</h4><a href="/entry/registration">Sign in?</a>
     <br/>
 
+
     <h3>Enter login and password!</h3>
-    <form action="${pageContext.request.contextPath}/entry" method="post">
+    <form  action="${pageContext.request.contextPath}/entry" method="post">
         <input type="text" name="email" placeholder="Login"/>
         <input type="text" name="password" placeholder="password"/>
         <input type="submit" name="Log In!"/>
@@ -26,6 +27,12 @@
 
 
 </div>
+
+
+
+
+
+
 <script src="webjars/jquery/3.3.1-2/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
