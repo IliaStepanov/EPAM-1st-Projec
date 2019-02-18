@@ -12,7 +12,7 @@ import java.util.Map;
 
 
 @Controller
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/entry")
 @SessionAttributes(value = "sessionUser")
 public class LoginController {
     @Autowired
@@ -43,7 +43,7 @@ public class LoginController {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/myTickets";
+            return "redirect:/tickets/my-tickets";
         }
         return "login";
     }
@@ -51,7 +51,7 @@ public class LoginController {
     @GetMapping(value = "/log-out")
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "redirect:/login";
+        return "redirect:/entry";
     }
 
 

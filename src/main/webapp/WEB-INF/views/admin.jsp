@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/login/log-out"> Log Out.</a><br/></p>
+<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
 
 
 <a href="/user/all"> User CRUD page.</a><br/>

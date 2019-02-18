@@ -79,7 +79,7 @@ public class TicketController {
     }
 
 
-    @GetMapping(value = "/myTickets")
+    @GetMapping(value = "/my-tickets")
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
         return "userPage";

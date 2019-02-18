@@ -7,7 +7,7 @@
 <body>
 <h2>Users in DB:</h2><br/><br/> <div align="right">Current user ${sessionUser.firstName} <br/><a href="/login/log-out">Log out</a></div>
 
-<a href="/login/admin-panel">Admin page.</a>
+<a href="/entry/admin-panel">Admin page.</a>
 
 <br/><br/>
 <a href="${pageContext.request.contextPath}/user/all">List all Users!</a><br/><br/>
