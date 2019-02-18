@@ -6,29 +6,34 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/user")
+@SessionAttributes(value = "sessionUser")
 public class UserController {
 
     @Autowired
     UserService userService;
 
+
     @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/self";
+        }
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
 
     @GetMapping
-    public String getById(@RequestParam long id, Model model) {
+    public String getById(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/tickets/self";
+        }
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("message", "Here is your User!");
         return "users";
@@ -36,7 +41,7 @@ public class UserController {
 
     @PostMapping
     public String addUser(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("user", userService.addUser(
+        User user = userService.addUser(
                 User.builder()
                         .email(params.get("email"))
                         .password(params.get("password"))
@@ -46,15 +51,14 @@ public class UserController {
                         .documentInfo(params.get("documentInfo"))
                         .birthday(LocalDateTime.parse(params.get("birthday")))
                         .isDeleted(false)
-                        .build()));
-
+                        .build());
+        model.addAttribute("user", user );
         model.addAttribute("message", "User successfully added");
         return "users";
     }
 
     @PostMapping(value = "/update")
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
-
         User user = userService.updateUser(
                 User.builder()
                         .id(Long.valueOf(params.get("id")))
@@ -68,15 +72,53 @@ public class UserController {
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
-        } else {
+        }
+        if(params.get("userUpdate").equals("fromUser")){
+            model.addAttribute("sessionUser", user);
+            return "redirect:/self";
+        }
+        else {
             model.addAttribute("user", user);
             model.addAttribute("message", "User successfully updated");
         }
         return "users";
     }
 
+    @PostMapping(value = "registration")
+    public String registration(@RequestParam Map<String, String> params,Model model){
+        userService.addUser(
+                User.builder()
+                        .email(params.get("email"))
+                        .password(params.get("password"))
+                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+                        .firstName(params.get("firstName"))
+                        .lastName(params.get("lastName"))
+                        .documentInfo(params.get("documentInfo"))
+                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .isDeleted(false)
+                        .build());
+        model.addAttribute("message", "Successfully registered. Please Log in. ");
+        return "login";
+
+    }
+
+    @GetMapping(value = "settings")
+    public String settings(@ModelAttribute("sessionUser") User sessionUser){
+            return "userSettings";
+    }
+    @PostMapping(value = "/change-password")
+    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model){
+        if(userService.verifyUser(sessionUser.getEmail() ,params.get("oldPassword"))!=null){
+
+        }
+        return "redirect:/self";
+    }
+
     @PostMapping(value = "/delete")
-    public String deleteUser(@RequestParam long id, Model model) {
+    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:/self";
+        }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
     }

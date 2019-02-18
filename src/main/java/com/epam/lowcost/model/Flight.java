@@ -20,9 +20,10 @@ public class Flight {
     private Plane plane;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
-    private boolean isDeleted;
-    private  String departureAirport;
+    private String departureAirport;
     private String arrivalAirport;
+    private boolean isDeleted;
+
 
 
 }

@@ -13,7 +13,12 @@
 </head>
 <body>
 <c:forEach items="${flights}" var="flight">
-    <c:out value="${flight.toString()}"/><br/>
+
+   Flight № <c:out value="${flight.id}"/><br/>
+  From:  <c:out value="${flight.departureAirport}"/><br/>
+  To: <c:out value="${flight.arrivalAirport}"/><br/>
+   At: <c:out value="${flight.departureDate.toString()}"/><br/>
+  Arrive at:  <c:out value="${flight.arrivalDate.toString()}"/><br/>
     <input type="button" id="${flight.id}" value="BUY!"/> <br>
 
 </c:forEach>
@@ -21,8 +26,8 @@
 
 <h4>Search for flight.</h4>
 <form action="${pageContext.request.contextPath}/flights/search" method="get">
-    <input type="date" name="departureDateFrom"/> Departure Date from.<br/>
-    <input type="date" name="departureDateTo"/> Departure Date to.<br/>
+    <input type="date" name="departureDateFrom"/> Departure Date From.<br/>
+    <input type="date" name="departureDateTo"/> Departure Date To.<br/>
     <input type="text" name="departureAirport"/> Departure Airport. <br/>
     <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
     <input type="submit" value="Search Flight"/>

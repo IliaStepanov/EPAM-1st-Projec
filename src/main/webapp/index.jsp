@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
@@ -8,9 +9,11 @@
 
 <h1>Login page.</h1>
 
-<form action="${pageContext.request.contextPath}/login" method="post">
+<c:redirect url="/entry"/>
+
+<form action="/entry" method="post">
     <input type="text" name="email" placeholder="Login"/>
-    <input type="text" name="password" placeholder="password"/>
+    <input type="password" name="password" placeholder="password"/>
     <input type="submit" name="Log In!"/>
 </form>
 
