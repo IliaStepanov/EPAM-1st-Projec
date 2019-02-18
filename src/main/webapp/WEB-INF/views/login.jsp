@@ -14,14 +14,14 @@
 <body>
 <div class="container">
 
-    <h4>${message}</h4><a href="/entry/registration">Sign in?</a>
+    <h4>${message}</h4><br/><a href="/entry/registration">Sign in?</a>
     <br/>
 
 
     <h3>Enter login and password!</h3>
     <form  action="${pageContext.request.contextPath}/entry" method="post">
-        <input type="text" name="email" placeholder="Login"/>
-        <input type="text" name="password" placeholder="password"/>
+        <input type="email" name="email" placeholder="Login"/>
+        <input type="password" name="password" placeholder="password"/>
         <input type="submit" name="Log In!"/>
     </form>
 

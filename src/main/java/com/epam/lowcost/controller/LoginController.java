@@ -19,12 +19,12 @@ public class LoginController {
     UserService userService;
 
     @GetMapping
-    public String auth(@ModelAttribute("sessionUser") User user) {
+    public String auth(@ModelAttribute("sessionUser") User sessionUser) {
         return "userPage";
     }
 
     @GetMapping(value = "/admin-panel")
-    public String toAdminPanel(@ModelAttribute("sessionUser") User user) {
+    public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
         return "admin";
     }
 

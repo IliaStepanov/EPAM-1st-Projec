@@ -29,8 +29,8 @@ ${user}<br/> <h4>${message}</h4>
 <br/><br/>
 <h4>Add new User.</h4>
 <form action="${pageContext.request.contextPath}/user" method="post">
-    <input type="text" name="email"/> Email.<br/>
-    <input type="text" name="password"/> Password.<br/>
+    <input type="email" name="email"/> Email.<br/>
+    <input type="password" name="password"/> Password.<br/>
     <input type="text" name="isAdmin"/> Admin role.<br/>
     <input type="text" name="firstName"/> First name. <br/>
     <input type="text" name="lastName"/> Last name. <br/>
@@ -42,8 +42,8 @@ ${user}<br/> <h4>${message}</h4>
 <h4>Update User.</h4>
 <form action="${pageContext.request.contextPath}/user/update" method="post">
     <input type="text" name="id"/> User ID.<br/>
-    <input type="text" name="email"/> New Email.<br/>
-    <input type="text" name="password"/> New Password.<br/>
+    <input type="email" name="email"/> New Email.<br/>
+    <input type="password" name="password"/> New Password.<br/>
     <input type="text" name="isAdmin"/> New Admin role.<br/>
     <input type="text" name="firstName"/> New First name. <br/>
     <input type="text" name="lastName"/> New Last name. <br/>
