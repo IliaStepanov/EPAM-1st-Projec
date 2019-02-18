@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 
@@ -78,7 +75,7 @@ public class TicketController {
             model.addAttribute("ticket", ticket);
             model.addAttribute("message", "Ticket successfully updated");
         }
-        return "tickets";
+        return "redirect:/tickets/self";
     }
 
     @PostMapping(value = "/delete")
