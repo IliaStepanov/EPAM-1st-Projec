@@ -1,9 +1,9 @@
-package com.epam.lowcost.service;
+package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.FlightDAO;
+import com.epam.lowcost.DAO.interfaces.FlightDAO;
 import com.epam.lowcost.model.Flight;
-import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.FlightService;
+import com.epam.lowcost.service.interfaces.FlightService;
+import com.epam.lowcost.service.interfaces.PlaneService;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;

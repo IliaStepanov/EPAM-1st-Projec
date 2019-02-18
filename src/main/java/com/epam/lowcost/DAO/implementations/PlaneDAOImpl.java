@@ -1,5 +1,6 @@
-package com.epam.lowcost.DAO;
+package com.epam.lowcost.DAO.implementations;
 
+import com.epam.lowcost.DAO.interfaces.PlaneDAO;
 import com.epam.lowcost.model.Plane;
 
 import javax.sql.DataSource;

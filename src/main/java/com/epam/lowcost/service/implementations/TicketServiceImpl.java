@@ -1,9 +1,12 @@
-package com.epam.lowcost.service;
+package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.TicketDAO;
+import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.service.interfaces.FlightService;
+import com.epam.lowcost.service.interfaces.TicketService;
+import com.epam.lowcost.service.interfaces.UserService;
 
 
 import java.util.List;

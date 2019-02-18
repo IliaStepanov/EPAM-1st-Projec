@@ -1,11 +1,9 @@
-package com.epam.lowcost.DAO;
+package com.epam.lowcost.service.interfaces;
 
 import com.epam.lowcost.model.Plane;
-
-import java.sql.ResultSet;
 import java.util.List;
 
-public interface PlaneDAO {
+public interface PlaneService {
 
     List<Plane> getAllPlanes();
 
@@ -16,5 +14,4 @@ public interface PlaneDAO {
     Plane updatePlane(Plane plane);
 
     String deletePlane(long planeId);
-
 }

@@ -1,6 +1,7 @@
-package com.epam.lowcost.DAO;
+package com.epam.lowcost.DAO.implementations;
 
 
+import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
@@ -14,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicketDAOImpl implements TicketDAO{
+public class TicketDAOImpl implements TicketDAO {
 
     private DataSource dataSource;
     private RowMapper<User> userRowMapper;

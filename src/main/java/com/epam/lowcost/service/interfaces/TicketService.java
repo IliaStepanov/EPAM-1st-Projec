@@ -1,13 +1,11 @@
-package com.epam.lowcost.DAO;
+package com.epam.lowcost.service.interfaces;
 
 import com.epam.lowcost.model.Ticket;
-
 import java.util.List;
 
-public interface TicketDAO {
-    List<Ticket> getAllTickets();
+public interface TicketService {
     List<Ticket> getAllUserTickets(long userId);
-    Ticket getById(long currentId);
+    List<Ticket> getAllTickets();
     Ticket addTicket(Ticket ticket);
     Ticket updateTicket(Ticket ticket);
     Ticket deleteTicket(long id);

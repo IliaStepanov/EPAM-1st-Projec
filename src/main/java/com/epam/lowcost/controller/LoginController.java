@@ -1,8 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
-import com.epam.lowcost.service.UserService;
-import org.mindrot.jbcrypt.BCrypt;
+import com.epam.lowcost.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

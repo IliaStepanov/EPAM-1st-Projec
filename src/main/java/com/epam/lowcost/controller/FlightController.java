@@ -2,7 +2,7 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.FlightService;
+import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
