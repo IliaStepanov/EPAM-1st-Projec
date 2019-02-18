@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping(value = "/all")
     public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/myTickets";
+            return "redirect:/tickets/self";
         }
         model.addAttribute("users", userService.getAllUsers());
         return "users";
@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping
     public String getById(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/myTickets";
+            return "redirect:/tickets/self";
         }
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("message", "Here is your User!");
@@ -74,7 +74,7 @@ public class UserController {
         }
         if(params.get("userUpdate").equals("fromUser")){
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/my-tickets";
+            return "redirect:/self";
         }
         else {
             model.addAttribute("user", user);
@@ -105,11 +105,18 @@ public class UserController {
     public String settings(@ModelAttribute("sessionUser") User sessionUser){
             return "userSettings";
     }
+    @PostMapping(value = "/change-password")
+    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model){
+        if(userService.verifyUser(sessionUser.getEmail() ,params.get("oldPassword"))!=null){
+
+        }
+        return "redirect:/self";
+    }
 
     @PostMapping(value = "/delete")
     public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/my-tickets";
+            return "redirect:/self";
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
