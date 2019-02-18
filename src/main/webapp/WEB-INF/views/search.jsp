@@ -20,7 +20,6 @@
     </style>
 </head>
 <body>
-
 <c:forEach items="${flights}" var="flight">
     <h3>
     From: <c:out value="${flight.departureAirport}"/><br/>

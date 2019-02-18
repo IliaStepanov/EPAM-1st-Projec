@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 
 
@@ -84,10 +86,13 @@ public class TicketController {
         model.addAttribute("message", ticketService.deleteTicket(id));
         return "tickets";
     }
-    @GetMapping(value = "/my-tickets")
+
+
+    @GetMapping(value = "/self")
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
         return "userPage";
     }
+
 
 }

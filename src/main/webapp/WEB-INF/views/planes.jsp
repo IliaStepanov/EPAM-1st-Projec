@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Plane DAO page</title>
+    <title>Plane DAO page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>
 <h2>Planes in DB:</h2><br/><br/>

@@ -32,6 +32,7 @@ public class FlightController {
     }
 
 
+
     @GetMapping(value = "/search")
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
