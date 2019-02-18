@@ -74,7 +74,7 @@ public class UserController {
         }
         if(params.get("userUpdate").equals("fromUser")){
             model.addAttribute("sessionUser", user);
-            return "redirect:/self";
+            return "redirect:/tickets/self";
         }
         else {
             model.addAttribute("user", user);
@@ -108,15 +108,18 @@ public class UserController {
     @PostMapping(value = "/change-password")
     public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model){
         if(userService.verifyUser(sessionUser.getEmail() ,params.get("oldPassword"))!=null){
-
+                if(params.get("newPassword").equals(params.get("newPassword2"))){
+                    sessionUser.setPassword(params.get("newPassword"));
+                    userService.updateUser(sessionUser);
+                }
         }
-        return "redirect:/self";
+        return "redirect:/tickets/self";
     }
 
     @PostMapping(value = "/delete")
     public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/self";
+            return "redirect:/tickets/self";
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";

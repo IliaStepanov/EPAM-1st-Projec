@@ -43,7 +43,7 @@ public class LoginController {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/self";
+            return "redirect:/tickets/self";
         }
         return "login";
     }
