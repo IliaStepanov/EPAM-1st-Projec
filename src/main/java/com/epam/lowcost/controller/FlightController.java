@@ -12,14 +12,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 
 @Controller
-@RequestMapping(value = "/flights")
+@RequestMapping(value = FLIGHTS)
 public class FlightController {
     @Autowired
     FlightService flightService;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
         return "search";
@@ -36,7 +38,7 @@ public class FlightController {
         return "flights";
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
@@ -60,7 +62,7 @@ public class FlightController {
         return "redirect:/flights/all";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updateFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
                 flightService.updateFlight(
@@ -79,7 +81,7 @@ public class FlightController {
         return "redirect:/flights/all";
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
         return "redirect:/flights/all";

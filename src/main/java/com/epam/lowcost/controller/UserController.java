@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = USER)
 @SessionAttributes(value = "sessionUser")
 public class UserController {
 
@@ -19,19 +21,19 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = ALL)
     public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
 
     @GetMapping
-    public String getById(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+    public String getById(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("message", "Here is your User!");
@@ -51,12 +53,12 @@ public class UserController {
                         .birthday(LocalDateTime.parse(params.get("birthday")))
                         .isDeleted(false)
                         .build());
-        model.addAttribute("user", user );
+        model.addAttribute("user", user);
         model.addAttribute("message", "User successfully added");
         return "users";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
         User user = userService.updateUser(
                 User.builder()
@@ -72,19 +74,18 @@ public class UserController {
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
         }
-        if(params.get("userUpdate").equals("fromUser")){
+        if (params.get("userUpdate").equals("fromUser")) {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/self";
-        }
-        else {
+            return "redirect:" + TICKETS + SELF;
+        } else {
             model.addAttribute("user", user);
             model.addAttribute("message", "User successfully updated");
         }
         return "users";
     }
 
-    @PostMapping(value = "registration")
-    public String registration(@RequestParam Map<String, String> params,Model model){
+    @PostMapping(value = ENROLL)
+    public String createUser(@RequestParam Map<String, String> params,Model model){
         userService.addUser(
                 User.builder()
                         .email(params.get("email"))
@@ -101,25 +102,32 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "settings")
+    @GetMapping(value = SETTINGS)
     public String settings(@ModelAttribute("sessionUser") User sessionUser){
             return "userSettings";
     }
-    @PostMapping(value = "/change-password")
-    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model){
-        if(userService.verifyUser(sessionUser.getEmail() ,params.get("oldPassword"))!=null){
-                if(params.get("newPassword").equals(params.get("newPassword2"))){
-                    sessionUser.setPassword(params.get("newPassword"));
-                    userService.updateUser(sessionUser);
-                }
+
+    @PostMapping(value = CHANGE_PASSWORD)
+    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model) {
+        User user = userService.verifyUser(sessionUser.getEmail(), params.get("oldPassword"));
+        if (user == null) {
+            model.addAttribute("message", "Wrong password");
+            return "settings";
         }
-        return "redirect:/tickets/self";
+        if (!params.get("newPassword").equals(params.get("newPassword2"))) {
+            model.addAttribute("message", "Passwords did not match!");
+            return "settings";
+        }
+        sessionUser.setPassword(params.get("newPassword"));
+        userService.updateUser(sessionUser);
+        model.addAttribute("message", "Passwords changed successfully!");
+        return "settings";
     }
 
-    @PostMapping(value = "/delete")
-    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
+    @PostMapping(value = DELETE)
+    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
