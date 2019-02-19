@@ -11,9 +11,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 
 @Controller
-@RequestMapping(value = "/entry")
+@RequestMapping(value = ENTRY)
 @SessionAttributes(value = "sessionUser")
 public class LoginController {
     @Autowired
@@ -24,13 +26,13 @@ public class LoginController {
         return "search";
     }
 
-    @GetMapping(value = "/admin-panel")
+    @GetMapping(value = ADMIN_PANEL)
     public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
         return "admin";
     }
 
 
-    @GetMapping(value = "/enroll")
+    @GetMapping(value = REGISTRATION)
     public String toRegistrationPage() {
         return "registration";
     }
@@ -46,15 +48,15 @@ public class LoginController {
             model.addAttribute("message", bundle.getString("lang.W1NoSuchUser"));
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/flights/all";
+            return "redirect:" + TICKETS + SELF;
         }
         return "login";
     }
 
-    @GetMapping(value = "/log-out")
+    @GetMapping(value = LOG_OUT)
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "redirect:/entry";
+        return "redirect:" + ENTRY;
     }
 
 }
