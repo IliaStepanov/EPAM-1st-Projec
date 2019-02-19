@@ -10,6 +10,8 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 
 @Controller
 @RequestMapping(value = "/entry")
@@ -43,7 +45,7 @@ public class LoginController {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/self";
+            return REDIRECT_TICKETS_SELF;
         }
         return "login";
     }
@@ -51,7 +53,7 @@ public class LoginController {
     @GetMapping(value = "/log-out")
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "redirect:/entry";
+        return REDIRECT_ENTRY;
     }
 
 }

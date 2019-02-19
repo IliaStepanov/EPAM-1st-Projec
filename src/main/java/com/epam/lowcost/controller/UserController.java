@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.REDIRECT_TICKETS_SELF;
+
 @Controller
 @RequestMapping(value = "/user")
 @SessionAttributes(value = "sessionUser")
@@ -22,7 +24,7 @@ public class UserController {
     @GetMapping(value = "/all")
     public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return REDIRECT_TICKETS_SELF;
         }
         model.addAttribute("users", userService.getAllUsers());
         return "users";
@@ -31,7 +33,7 @@ public class UserController {
     @GetMapping
     public String getById(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return REDIRECT_TICKETS_SELF;
         }
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("message", "Here is your User!");
@@ -74,7 +76,7 @@ public class UserController {
         }
         if(params.get("userUpdate").equals("fromUser")){
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/self";
+            return REDIRECT_TICKETS_SELF;
         }
         else {
             model.addAttribute("user", user);
@@ -113,13 +115,13 @@ public class UserController {
                     userService.updateUser(sessionUser);
                 }
         }
-        return "redirect:/tickets/self";
+        return REDIRECT_TICKETS_SELF;
     }
 
     @PostMapping(value = "/delete")
     public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser,@RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
-            return "redirect:/tickets/self";
+            return REDIRECT_TICKETS_SELF;
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";

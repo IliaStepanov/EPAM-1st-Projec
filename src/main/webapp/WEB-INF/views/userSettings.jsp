@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<a href="/self">Back to my page.</a><br/>
+<a href="/tickets/self">Back to my page.</a><br/>
 
 Change personal information.<br/>
 
