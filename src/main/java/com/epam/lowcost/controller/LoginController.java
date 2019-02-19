@@ -15,7 +15,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 
 @Controller
-@RequestMapping(value = "/entry")
+@RequestMapping(value = ENTRY)
 @SessionAttributes(value = "sessionUser")
 public class LoginController {
     @Autowired
@@ -26,13 +26,13 @@ public class LoginController {
         return "userPage";
     }
 
-    @GetMapping(value = "/admin-panel")
+    @GetMapping(value = ADMIN_PANEL)
     public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
         return "admin";
     }
 
 
-    @GetMapping(value = "/registration")
+    @GetMapping(value = REGISTRATION)
     public String registration() {
         return "registration";
     }
@@ -48,15 +48,15 @@ public class LoginController {
             model.addAttribute("message", bundle.getString("lang.W1NoSuchUser"));
         } else {
             model.addAttribute("sessionUser", user);
-            return REDIRECT_TICKETS_SELF;
+            return "redirect:" + TICKETS + SELF;
         }
         return "login";
     }
 
-    @GetMapping(value = "/log-out")
+    @GetMapping(value = LOG_OUT)
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return REDIRECT_ENTRY;
+        return "redirect:" + ENTRY;
     }
 
 }

@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
-import java.util.ResourceBundle;
+
+import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
-@RequestMapping(value = "/plane")
+@RequestMapping(value = PLANE)
 public class PlaneController {
 
     @Autowired
     PlaneService planeService;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = ALL)
     public String getAllPlanes(Model model) {
         model.addAttribute("planes", planeService.getAllPlanes());
         return "planes";
@@ -47,7 +48,7 @@ public class PlaneController {
         return "planes";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updatePlane(@RequestParam Map<String, String> params, Model model) {
         Plane plane = planeService.updatePlane(
                 Plane.builder()
@@ -65,7 +66,7 @@ public class PlaneController {
         return "planes";
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = DELETE)
     public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
         return "planes";
