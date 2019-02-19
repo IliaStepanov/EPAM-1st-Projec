@@ -8,11 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <jsp:include page="navigationPanel.jsp">
+        <jsp:param name="sessionUser" value="${sessionUser}"/>
+    </jsp:include>
     <title>Admin Page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>
 
-<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
+<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p><br/>
 
 
 <a href="/user/all"> User CRUD page.</a><br/>

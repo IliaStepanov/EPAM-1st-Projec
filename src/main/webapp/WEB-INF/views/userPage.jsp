@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Welcome Aboard ${sessionUser.firstName}</title>
+    <jsp:include page="navigationPanel.jsp"/>
 </head>
 <link>
 <h5>Here is all your tickets</h5>

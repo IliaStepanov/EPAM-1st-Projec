@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <jsp:include page="navigationPanel.jsp"/>
     <title>Ticket DAO page Current admin is ${sessionUser.firstName}</title>
 </head>
 <body>

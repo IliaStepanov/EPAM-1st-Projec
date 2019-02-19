@@ -125,5 +125,7 @@ public class UserController {
         return "users";
     }
 
+    @GetMapping(value = "/navpage")
+    public String nav(){return "navigationPanel";}
 
 }
