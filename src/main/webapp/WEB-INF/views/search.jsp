@@ -10,27 +10,39 @@
 <html>
 <head>
     <title>Search flight</title>
+    <style type="text/css">
+        body { margin: 0; }
+        #content { position: absolute; }
+        #content {
+            left: 500px; /* Расстояние от левого края */
+            top: 0px;
+        }
+    </style>
 </head>
 <body>
 <c:forEach items="${flights}" var="flight">
-
-   Flight № <c:out value="${flight.id}"/><br/>
-  From:  <c:out value="${flight.departureAirport}"/><br/>
-  To: <c:out value="${flight.arrivalAirport}"/><br/>
-   At: <c:out value="${flight.departureDate.toString()}"/><br/>
-  Arrive at:  <c:out value="${flight.arrivalDate.toString()}"/><br/>
-    <input type="button" id="${flight.id}" value="BUY!"/> <br>
+    <h3>
+    From: <c:out value="${flight.departureAirport}"/><br/>
+    To: <c:out value="${flight.arrivalAirport}"/><br/>
+    Date/time of departure: <c:out value="${flight.departureDate}"/><br/>
+    Date/time of arrival: <c:out value="${flight.arrivalDate}"/><br/>
+    </h3>
+<form action="${pageContext.request.contextPath}/tickets/add" method="post">
+    <input type="hidden" name="flightId" value="${flight.id}" />
+    <input type="submit"  value="BUY!" />
+</form>
 
 </c:forEach>
 
-
+<div id="content">
 <h4>Search for flight.</h4>
+    <h3>
 <form action="${pageContext.request.contextPath}/flights/search" method="get">
-    <input type="date" name="departureDateFrom"/> Departure Date From.<br/>
-    <input type="date" name="departureDateTo"/> Departure Date To.<br/>
+    <input type="date" name="departureDateFrom"/> Departure Date from.<br/>
+    <input type="date" name="departureDateTo"/> Departure Date to.<br/>
     <input type="text" name="departureAirport"/> Departure Airport. <br/>
     <input type="text" name="arrivalAirport"/> Arrival Airport. <br/>
     <input type="submit" value="Search Flight"/>
-</form>
+</form></h3></div>
 </body>
 </html>
