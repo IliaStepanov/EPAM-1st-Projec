@@ -18,8 +18,10 @@
 <p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
 
 <c:forEach items="${currentUserTickets}" var="ticket">
-  Ticket#  <c:out value="${ticket.id}"/><br/>
-  Passenger  <c:out value="${ticket.user.firstName}"/><br/>
+  <%--Ticket#  <c:out value="${ticket.id}"/><br/>--%>
+  <%--Passenger First Name <c:out value="${ticket.user.firstName}"/><br/>--%>
+  <%--Passenger Last Name  <c:out value="${ticket.user.lastName}"/><br/>--%>
+  Departure   <c:out value="${ticket.flight.departureAirport}"/><br/>
   Destination  <c:out value="${ticket.flight.arrivalAirport}"/><br/>
   Date <c:out value="${ticket.flight.departureDate}"/><br/>
     <input type="button" onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')" value="Details."/>

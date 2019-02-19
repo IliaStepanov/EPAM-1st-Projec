@@ -26,6 +26,9 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="datetime-local" required name="arrivalDate"/> Arrival Date. <br/>
     <input type="text" required name="departureAirport"/> Departure Airport. <br/>
     <input type="text" required name="arrivalAirport"/> Arrival Airport. <br/>
+    <input type="text" required name="placePriorityPrice"/> place priority Price.<br/>
+    <input type="text" required name="businessPrice"/> Business class Price.<br/>
+    <input type="text" required name="luggagePrice"/> Luggage Price.<br/>
     <input type="submit" value="Add flight"/>
 </form>
 

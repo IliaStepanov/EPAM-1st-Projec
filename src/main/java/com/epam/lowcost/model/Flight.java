@@ -23,6 +23,9 @@ public class Flight {
     private String departureAirport;
     private String arrivalAirport;
     private boolean isDeleted;
+    private long placePriorityPrice;
+    private  long businessPrice;
+    private  long luggagePrice;
 
 
 

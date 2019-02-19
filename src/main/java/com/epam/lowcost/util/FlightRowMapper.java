@@ -25,6 +25,9 @@ public final class FlightRowMapper implements RowMapper<Flight> {
                 .arrivalAirport(rs.getString("arrivalAirport").toUpperCase())
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())
                 .arrivalDate(rs.getTimestamp("arrivalDate").toLocalDateTime())
+                .businessPrice(rs.getLong("businessPrice"))
+                .luggagePrice(rs.getLong("luggagePrice"))
+                .placePriorityPrice(rs.getLong(("placePriorityPrice")))
                 .isDeleted(rs.getBoolean("isDeleted"))
                 .build();
     }

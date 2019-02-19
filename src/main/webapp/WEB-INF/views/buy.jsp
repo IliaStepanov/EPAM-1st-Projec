@@ -13,7 +13,7 @@
 </head>
 <body>
 <h3>
-    <form action="${pageContext.request.contextPath}/tickets/update" method="post">
+    <form action="${pageContext.request.contextPath}/tickets/add" method="post">
         First Name:
         <output name="firstName">${sessionUser.firstName}</output>
         <br/>
@@ -27,26 +27,25 @@
         <output name="Birthdate">${sessionUser.birthday}</output>
         <br/>
         From:
-        <output name="from">${ticket.flight.departureAirport}</output>
+        <output name="from">${flight.departureAirport}</output>
         <br/>
         TO:
-        <output name="arrivaAirport">${ticket.flight.arrivalAirport}</output>
+        <output name="arrivaAirport">${flight.arrivalAirport}</output>
         <br/>
         Departure Date:
-        <output name="departureDate">${ticket.flight.departureDate}</output>
+        <output name="departureDate">${flight.departureDate}</output>
         <br/>
         Arrival Date:
-        <output name="arrivalDate">${ticket.flight.arrivalDate}</output>
+        <output name="arrivalDate">${flight.arrivalDate}</output>
         <br/>
-        Business class: <input type="checkbox" value="true" name="isBusiness"/><br/>
-        Luggage: <input type="checkbox" name="hasLuggage" value="true"/><br/>
-        Place choice: <input type="checkbox" name="placePriority" value="true"/><br/>
-        <input type="hidden" name="ticketId" value="${ticket.id}"/>
+        Business class: <input type="checkbox" value="true" name="isBusiness"/> + <c:out value="${flight.businessPrice}"/> <br/>
+        Luggage: <input type="checkbox" name="hasLuggage" value="true"/>+ <c:out value="${flight.placePriorityPrice}"/><br/>
+        Place choice: <input type="checkbox" name="placePriority" value="true"/> + <c:out value="${flight.luggagePrice}"/><br/>
+        <input type="hidden" name="flightId" value="${flight.id}"/>
         </br> <input type="submit" value="Buy ticket"/>
 
 </form>
-    <form action="${pageContext.request.contextPath}/tickets/delete" method="post">
-        <input type="hidden" name="id" value="${ticket.id}"/>
+    <form action="${pageContext.request.contextPath}/flights/return" method="get">
         </br> <input type="submit" value="Cancel"/>
     </form>
 
