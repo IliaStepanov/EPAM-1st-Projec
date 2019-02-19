@@ -14,7 +14,6 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
