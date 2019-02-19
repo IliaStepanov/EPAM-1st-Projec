@@ -1,8 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
-import com.epam.lowcost.service.UserService;
-import org.mindrot.jbcrypt.BCrypt;
+import com.epam.lowcost.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -109,7 +108,10 @@ public class UserController {
     @PostMapping(value = "/change-password")
     public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model){
         if(userService.verifyUser(sessionUser.getEmail() ,params.get("oldPassword"))!=null){
-
+                if(params.get("newPassword").equals(params.get("newPassword2"))){
+                    sessionUser.setPassword(params.get("newPassword"));
+                    userService.updateUser(sessionUser);
+                }
         }
         return "redirect:/tickets/self";
     }

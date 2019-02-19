@@ -1,4 +1,4 @@
-package com.epam.lowcost.service;
+package com.epam.lowcost.service.interfaces;
 
 import com.epam.lowcost.model.User;
 

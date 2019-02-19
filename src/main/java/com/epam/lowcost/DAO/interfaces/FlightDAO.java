@@ -1,4 +1,4 @@
-package com.epam.lowcost.DAO;
+package com.epam.lowcost.DAO.interfaces;
 
 import com.epam.lowcost.model.Flight;
 

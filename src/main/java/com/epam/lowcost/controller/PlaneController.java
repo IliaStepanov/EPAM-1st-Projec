@@ -1,7 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.PlaneService;
+import com.epam.lowcost.service.interfaces.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ public class PlaneController {
     PlaneService planeService;
 
     @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    public String getAllPlanes(Model model) {
         model.addAttribute("planes", planeService.getAllPlanes());
         return "planes";
     }
@@ -33,7 +33,7 @@ public class PlaneController {
     }
 
     @PostMapping
-    public String addUser(@RequestParam Map<String, String> params, Model model) {
+    public String addPlane(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("plane", planeService.addPlane(
                 Plane.builder()
                         .model(params.get("model"))
@@ -65,7 +65,7 @@ public class PlaneController {
     }
 
     @PostMapping(value = "/delete")
-    public String deleteUser(@RequestParam long id, Model model) {
+    public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
         return "planes";
     }

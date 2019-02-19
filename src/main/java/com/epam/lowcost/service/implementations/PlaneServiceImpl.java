@@ -1,7 +1,8 @@
-package com.epam.lowcost.service;
+package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.PlaneDAO;
+import com.epam.lowcost.DAO.interfaces.PlaneDAO;
 import com.epam.lowcost.model.Plane;
+import com.epam.lowcost.service.interfaces.PlaneService;
 
 import java.util.List;
 

@@ -32,3 +32,6 @@ Add Tomcat as a local application server by providing path to your Tomcat direct
 To add tomcat to your project click the run/debug configurations icon (a down arrow) on the toolbar, then click Edit Configurations.
 
 Add local Tomcat server, add exploded artifact in deployment tab.
+
+Log=Pass for tests.
+Admin EMAIL@MAIL.COM = PASSWORD User ExampleEmail2@google.com = examplePassword2
