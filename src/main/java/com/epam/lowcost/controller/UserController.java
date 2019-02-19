@@ -82,7 +82,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping(value = "enroll")
+    @PostMapping(value = "/enroll")
     public String registration(@RequestParam Map<String, String> params, Model model) {
         userService.addUser(
                 User.builder()
@@ -100,7 +100,7 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "settings")
+    @GetMapping(value = "/settings")
     public String settings(@ModelAttribute("sessionUser") User sessionUser) {
         return "settings";
     }
