@@ -20,7 +20,7 @@ public class LoginController {
 
     @GetMapping
     public String auth(@ModelAttribute("sessionUser") User sessionUser) {
-        return "userPage";
+        return "search";
     }
 
     @GetMapping(value = "/admin-panel")
@@ -43,7 +43,7 @@ public class LoginController {
             model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/self";
+            return "redirect:/flights/all";
         }
         return "login";
     }
