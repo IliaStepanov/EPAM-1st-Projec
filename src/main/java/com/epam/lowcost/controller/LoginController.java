@@ -23,7 +23,7 @@ public class LoginController {
 
     @GetMapping
     public String auth(@ModelAttribute("sessionUser") User sessionUser) {
-        return "userPage";
+        return "search";
     }
 
     @GetMapping(value = ADMIN_PANEL)
