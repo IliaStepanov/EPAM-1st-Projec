@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="lang.adminPage"/>${sessionUser.firstName}</title>
+    <title><spring:message code="lang.adminPage"/> <spring:message code="lang.currentUser"/>${sessionUser.firstName}</title>
 </head>
 <body>
 
