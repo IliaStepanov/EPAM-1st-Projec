@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/enroll")
-    public String registration(@RequestParam Map<String, String> params, Model model) {
+    public String createUser(@RequestParam Map<String, String> params, Model model) {
         userService.addUser(
                 User.builder()
                         .email(params.get("email"))
