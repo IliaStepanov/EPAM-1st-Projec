@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -43,12 +44,6 @@
     <a href="/user/settings"><spring:message code="lang.userSettings"/></a>
     <c:if test="${sessionUser.isAdmin()}"> <a href="/entry/admin-panel"><spring:message code="lang.adminPage"/></a> </c:if>
     <a href="/entry/log-out"><spring:message code="lang.logOut"/></a>
-</div>
-
-
-<div style="padding-left:16px">
-    <h2>Top Navigation Example</h2>
-    <p>Some content..</p>
 </div>
 
 </body>
