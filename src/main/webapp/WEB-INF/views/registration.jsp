@@ -13,7 +13,7 @@
 <body>
 <h5>Fill form to register.</h5>
 
-<form action="/user/registration" method="post">
+<form action="/user/enroll" method="post">
     <input type="email" name="email"/> Email.<br/>
     <input type="password" name="password"/> Password.<br/>
     <input type="hidden" name="isAdmin" value="false"/>

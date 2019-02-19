@@ -29,7 +29,7 @@ public class LoginController {
     }
 
 
-    @GetMapping(value = "/registration")
+    @GetMapping(value = "/enroll")
     public String registration() {
         return "registration";
     }

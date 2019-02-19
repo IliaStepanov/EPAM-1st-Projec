@@ -82,7 +82,7 @@ public class UserController {
         return "users";
     }
 
-    @PostMapping(value = "registration")
+    @PostMapping(value = "enroll")
     public String registration(@RequestParam Map<String, String> params, Model model) {
         userService.addUser(
                 User.builder()

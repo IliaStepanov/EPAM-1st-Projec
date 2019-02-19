@@ -14,7 +14,7 @@
 <body>
 <div class="container">
 
-    <h4>${message}</h4><br/><a href="/entry/registration">Sign in?</a>
+    <h4>${message}</h4><br/><a href="/entry/enroll">Sign in?</a>
     <br/>
 
 
