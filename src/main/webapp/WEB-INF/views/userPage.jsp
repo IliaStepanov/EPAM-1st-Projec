@@ -6,7 +6,7 @@
     <title>Welcome Aboard ${sessionUser.firstName}</title>
 </head>
 <link>
-<h5>Here is all your tickets</h5>
+<h5>Here are all your tickets</h5>
 
 <%
     User user = (User) session.getAttribute("sessionUser");
@@ -23,6 +23,7 @@
   Destination  <c:out value="${ticket.flight.arrivalAirport}"/><br/>
   Date <c:out value="${ticket.flight.departureDate}"/><br/>
     <input type="button" onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')" value="Details."/>
+    <br/>
 
 
 </c:forEach>

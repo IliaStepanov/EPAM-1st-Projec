@@ -45,6 +45,11 @@
         </br> <input type="submit" value="Buy ticket"/>
 
 </form>
+    <form action="${pageContext.request.contextPath}/tickets/delete" method="post">
+        <input type="hidden" name="id" value="${ticket.id}"/>
+        </br> <input type="submit" value="Cancel"/>
+    </form>
+
 </h3>
 </body>
 </html>

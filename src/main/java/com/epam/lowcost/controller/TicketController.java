@@ -81,7 +81,7 @@ public class TicketController {
     @PostMapping(value = "/delete")
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
-        return "tickets";
+        return "redirect:/flights/all";
     }
 
 

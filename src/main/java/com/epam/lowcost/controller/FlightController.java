@@ -28,10 +28,13 @@ public class FlightController {
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
-        return "flights";
+        return "flightSettings";
     }
 
-
+    @GetMapping(value = "add")
+    public String addNewFlight(){
+        return "flights";
+    }
 
     @GetMapping(value = "/search")
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
@@ -54,7 +57,7 @@ public class FlightController {
                         .departureAirport(params.get("departureAirport"))
                         .arrivalAirport(params.get("arrivalAirport"))
                         .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
-        return "flights";
+        return "redirect:/flights/all";
     }
 
     @PostMapping(value = "/update")
@@ -73,13 +76,13 @@ public class FlightController {
                                 .departureAirport(params.get("departureAirport"))
                                 .arrivalAirport(params.get("arrivalAirport"))
                                 .build()));
-        return "flights";
+        return "redirect:/flights/all";
     }
 
     @PostMapping(value = "/delete")
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
-        return "flights";
+        return "redirect:/flights/all";
     }
 
 }
