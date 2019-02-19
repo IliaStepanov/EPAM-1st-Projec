@@ -3,14 +3,9 @@
 
 <html>
 <head>
-    <title>Title of web app!</title>
+    <title>AirLin</title>
 </head>
 <body>
-
-<h1>Login page.</h1>
-
-<c:redirect url="/entry"/>
-
-
+    <c:redirect url="/entry"/>
 </body>
 </html>
