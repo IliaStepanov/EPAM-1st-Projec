@@ -30,8 +30,8 @@ public class LoginController {
     }
 
 
-    @GetMapping(value = "/registration")
-    public String registration() {
+    @GetMapping(value = "/enroll")
+    public String toRegistrationPage() {
         return "registration";
     }
 
