@@ -1,86 +1,55 @@
-<%@ page import="com.epam.lowcost.model.User" %><%--
-  Created by IntelliJ IDEA.
-  User: Ilia_Stepanov
-  Date: 19-Feb-19
-  Time: 12:36
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
+<%--<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            font-family: "Lato", sans-serif;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
         }
 
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
             text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
+            font-size: 17px;
         }
 
-        .sidenav a:hover {
-            color: #f1f1f1;
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
         }
 
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
         }
     </style>
 </head>
 <body>
 
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="/tickets/self">Tickets</a>
-    <a href="/user/settings">Settings</a>
-    <%
-        User user = (User) session.getAttribute("sessionUser");
-        if (user.isAdmin()){
-            response.getWriter().write("<a href=\"/entry/admin-panel\"> Admin panel</a>");
-        }
-    %>
-    <a href="/entry/log-out">Log Out</a>
+<div class="topnav">
+    <a class="active" href="/tickets/self"><spring:message code="lang.ticket"/></a>
+    <a href="/user/settings"><spring:message code="lang.userSettings"/></a>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="/entry/admin-panel"><spring:message code="lang.adminPage"/></a> </c:if>
+    <a href="/entry/log-out"><spring:message code="lang.logOut"/></a>
 </div>
 
 
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Navigation</span>
-
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "200px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-</script>
+<div style="padding-left:16px">
+    <h2>Top Navigation Example</h2>
+    <p>Some content..</p>
+</div>
 
 </body>
 </html>
