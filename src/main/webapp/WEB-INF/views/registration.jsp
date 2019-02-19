@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -5,23 +6,24 @@
   Time: 18:45
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Registration Page.</title>
+    <title><spring:message code="lang.registrationPage"/></title>
 </head>
 <body>
-<h5>Fill form to register.</h5>
+<h5><spring:message code="lang.fillForm"/></h5>
 
 <form action="/user/registration" method="post">
-    <input type="email" name="email"/> Email.<br/>
-    <input type="password" name="password"/> Password.<br/>
+    <input type="email" name="email"/> <spring:message code="lang.email"/><br/>
+    <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
     <input type="hidden" name="isAdmin" value="false"/>
-    <input type="text" name="firstName"/> First name. <br/>
-    <input type="text" name="lastName"/> Last name. <br/>
-    <input type="text" name="documentInfo"/> Document. <br/>
-    <input type="datetime-local" name="birthday"/> Birthday. <br/>
-    <input type="submit" value="Sing UP"/>
+    <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
+    <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
+    <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
+    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
+    <input type="submit" value="<spring:message code="lang.signIn"/>"/>
 </form>
 
 

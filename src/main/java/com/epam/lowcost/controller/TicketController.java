@@ -9,6 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.Map;
 
 
@@ -33,16 +38,17 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping
-    public String addTicket(@RequestParam Map<String, String> params, Model model) {
+    @PostMapping (value = "/add")
+    public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
+                            @RequestParam Map<String, String> params, Model model) {
         User user = new User();
-        user.setId(Long.parseLong(params.get("userId")));
+        user.setId(sessionUser.getId());
         Flight flight = new Flight();
         flight.setId(Long.parseLong(params.get("flightId")));
 
         model.addAttribute("ticket", ticketService.addTicket(
                 Ticket.builder()
-                        .user(user)
+                        .user(sessionUser)
                         .flight(flight)
                         .hasLuggage(Boolean.parseBoolean(params.get("hasLuggage")))
                         .placePriority(Boolean.parseBoolean(params.get("placePriority")))
@@ -50,7 +56,7 @@ public class TicketController {
                         .build()));
 
         model.addAttribute("message", "Ticket successfully added");
-        return "tickets";
+        return "buy";
     }
 
     @PostMapping(value = "/update")
@@ -69,7 +75,7 @@ public class TicketController {
             model.addAttribute("ticket", ticket);
             model.addAttribute("message", "Ticket successfully updated");
         }
-        return "tickets";
+        return "redirect:/tickets/self";
     }
 
     @PostMapping(value = "/delete")
