@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>User Settings</title>
-    <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
-    <p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
+    <link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <p align="right">Current USER in Session: ${sessionUser.firstName} <a href="/entry/log-out"> Log Out.</a><br/></p>
 </head>
 <body>
 
@@ -20,7 +20,7 @@ Change personal information.<br/>
 
 <form action="/user/update" method="post">
     <input type="hidden" name="id" value="${sessionUser.id}"/>
-    <input type="email" placeholder="${sessionUser.email}" name="email" /> New Email. <br/>
+    <input type="email" placeholder="${sessionUser.email}" name="email"/> New Email. <br/>
     <input type="hidden" name="password" value="${sessionUser.password}"/>
     <input type="hidden" name="isAdmin" value="false"/>
     <input type="text" name="firstName" placeholder="${sessionUser.firstName}"/> New First name. <br/>
@@ -34,14 +34,19 @@ Change personal information.<br/>
 
 Change password.
 <form action="/user/change-password" method="post">
-    <input type="password" name="oldPassword"> Old password <br/>
-    <input type="password" name="newPassword"> New password <br/>
-    <input type="password" name="newPassword2"> Repeat new password.<br/>
+    <label>
+        <input required type="password" name="oldPassword">
+    </label> Old password <br/>
+    <label>
+        <input required type="password" name="newPassword">
+    </label> New password <br/>
+    <label>
+        <input required type="password" name="newPassword2">
+    </label> Repeat new password.<br/>
     <input type="submit" value="Submit">
 </form>
 
-
-
+${message}
 
 <script src="webjars/jquery/3.3.1-2/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>

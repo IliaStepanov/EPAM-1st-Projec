@@ -11,11 +11,6 @@
 
 <c:redirect url="/entry"/>
 
-<form action="/entry" method="post">
-    <input type="text" name="email" placeholder="Login"/>
-    <input type="password" name="password" placeholder="password"/>
-    <input type="submit" name="Log In!"/>
-</form>
 
 </body>
 </html>
