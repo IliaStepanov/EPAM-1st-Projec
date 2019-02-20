@@ -15,5 +15,7 @@ public interface TicketDAO {
 
     Ticket updateTicket(Ticket ticket);
 
+    int deleteTicketsByFlightId(long id);
+
     Ticket deleteTicket(long id);
 }

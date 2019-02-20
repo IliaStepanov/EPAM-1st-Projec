@@ -9,9 +9,12 @@ public interface TicketService {
 
     List<Ticket> getAllTickets();
 
+    int deleteTicketsByFlightId(long id);
+
     Ticket addTicket(Ticket ticket);
 
     Ticket updateTicket(Ticket ticket);
 
     Ticket deleteTicket(long id);
+
 }
