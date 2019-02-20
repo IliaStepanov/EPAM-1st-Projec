@@ -47,18 +47,7 @@
         <input type="submit" value="BUY!"/>
 
     </form>
-    <c:if test="${sessionUser.isAdmin()}">
-        <form action="${pageContext.request.contextPath}/flights/delete" method="post">
-            <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="Delete!"/>
-        </form>
-        <form action="${pageContext.request.contextPath}/flights" method="get">
-            <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="Update!"/>
-        </form>
-
-
-    </form>
+    
     <c:if test="${sessionUser.isAdmin()}">
         <form action="${pageContext.request.contextPath}/flights/delete" method="post">
             <input type="hidden" name="id" value="${flight.id}"/>
