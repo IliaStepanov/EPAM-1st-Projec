@@ -17,9 +17,8 @@ public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
 
-    @Override
-    public List<Flight> getAllFlights() {
-        List<Flight> flights = flightDAO.getAllFlights();
+    public List<Flight> getAllUpdatedFlights() {
+        List<Flight> flights = getAllFlights();
         for (Flight flight : flights) {
             flight.setInitialPrice(updateFlightPrice(flight));
         }
@@ -28,14 +27,23 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public List<Flight> getAllFlights() {
+        return flightDAO.getAllFlights();
+    }
+
+    @Override
+    public Flight getById(Long id) {
+        return flightDAO.getById(id);
+    }
+
+    @Override
     public Flight addNewFlight(Flight flight) {
         flight.setPlane(planeService.getById(flight.getPlane().getId()));
         return flightDAO.addNewFlight(flight);
     }
 
-    @Override
-    public Flight getById(Long id) {
-        Flight flight = flightDAO.getById(id);
+    public Flight getUpdatedFlightById(Long id) {
+        Flight flight = getById(id);
         flight.setInitialPrice(updateFlightPrice(flight));
         return flight;
     }

@@ -2,6 +2,7 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
+import com.epam.lowcost.service.implementations.FlightServiceImpl;
 import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class FlightController {
 
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllUpdatedFlights());
         return "search";
     }
 
@@ -38,7 +39,7 @@ public class FlightController {
 
     @GetMapping(value = "/new-ticket")
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
-        model.addAttribute("flight", flightService.getById(id));
+        model.addAttribute("flight", ((FlightServiceImpl) flightService).getUpdatedFlightById(id));
         return "buy";
     }
 
