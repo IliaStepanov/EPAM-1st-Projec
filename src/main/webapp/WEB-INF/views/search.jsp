@@ -34,31 +34,31 @@
     <h3>
 
 
-         <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
+        <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
         <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport}"/><br/>
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
         <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
-        Initial price <c:out value="${flight.initialPrice}"/><br/>
+        <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
 
 
     </h3>
-    <form action="${pageContext.request.contextPath}/flights/new-ticket" method="get">
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
         <input type="hidden" name="id" value="${flight.id}"/>
-        <input type="submit" value="BUY!"/>
+        <input type="submit" value="<spring:message code="lang.buy"/>"/>
 
     </form>
-
 
 
     </form>
     <c:if test="${sessionUser.isAdmin()}">
-        <form action="${pageContext.request.contextPath}/flights/delete" method="post">
+        <form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">
             <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="Delete!"/>
+            <input type="submit" value="<spring:message code="lang.deleteFlight"/>"/>
         </form>
-        <form action="${pageContext.request.contextPath}/flights" method="get">
-            <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="Update!"/>
+        <form action=""
+        <%=EndPoints.FLIGHTS%>" method="get">
+        <input type="hidden" name="id" value="${flight.id}"/>
+        <input type="submit" value="<spring:message code="lang.updateFlight"/>"/>
         </form>
 
 
@@ -66,8 +66,8 @@
 </c:forEach>
 <c:if test="${sessionUser.isAdmin()}">
 
-    <form action="${pageContext.request.contextPath}/flights/add" method="get">
-        <input type="submit" value="Add Flight"/>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.ADD%>" method="get">
+        <input type="submit" value="<spring:message code="lang.addNewFlight"/>"/>
     </form>
 </c:if>
 

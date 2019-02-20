@@ -23,7 +23,6 @@
 ${flight}<br/> <h4>${message}</h4>
 
 
-
 <h4><spring:message code="lang.findFlightById"/><br/></h4>
 <form action="<%=EndPoints.FLIGHTS%>" method="get">
     <input type="number" name="id"/>
@@ -37,11 +36,11 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="text" required name="planeId"/> <spring:message code="lang.planeId"/><br/>
     <input type="datetime-local" required name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
     <input type="datetime-local" required name="arrivalDate"/> <spring:message code="lang.arriveAt"/><br/>
-    <input type="text"required name="departureAirport"/> <spring:message code="lang.departureAirport"/><br/>
-    <input type="text"required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/><br/> <br/>
-    <input type="text" required name="placePriorityPrice"/> place priority Price.<br/>
-    <input type="text" required name="businessPrice"/> Business class Price.<br/>
-    <input type="text" required name="luggagePrice"/> Luggage Price.<br/>
+    <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/><br/>
+    <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/><br/> <br/>
+    <input type="text" required name="placePriorityPrice"/> <spring:message code="lang.placePriorityPrice"/>.<br/>
+    <input type="text" required name="businessPrice"/> <spring:message code="lang.businessPrice"/><br/>
+    <input type="text" required name="luggagePrice"/> <spring:message code="lang.luggagePrice"/><br/>
 
     <input type="submit" value="OK"/>
 </form>
@@ -55,7 +54,6 @@ ${flight}<br/> <h4>${message}</h4>
 
     <input type="submit" value="OK"/>
 </form>
-
 
 
 <br/><br/>

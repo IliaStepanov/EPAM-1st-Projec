@@ -75,7 +75,7 @@ public class FlightDAOImpl implements FlightDAO {
                 planeId,
                 DateFormatter.format(depatureDate),
                 DateFormatter.format(arrivalDate),
-                "FALSE", departureAirport, arrivalAirport, businessPrice,placePriorityPrice,luggagePrice);
+                "FALSE", departureAirport, arrivalAirport, businessPrice, placePriorityPrice, luggagePrice);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql, 1);
