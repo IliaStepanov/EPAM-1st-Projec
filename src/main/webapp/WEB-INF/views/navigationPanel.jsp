@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%--<%@ taglib prefix="spring" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -40,13 +41,13 @@
 <body>
 
 <div class="topnav">
-    <a class="active" href="/tickets/self"><spring:message code="lang.ticket"/></a>
-    <a href="/user/settings"><spring:message code="lang.userSettings"/></a>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="/user/all"> <spring:message code="lang.userDAO"/></a></c:if>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="/plane/all"> <spring:message code="lang.planeDAO"/></a></c:if>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="/flights/all"> <spring:message code="lang.flightDAO"/></a></c:if>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="/tickets/all"> <spring:message code="lang.ticketDAO"/></a></c:if>
-    <a href="/entry/log-out"><spring:message code="lang.logOut"/></a>
+    <a class="active" href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.ticket"/></a>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.USER + EndPoints.ALL%>"> <spring:message code="lang.userDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL%>"> <spring:message code="lang.planeDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"> <spring:message code="lang.flightDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"> <spring:message code="lang.ticketDAO"/></a></c:if>
+    <a href="<%=EndPoints.USER + EndPoints.SETTINGS%>"><spring:message code="lang.loginPageEntry"/>  ${sessionUser.firstName}</a>
+    <a href="<%=EndPoints.ENTRY + EndPoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>
 </div>
 
 </body>

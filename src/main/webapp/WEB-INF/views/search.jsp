@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -36,7 +37,7 @@
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
         <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
     </h3>
-    <form action="${pageContext.request.contextPath}/tickets/add" method="post">
+    <form action="<%=EndPoints.TICKETS + EndPoints.ADD%>" method="post">
         <input type="hidden" name="flightId" value="${flight.id}"/>
         <input type="submit" value="<spring:message code="lang.buy"/>"/>
     </form>
@@ -46,7 +47,7 @@
 <div id="content">
     <h4><spring:message code="lang.findFlight"/></h4>
     <h3>
-        <form action="${pageContext.request.contextPath}/flights/search" method="get">
+        <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
             <input type="date" name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
             <input type="date" name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
             <input type="text" name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>

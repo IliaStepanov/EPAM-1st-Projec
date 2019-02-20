@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%--
   Created by IntelliJ IDEA.
@@ -14,7 +15,7 @@
 </head>
 <body>
 <h3>
-    <form action="${pageContext.request.contextPath}/tickets/update" method="post">
+    <form action="<%=EndPoints.TICKETS + EndPoints.UPDATE%>" method="post">
         First Name:
         <output name="firstName">${sessionUser.firstName}</output>
         <br/>
