@@ -23,16 +23,17 @@
 
 <form action="/user/update" method="post">
     <input type="hidden" name="id" value="${sessionUser.id}"/>
-    <input type="email" placeholder="${sessionUser.email}" name="email"/> <spring:message code="lang.newEmail"/> <br/>
+    <input type="email"  value="${sessionUser.email}" name="email"/> <spring:message code="lang.newEmail"/> <br/>
     <input type="hidden" name="password" value="${sessionUser.password}"/>
-    <input type="hidden" name="isAdmin" value="false"/>
-    <input type="text" name="firstName" placeholder="${sessionUser.firstName}"/> <spring:message
+    <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
+
+    <input type="text" name="firstName" value="${sessionUser.firstName}"/> <spring:message
         code="lang.newFirstName"/> <br/>
-    <input type="text" name="lastName" placeholder="${sessionUser.lastName}"/> <spring:message code="lang.newLastName"/>
+    <input type="text" name="lastName" value="${sessionUser.lastName}"/> <spring:message code="lang.newLastName"/>
     <br/>
-    <input type="text" name="documentInfo" placeholder="${sessionUser.documentInfo}"/> <spring:message
+    <input type="text" name="documentInfo" value="${sessionUser.documentInfo}"/> <spring:message
         code="lang.newDocument"/> <br/>
-    <input type="datetime-local" name="birthday" placeholder="${sessionUser.birthday}"/> <spring:message
+    <input type="datetime-local" name="birthday" value="${sessionUser.birthday}"/> <spring:message
         code="lang.newDateBirth"/><br/>
     <input type="hidden" name="userUpdate" value="fromUser"/>
     <input type="submit" value="ОК"/>
@@ -41,9 +42,9 @@
 
 Change password.
 <form action="/user/change-password" method="post">
-    <input type="password" name="oldPassword"> <spring:message code="lang.oldPassword"/> <br/>
-    <input type="password" name="newPassword"> <spring:message code="lang.newPassword"/><br/>
-    <input type="password" name="newPassword2"> <spring:message code="lang.repeatPassword"/><br/>
+    <input required type="password" name="oldPassword"> <spring:message code="lang.oldPassword"/> <br/>
+    <input required type="password" name="newPassword"> <spring:message code="lang.newPassword"/><br/>
+    <input required type="password" name="newPassword2"> <spring:message code="lang.repeatPassword"/><br/>
     <input type="submit" value="OK">
 </form>
 
