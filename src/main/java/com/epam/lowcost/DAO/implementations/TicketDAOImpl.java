@@ -28,14 +28,15 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     @Override
-    public List <Ticket> getAllUserTickets(long currentUserId) {
+    public List<Ticket> getAllUserTickets(long currentUserId) {
         List<Ticket> allTickets = new ArrayList<>();
         Ticket ticket;
         String sql = String.format("SELECT * FROM TICKETS " +
-                        "JOIN  USERS ON TICKETS.userId=USERS.id " +
-                        "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                        "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
-                        "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d ORDER BY TICKETS.ID DESC", currentUserId);
+
+                "JOIN  USERS ON TICKETS.userId=USERS.id " +
+                "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d", currentUserId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
@@ -43,8 +44,7 @@ public class TicketDAOImpl implements TicketDAO {
                 ticket = extractTicketFromRS(rs);
                 allTickets.add(ticket);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return allTickets;
@@ -52,8 +52,8 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public List<Ticket> getAllTickets() {
-       List<Ticket> allTickets = new ArrayList<>();
-       Ticket ticket;
+        List<Ticket> allTickets = new ArrayList<>();
+        Ticket ticket;
         String sql = "SELECT * FROM TICKETS " +
                 "JOIN  USERS ON TICKETS.userId=USERS.id " +
                 "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
@@ -66,9 +66,7 @@ public class TicketDAOImpl implements TicketDAO {
                 ticket = extractTicketFromRS(rs);
                 allTickets.add(ticket);
             }
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return allTickets;
@@ -114,9 +112,7 @@ public class TicketDAOImpl implements TicketDAO {
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next())
                 ticket = extractTicketFromRS(rs);
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -167,11 +163,11 @@ public class TicketDAOImpl implements TicketDAO {
         return ticket;
     }
 
-    private Ticket extractTicketFromRS (ResultSet rs) throws SQLException {
+    private Ticket extractTicketFromRS(ResultSet rs) throws SQLException {
         return Ticket.builder()
                 .id(rs.getLong("id"))
-                .flight(flightRowMapper.mapRow(rs,1))
-                .user(userRowMapper.mapRow(rs,1))
+                .flight(flightRowMapper.mapRow(rs, 1))
+                .user(userRowMapper.mapRow(rs, 1))
                 .isBusiness(rs.getBoolean("isBusiness"))
                 .hasLuggage(rs.getBoolean("hasLuggage"))
                 .placePriority(rs.getBoolean("placePriority"))
