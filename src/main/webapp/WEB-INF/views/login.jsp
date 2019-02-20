@@ -11,9 +11,11 @@
 <html>
 <head>
     <title><spring:message code="lang.loginPageEntry"/></title>
-
+    <p align="right"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></p>
 </head>
 <body>
+
+
 
     <h4>${message}</h4><br/><a href="<%=EndPoints.ENTRY + EndPoints.REGISTRATION%>"><spring:message code="lang.signIn"/></a>
     <br/>
@@ -24,6 +26,10 @@
         <input type="password" name="password" placeholder="<spring:message code="lang.password"/>"/>
         <input type="submit" value="<spring:message code="lang.logIn"/>"/>
     </form>
+
+
+
+
 
 
 
