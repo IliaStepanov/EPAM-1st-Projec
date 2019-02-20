@@ -85,7 +85,7 @@ public class UserController {
     }
 
     @PostMapping(value = ENROLL)
-    public String createUser(@RequestParam Map<String, String> params,Model model){
+    public String createUser(@RequestParam Map<String, String> params, Model model) {
         userService.addUser(
                 User.builder()
                         .email(params.get("email"))
@@ -103,8 +103,8 @@ public class UserController {
     }
 
     @GetMapping(value = SETTINGS)
-    public String settings(@ModelAttribute("sessionUser") User sessionUser){
-            return "settings";
+    public String settings(@ModelAttribute("sessionUser") User sessionUser) {
+        return "settings";
     }
 
     @PostMapping(value = CHANGE_PASSWORD)

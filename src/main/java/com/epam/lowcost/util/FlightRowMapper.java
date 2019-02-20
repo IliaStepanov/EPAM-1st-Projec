@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 
 public final class FlightRowMapper implements RowMapper<Flight> {
-    private RowMapper <Plane> planeRowMapper;
+    private RowMapper<Plane> planeRowMapper;
 
-    private FlightRowMapper(RowMapper <Plane> planeRowMapper) {
+    private FlightRowMapper(RowMapper<Plane> planeRowMapper) {
         this.planeRowMapper = planeRowMapper;
     }
 
@@ -20,7 +20,7 @@ public final class FlightRowMapper implements RowMapper<Flight> {
         return Flight.builder()
                 .id(rs.getLong("FLIGHTS.id"))
                 .initialPrice(rs.getLong("initialPrice"))
-                .plane(planeRowMapper.mapRow(rs,1))
+                .plane(planeRowMapper.mapRow(rs, 1))
                 .departureAirport(rs.getString("departureAirport").toUpperCase())
                 .arrivalAirport(rs.getString("arrivalAirport").toUpperCase())
                 .departureDate(rs.getTimestamp("departureDate").toLocalDateTime())

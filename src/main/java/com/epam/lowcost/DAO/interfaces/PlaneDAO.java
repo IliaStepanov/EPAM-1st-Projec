@@ -2,7 +2,6 @@ package com.epam.lowcost.DAO.interfaces;
 
 import com.epam.lowcost.model.Plane;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 public interface PlaneDAO {

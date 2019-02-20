@@ -35,7 +35,8 @@
     <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
           c:planeRowMapper-ref="planerowMapper"/>
 
-    <bean id="planeService" class="com.epam.lowcost.service.implementations.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
+    <bean id="planeService" class="com.epam.lowcost.service.implementations.PlaneServiceImpl"
+          c:planeDAO-ref="planeDAO"/>
 
     <bean id="flightDAO" class="com.epam.lowcost.DAO.implementations.FlightDAOImpl">
         <constructor-arg ref="dataSource"/>
@@ -68,24 +69,25 @@
     </bean>
 
 
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:lang" />
-        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basename" value="classpath:lang"/>
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang" />
+            <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="ru" />
+        <property name="defaultLocale" value="ru"/>
     </bean>
 
-    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start"
+          destroy-method="stop">
         <constructor-arg>
             <list>
                 <value>-web</value>
