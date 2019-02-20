@@ -2,9 +2,9 @@ package com.epam.lowcost.DAO.implementations;
 
 
 import com.epam.lowcost.DAO.interfaces.TicketDAO;
-import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
-import com.epam.lowcost.model.User;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
@@ -18,30 +18,22 @@ import java.util.List;
 public class TicketDAOImpl implements TicketDAO {
 
     private DataSource dataSource;
-    private RowMapper<User> userRowMapper;
-    private RowMapper<Flight> flightRowMapper;
+    private RowMapper<Ticket> ticketRowMapper;
 
-    public TicketDAOImpl(DataSource dataSource, RowMapper<User> userRowMapper, RowMapper<Flight> flightRowMapper) {
+    public TicketDAOImpl(DataSource dataSource, RowMapper<Ticket> ticketRowMapper) {
         this.dataSource = dataSource;
-        this.userRowMapper = userRowMapper;
-        this.flightRowMapper = flightRowMapper;
+        this.ticketRowMapper = ticketRowMapper;
     }
 
     @Override
     public List<Ticket> getAllUserTickets(long currentUserId) {
         List<Ticket> allTickets = new ArrayList<>();
-        Ticket ticket;
-        String sql = String.format("SELECT * FROM TICKETS " +
-                "JOIN  USERS ON TICKETS.userId=USERS.id " +
-                "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
-                "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d", currentUserId);
+        String sql = String.format(joinQuery() + "and TICKETS.userId=%d", currentUserId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next()) {
-                ticket = extractTicketFromRS(rs);
-                allTickets.add(ticket);
+                allTickets.add(ticketRowMapper.mapRow(rs, 1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,18 +44,12 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public List<Ticket> getAllTickets() {
         List<Ticket> allTickets = new ArrayList<>();
-        Ticket ticket;
-        String sql = "SELECT * FROM TICKETS " +
-                "JOIN  USERS ON TICKETS.userId=USERS.id " +
-                "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
-                "WHERE TICKETS.isDeleted=false";
+        String sql = joinQuery();
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next()) {
-                ticket = extractTicketFromRS(rs);
-                allTickets.add(ticket);
+                allTickets.add(ticketRowMapper.mapRow(rs, 1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,16 +87,12 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public Ticket getById(long currentId) {
         Ticket ticket = null;
-        String sql = String.format("SELECT * FROM TICKETS " +
-                "JOIN  USERS ON TICKETS.userId=USERS.id " +
-                "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
-                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
-                "WHERE TICKETS.isDeleted=false and TICKETS.id=%d", currentId);
+        String sql = String.format(joinQuery() + "and TICKETS.id=%d", currentId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
             while (rs.next())
-                ticket = extractTicketFromRS(rs);
+                ticket = ticketRowMapper.mapRow(rs, 1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -162,48 +144,40 @@ public class TicketDAOImpl implements TicketDAO {
         return ticket;
     }
 
+
     public int countBusinessPlaces(long id) {
-        int n = 0;
-        String sql = String.format("SELECT COUNT (*) AS total FROM TICKETS " +
-                "WHERE isDeleted=false and flightId=%d and isBusiness=%b", id, true);
-        try (Connection conn = dataSource.getConnection();
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery(sql)) {
-            while (rs.next()) {
-                n = rs.getInt("total");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        int n;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
+                    ticketRowMapper, id, true);
+            n = tickets.size();
+        } catch (EmptyResultDataAccessException e) {
+            return 0;
         }
         return n;
     }
 
     public int countEconomPlaces(long id) {
-        int n = 0;
-        String sql = String.format("SELECT COUNT (*) AS total FROM TICKETS " +
-                "WHERE isDeleted=false and flightId=%d and isBusiness=%b", id, false);
-        try (Connection conn = dataSource.getConnection();
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery(sql)) {
-            while (rs.next()) {
-                n = rs.getInt("total");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        int n;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
+                    ticketRowMapper, id, false);
+            n = tickets.size();
+        } catch (EmptyResultDataAccessException e) {
+            return 0;
         }
         return n;
     }
 
-    private Ticket extractTicketFromRS(ResultSet rs) throws SQLException {
-        return Ticket.builder()
-                .id(rs.getLong("id"))
-                .flight(flightRowMapper.mapRow(rs, 1))
-                .user(userRowMapper.mapRow(rs, 1))
-                .isBusiness(rs.getBoolean("isBusiness"))
-                .hasLuggage(rs.getBoolean("hasLuggage"))
-                .placePriority(rs.getBoolean("placePriority"))
-                .price(rs.getLong("price"))
-                .isDeleted(false).build();
 
+    private String joinQuery() {
+        return "SELECT * FROM TICKETS " +
+                "JOIN  USERS ON TICKETS.userId=USERS.id " +
+                "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                "WHERE TICKETS.isDeleted=false ";
     }
+
 }

@@ -33,7 +33,7 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping
     public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
                             @RequestParam Map<String, String> params, Model model) {
         User user = new User();
