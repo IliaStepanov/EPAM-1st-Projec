@@ -10,7 +10,7 @@ import static com.epam.lowcost.util.EndPoints.ENTRY;
 public class ExceptionController {
     @ExceptionHandler(HttpSessionRequiredException.class)
     public String handleNotFoundError() {
-        return "redirect:"+ ENTRY;
+        return "login";
     }
 
 }
