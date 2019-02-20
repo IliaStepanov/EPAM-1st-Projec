@@ -33,6 +33,7 @@
 <c:forEach items="${flights}" var="flight">
     <h3>
 
+
          <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
         <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport}"/><br/>
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
@@ -57,6 +58,18 @@
         </form>
 
 
+    </form>
+    <c:if test="${sessionUser.isAdmin()}">
+        <form action="${pageContext.request.contextPath}/flights/delete" method="post">
+            <input type="hidden" name="id" value="${flight.id}"/>
+            <input type="submit" value="Delete!"/>
+        </form>
+        <form action="${pageContext.request.contextPath}/flights" method="get">
+            <input type="hidden" name="id" value="${flight.id}"/>
+            <input type="submit" value="Update!"/>
+        </form>
+
+
     </c:if>
 </c:forEach>
 <c:if test="${sessionUser.isAdmin()}">
@@ -66,19 +79,23 @@
     </form>
 </c:if>
 
+
 <div id="content">
 
     <h4><spring:message code="lang.findFlight"/></h4>
     <h3>
         <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
+
             <input type="date" required name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
             <input type="date" required name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
             <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
             <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
+
             <input type="submit" value="<spring:message code="lang.search"/>"/>
 
         </form>
     </h3>
 </div>
+
 </body>
 </html>

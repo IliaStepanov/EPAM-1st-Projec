@@ -33,6 +33,7 @@ ${flight}<br/> <h4>${message}</h4>
 <h4><spring:message code="lang.addNewFlight"/><br/></h4>
 <form action="<%=EndPoints.FLIGHTS%>" method="post">
     <input type="text" required name="initialPrice"/> <spring:message code="lang.price"/><br/>
+
     <input type="text" required name="planeId"/> <spring:message code="lang.planeId"/><br/>
     <input type="datetime-local" required name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
     <input type="datetime-local" required name="arrivalDate"/> <spring:message code="lang.arriveAt"/><br/>
@@ -41,6 +42,7 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="text" required name="placePriorityPrice"/> place priority Price.<br/>
     <input type="text" required name="businessPrice"/> Business class Price.<br/>
     <input type="text" required name="luggagePrice"/> Luggage Price.<br/>
+
     <input type="submit" value="OK"/>
 </form>
 
@@ -50,8 +52,10 @@ ${flight}<br/> <h4>${message}</h4>
     <input type="text" name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
     <input type="text" name="departureAirport"/> <spring:message code="lang.departureAirport"/> <br/>
     <input type="text" name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/> <br/>
+
     <input type="submit" value="OK"/>
 </form>
+
 
 
 <br/><br/>

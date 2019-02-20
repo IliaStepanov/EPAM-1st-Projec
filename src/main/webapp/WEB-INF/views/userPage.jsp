@@ -13,6 +13,8 @@
 
 
 
+
+
 <c:forEach items="${currentUserTickets}" var="ticket">
 
     <spring:message code="lang.ticket"/># <c:out value="${ticket.id}"/><br/>

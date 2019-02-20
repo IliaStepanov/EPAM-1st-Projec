@@ -28,7 +28,9 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public List<Ticket> getAllUserTickets(long currentUserId) {
         List<Ticket> allTickets = new ArrayList<>();
+
         String sql = String.format(joinQuery() + "and TICKETS.userId=%d", currentUserId);
+
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {

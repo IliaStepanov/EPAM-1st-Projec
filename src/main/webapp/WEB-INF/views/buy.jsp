@@ -49,12 +49,14 @@
         </br> <input type="submit" value="Buy ticket"/>
 
 
+
 </form>
     <form action="${pageContext.request.contextPath}/flights/return" method="get">
         </br> <input type="submit" value="Cancel"/>
     </form>
 
     </form>
+
 
 </h3>
 </body>

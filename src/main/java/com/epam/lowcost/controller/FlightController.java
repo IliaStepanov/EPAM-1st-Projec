@@ -36,7 +36,7 @@ public class FlightController {
         return "flightSettings";
     }
 
-    @GetMapping (value = "/new-ticket")
+  @GetMapping (value = "/new-ticket")
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         return "buy";
@@ -45,6 +45,7 @@ public class FlightController {
     public  String goToSearchPage(){
         return "redirect:/flights/all";
     }
+
 
 
 
