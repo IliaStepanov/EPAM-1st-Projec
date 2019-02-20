@@ -16,18 +16,25 @@ public class PlaneServiceImplTest {
     @Test
     public void getAllPlanes() {
         List<Plane> expectedList = new ArrayList<>();
-        expectedList.add(new Plane(1, "Airbus A380",25,500,false));
-        when(planeService.getAllPlanes()).thenReturn(expectedList);
         List<Plane> actualList = planeService.getAllPlanes();
-        assertEquals(actualList, expectedList);
+
+        when(planeService.getAllPlanes()).thenReturn(expectedList);
+
+        assertEquals(expectedList, actualList);
     }
 
     @Test
     public void getById() {
         Plane expectedPlane = new Plane(1, "Airbus A380",25,500,false);
+        Plane nullPlane = null;
+
         when(planeService.getById(1)).thenReturn(expectedPlane);
-        Plane actualPlane = planeService.getById(1);
-        assertEquals(actualPlane, expectedPlane);
+        when(planeService.getById(0)).thenReturn(null);
+        when(planeService.getById(-1)).thenReturn(null);
+
+        assertEquals(expectedPlane, planeService.getById(1));
+        assertEquals(nullPlane, planeService.getById(0));
+        assertEquals(nullPlane, planeService.getById(-1));
     }
 
     @Test
@@ -41,6 +48,11 @@ public class PlaneServiceImplTest {
     @Test
     public void deletePlane() {
         planeService.deletePlane(1);
-        verify(planeService).deletePlane(anyInt());
+        planeService.deletePlane(0);
+        planeService.deletePlane(-1);
+
+        verify(planeService).deletePlane(1);
+        verify(planeService).deletePlane(0);
+        verify(planeService).deletePlane(-1);
     }
 }
