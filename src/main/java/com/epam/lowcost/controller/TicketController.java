@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 
 @Controller
-@RequestMapping(value = "/tickets")
+@RequestMapping(value = TICKETS)
 @SessionAttributes(value = "sessionUser")
 public class TicketController {
 
@@ -21,7 +23,7 @@ public class TicketController {
     TicketService ticketService;
 
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = ALL)
     public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
         return "tickets";
@@ -33,7 +35,7 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = ADD)
     public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
                             @RequestParam Map<String, String> params, Model model) {
         User user = new User();
@@ -54,7 +56,7 @@ public class TicketController {
         return "buy";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updateTicket(@RequestParam Map<String, String> params, Model model) {
         Ticket ticket = ticketService.updateTicket(
                 Ticket.builder()
@@ -70,17 +72,17 @@ public class TicketController {
             model.addAttribute("ticket", ticket);
             model.addAttribute("message", "Ticket successfully updated");
         }
-        return "redirect:/tickets/self";
+        return "redirect:" + TICKETS + SELF;
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = DELETE)
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
         return "tickets";
     }
 
 
-    @GetMapping(value = "/self")
+    @GetMapping(value = SELF)
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
         return "userPage";
