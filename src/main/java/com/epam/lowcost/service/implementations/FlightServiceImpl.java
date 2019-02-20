@@ -61,8 +61,6 @@ public class FlightServiceImpl implements FlightService {
         long daysBetween = DAYS.between(dateBefore, dateAfter);
         long minPrice = flight.getInitialPrice();
         long price = (long) (minPrice + (60 - daysBetween) * (60 - daysBetween) * (minPrice / 3600.0));
-        System.out.println(daysBetween);
-        System.out.println(price);
         if (daysBetween > 60) {
             price = minPrice;
         }
