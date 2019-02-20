@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+
 @AllArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
@@ -16,7 +19,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> getAllFlights() {
-        return flightDAO.getAllFlights();
+        List<Flight> flights = flightDAO.getAllFlights();
+        for (Flight flight : flights) {
+            flight.setInitialPrice(updateFlightPrice(flight));
+        }
+
+        return flights;
     }
 
     @Override
@@ -27,7 +35,9 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight getById(Long id) {
-        return flightDAO.getById(id);
+        Flight flight = flightDAO.getById(id);
+        flight.setInitialPrice(updateFlightPrice(flight));
+        return flight;
     }
 
     @Override
@@ -44,4 +54,19 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
         return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
     }
+
+    private long updateFlightPrice(Flight flight) {
+        LocalDateTime dateAfter = flight.getDepartureDate();
+        LocalDateTime dateBefore = LocalDateTime.now();
+        long daysBetween = DAYS.between(dateBefore, dateAfter);
+        long minPrice = flight.getInitialPrice();
+        long price = (long) (minPrice + (60 - daysBetween) * (60 - daysBetween) * (minPrice / 3600.0));
+        System.out.println(daysBetween);
+        System.out.println(price);
+        if (daysBetween > 60) {
+            price = minPrice;
+        }
+        return price;
+    }
+
 }

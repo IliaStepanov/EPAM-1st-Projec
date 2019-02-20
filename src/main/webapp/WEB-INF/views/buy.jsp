@@ -14,6 +14,27 @@
     <title>Title</title>
     <jsp:include page="navigationPanel.jsp"/>
 </head>
+
+<script>
+    function updatePrice() {
+        var price, isBusiness, hasLuggage, placePriority;
+        price = parseInt(${flight.initialPrice});
+        isBusiness = document.getElementById("isBusiness");
+        hasLuggage = document.getElementById("hasLuggage");
+        placePriority = document.getElementById("placePriority");
+        if (isBusiness.checked == true) {
+            price += parseInt(${flight.businessPrice})
+        }
+        if (hasLuggage.checked == true) {
+            price += parseInt(${flight.luggagePrice});
+        }
+        if (placePriority.checked == true) {
+            price += parseInt(${flight.placePriorityPrice});
+        }
+        document.getElementById("price").value = price.toString()
+    }
+</script>
+
 <body>
 <h3>
 
@@ -43,13 +64,18 @@
         <spring:message code="lang.arriveAt"/>
         <output name="arrivalDate">${flight.arrivalDate}</output>
         <br/>
-        <spring:message code="lang.isBusiness"/>: <input type="checkbox" value="true" name="isBusiness"/> +
-        <c:out value="${flight.businessPrice}"/> <br/>
-        <spring:message code="lang.hasLuggage"/> <input type="checkbox" name="hasLuggage" value="true"/>+ <c:out
+        <spring:message code="lang.isBusiness"/>: <input type="checkbox" id="isBusiness" value="true" name="isBusiness"
+                                                         onclick="updatePrice()"/>
+        + <c:out value="${flight.businessPrice}"/> <br/>
+        <spring:message code="lang.hasLuggage"/>: <input type="checkbox" id="hasLuggage" name="hasLuggage" value="true"
+                                                         onclick="updatePrice()"/>+ <c:out
             value="${flight.placePriorityPrice}"/><br/>
-        <spring:message code="lang.placePriority"/> <input type="checkbox" name="placePriority" value="true"/> + <c:out
+        <spring:message code="lang.placePriority"/>: <input type="checkbox" id="placePriority" name="placePriority"
+                                                            value="true"
+                                                            onclick="updatePrice()"/> + <c:out
             value="${flight.luggagePrice}"/><br/>
         <input type="hidden" name="flightId" value="${flight.id}"/>
+        <output id="price">${flight.initialPrice}</output>
         </br> <input type="submit" value="<spring:message code="lang.buy"/>"/>
 
 
@@ -57,6 +83,7 @@
             </br> <input type="submit" value="<spring:message code="lang.cancel"/>"/>
         </form>
     </form>
+
 
 </h3>
 </body>
