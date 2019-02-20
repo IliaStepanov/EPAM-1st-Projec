@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.epam.lowcost.util.EndPoints" %><%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
   Date: 13-Feb-19
@@ -14,7 +14,7 @@
 <body>
 <h5><spring:message code="lang.fillForm"/></h5>
 
-<form action="/user/registration" method="post">
+<form action="<%=EndPoints.USER + EndPoints.REGISTRATION%>" method="post">
     <input type="email" name="email"/> <spring:message code="lang.email"/><br/>
     <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
     <input type="hidden" name="isAdmin" value="false"/>
