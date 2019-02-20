@@ -6,6 +6,6 @@
     <title>AirLin</title>
 </head>
 <body>
-    <c:redirect url="/entry"/>
+<c:redirect url="/entry"/>
 </body>
 </html>

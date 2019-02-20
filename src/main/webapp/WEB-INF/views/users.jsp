@@ -3,12 +3,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.userDAO"/></title>
 </head>
 <body>
 
 <spring:message code="lang.adminPage"/>
-<h2><spring:message code="lang.usersInDB"/></h2><br/><br/> <div align="right"><spring:message code="lang.currentUser"/> ${sessionUser.firstName} <br/><a href="/login/log-out"><spring:message code="lang.logOut"/></a></div>
+<h2><spring:message code="lang.usersInDB"/></h2><br/><br/>
+<div align="right"><spring:message code="lang.currentUser"/> ${sessionUser.firstName} <br/><a
+        href="/login/log-out"><spring:message code="lang.logOut"/></a></div>
 
 <a href="/entry/admin-panel"><spring:message code="lang.adminPage"/></a>
 

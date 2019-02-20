@@ -20,7 +20,7 @@
     <br/>
 
     <h3><spring:message code="lang.loginIntroduction"/></h3>
-    <form  action= "/entry"method="post">
+    <form action="/entry" method="post">
         <input type="email" name="email" placeholder="<spring:message code="lang.login"/>"/>
         <input type="password" name="password" placeholder="<spring:message code="lang.password"/>"/>
         <input type="submit" value="<spring:message code="lang.logIn"/>"/>

@@ -8,7 +8,6 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.TicketService;
 import com.epam.lowcost.service.interfaces.UserService;
 
-
 import java.util.List;
 
 public class TicketServiceImpl implements TicketService {
@@ -29,7 +28,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<Ticket> getAllTickets() { return ticketDAO.getAllTickets();}
+    public List<Ticket> getAllTickets() {
+        return ticketDAO.getAllTickets();
+    }
 
     @Override
     public Ticket addTicket(Ticket ticket) {
@@ -44,7 +45,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Ticket updateTicket(Ticket ticket) {
         Ticket beforeUpdateTicket = ticketDAO.getById(ticket.getId());
-        if(beforeUpdateTicket == null)
+        if (beforeUpdateTicket == null)
             return null;
         Flight flight = flightService.getById(beforeUpdateTicket.getFlight().getId());
         User user = userService.getById(beforeUpdateTicket.getUser().getId());

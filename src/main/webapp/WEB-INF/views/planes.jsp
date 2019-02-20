@@ -3,7 +3,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="lang.planeDAO"/> </title>
+    <jsp:include page="navigationPanel.jsp"/>
+    <title><spring:message code="lang.planeDAO"/></title>
 </head>
 <body>
 <spring:message code="lang.adminPage"/> <spring:message code="lang.currentUser"/> ${sessionUser.firstName}
