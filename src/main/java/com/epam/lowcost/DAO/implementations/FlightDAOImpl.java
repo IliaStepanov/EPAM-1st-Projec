@@ -124,7 +124,7 @@ public class FlightDAOImpl implements FlightDAO {
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s'" +
+                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s'," +
                         "luggagePrice=%d, placePriorityPrice=%d, businessPrice=%d WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),

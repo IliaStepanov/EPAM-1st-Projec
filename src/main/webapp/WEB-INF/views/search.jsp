@@ -42,12 +42,13 @@
 
 
     </h3>
-    <form action="${pageContext.request.contextPath}/flights/newTicket" method="get">
+    <form action="${pageContext.request.contextPath}/flights/new-ticket" method="get">
         <input type="hidden" name="id" value="${flight.id}"/>
         <input type="submit" value="BUY!"/>
 
     </form>
-    
+
+
     <c:if test="${sessionUser.isAdmin()}">
         <form action="${pageContext.request.contextPath}/flights/delete" method="post">
             <input type="hidden" name="id" value="${flight.id}"/>
