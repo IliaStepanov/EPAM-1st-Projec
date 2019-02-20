@@ -11,11 +11,12 @@
 <body>
 <link>
 
-<h5><spring:message code="lang.hereAllTickets"/></h5>
+
 
 
 
 <c:forEach items="${currentUserTickets}" var="ticket">
+
     <spring:message code="lang.ticket"/># <c:out value="${ticket.id}"/><br/>
     <spring:message code="lang.passanger"/> <c:out value="${ticket.user.firstName}"/><br/>
     <spring:message code="lang.destination"/> <c:out value="${ticket.flight.arrivalAirport}"/><br/>

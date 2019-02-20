@@ -53,7 +53,7 @@ public class TicketController {
                         .build()));
 
         model.addAttribute("message", "Ticket successfully added");
-        return "buy";
+        return "redirect:/tickets/self";
     }
 
     @PostMapping(value = UPDATE)

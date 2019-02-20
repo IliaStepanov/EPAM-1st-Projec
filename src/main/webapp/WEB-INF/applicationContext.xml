@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		  http://www.springframework.org/schema/context
@@ -20,6 +20,9 @@
     <bean id="userowMapper" class="com.epam.lowcost.util.UserRowMapper"/>
 
     <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper" c:planeRowMapper-ref="planerowMapper"/>
+
+    <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper" c:flightRowMapper-ref="flightrowMapper"
+          c:userRowMapper-ref="userowMapper"/>
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
@@ -50,8 +53,7 @@
 
     <bean id="ticketDAO" class="com.epam.lowcost.DAO.implementations.TicketDAOImpl">
         <constructor-arg ref="dataSource"/>
-        <constructor-arg ref="userowMapper"/>
-        <constructor-arg ref="flightrowMapper"/>
+        <constructor-arg ref="ticketRowMapper"/>
     </bean>
 
     <bean id="ticketService" class="com.epam.lowcost.service.implementations.TicketServiceImpl">
