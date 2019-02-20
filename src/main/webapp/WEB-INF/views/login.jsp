@@ -11,10 +11,9 @@
 <html>
 <head>
     <title><spring:message code="lang.loginPageEntry"/></title>
-    <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
+
 </head>
 <body>
-<div class="container">
 
     <h4>${message}</h4><br/><a href="/entry/registration"><spring:message code="lang.signIn"/></a>
     <br/>
@@ -27,8 +26,6 @@
     </form>
 
 
-</div>
-<script src="webjars/jquery/3.3.1-2/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
