@@ -28,7 +28,7 @@
 </c:forEach>
 
 
-<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"><spring:message code="lang.buyMoreTickets"/></a><br/>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"><spring:message code="lang.buyMoreTickets"/></a><br/>
 
 
 </body>
