@@ -49,8 +49,6 @@
     </form>
 
 
-
-    </form>
     <c:if test="${sessionUser.isAdmin()}">
         <form action="${pageContext.request.contextPath}/flights/delete" method="post">
             <input type="hidden" name="id" value="${flight.id}"/>
