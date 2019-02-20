@@ -39,5 +39,4 @@ dependencies {
     compile group: 'org.webjars', name: 'webjars-locator', version: '0.36'
 
 
-
 }

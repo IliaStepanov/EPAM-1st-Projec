@@ -16,4 +16,6 @@ public interface UserDAO {
     User updateUser(User user);
 
     String deleteUser(long userId);
+
+    List<User> getUsersByPage(int pageId, int total);
 }

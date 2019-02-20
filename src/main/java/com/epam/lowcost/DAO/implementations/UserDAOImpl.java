@@ -138,4 +138,14 @@ public class UserDAOImpl implements UserDAO {
 
         return ("User was not deleted");
     }
+
+
+    @Override
+    public List<User> getUsersByPage(int pageid, int total) {
+        String sql = "SELECT * FROM USERS LIMIT " + (pageid - 1) + "," + total;
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        //int usersCount = jdbcTemplate.queryForObject("SELECT COUNT(id)FROM USERS",Integer.class);
+        return jdbcTemplate.query(sql, rowMapper);
+
+    }
 }

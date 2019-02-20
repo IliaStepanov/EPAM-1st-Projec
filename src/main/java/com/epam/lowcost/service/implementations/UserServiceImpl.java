@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         if (user != null && BCrypt.checkpw(password, user.getPassword())) return user;
         return null;
     }
+
+    @Override
+    public List<User> getUsersByPage(int pageId, int total) {
+        return userDAO.getUsersByPage(pageId, total);
+    }
 }

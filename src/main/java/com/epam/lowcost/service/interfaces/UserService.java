@@ -16,4 +16,6 @@ public interface UserService {
     String deleteUser(long userId);
 
     User verifyUser(String log, String pass);
+
+    List<User> getUsersByPage(int pageId, int total);
 }
