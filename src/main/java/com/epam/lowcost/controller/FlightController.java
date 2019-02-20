@@ -33,11 +33,29 @@ public class FlightController {
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
+        return "flightSettings";
+    }
+
+    @GetMapping(value = "/new-ticket")
+    public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
+        model.addAttribute("flight", flightService.getById(id));
+        return "buy";
+    }
+
+    @GetMapping(value = "/return")
+    public String goToSearchPage() {
+        return "redirect:/flights/all";
+    }
+
+
+    @GetMapping(value = "add")
+    public String addNewFlight() {
         return "flights";
     }
 
 
     @GetMapping(value = SEARCH)
+
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
@@ -57,8 +75,11 @@ public class FlightController {
                         .departureDate(LocalDateTime.parse(params.get("departureDate")))
                         .departureAirport(params.get("departureAirport"))
                         .arrivalAirport(params.get("arrivalAirport"))
+                        .businessPrice(Long.valueOf(params.get("businessPrice")))
+                        .luggagePrice(Long.valueOf(params.get("luggagePrice")))
+                        .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
                         .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
-        return "flights";
+        return "redirect:" + FLIGHTS + ALL;
     }
 
     @PostMapping(value = UPDATE)
@@ -75,15 +96,18 @@ public class FlightController {
                                 .departureDate(LocalDateTime.parse(params.get("departureDate")))
                                 .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
                                 .departureAirport(params.get("departureAirport"))
+                                .businessPrice(Long.valueOf(params.get("businessPrice")))
+                                .luggagePrice(Long.valueOf(params.get("luggagePrice")))
+                                .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
                                 .arrivalAirport(params.get("arrivalAirport"))
                                 .build()));
-        return "flights";
+        return "redirect:" + FLIGHTS + ALL;
     }
 
     @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
-        return "flights";
+        return "redirect:" + FLIGHTS + ALL;
     }
 
 }

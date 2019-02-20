@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -10,8 +11,7 @@
 <html>
 <head>
     <jsp:include page="navigationPanel.jsp"/>
-    <title><spring:message code="lang.adminPage"/> <spring:message
-            code="lang.currentUser"/>${sessionUser.firstName}</title>
+    <title><spring:message code="lang.adminPage"/></title>
 </head>
 <body>
 
@@ -19,10 +19,10 @@
     <spring:message code="lang.logOut"/></a><br/></p>
 
 
-<a href="/user/all"> <spring:message code="lang.userDAO"/></a><br/>
-<a href="/plane/all"> <spring:message code="lang.planeDAO"/></a><br/>
-<a href="/flights/all"> <spring:message code="lang.flightDAO"/></a><br/>
-<a href="/tickets/all"> <spring:message code="lang.ticketDAO"/></a><br/>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>"> <spring:message code="lang.userDAO"/></a><br/>
+<a href="<%=EndPoints.PLANE + EndPoints.ALL%>"> <spring:message code="lang.planeDAO"/></a><br/>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"> <spring:message code="lang.flightDAO"/></a><br/>
+<a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"> <spring:message code="lang.ticketDAO"/></a><br/>
 
 
 </body>

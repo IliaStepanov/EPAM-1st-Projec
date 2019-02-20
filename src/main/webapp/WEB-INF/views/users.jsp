@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,13 +11,10 @@
 
 <spring:message code="lang.adminPage"/>
 <h2><spring:message code="lang.usersInDB"/></h2><br/><br/>
-<div align="right"><spring:message code="lang.currentUser"/> ${sessionUser.firstName} <br/><a
-        href="/login/log-out"><spring:message code="lang.logOut"/></a></div>
 
-<a href="/entry/admin-panel"><spring:message code="lang.adminPage"/></a>
 
 <br/><br/>
-<a href="${pageContext.request.contextPath}/user/all"><spring:message code="lang.allUsers"/></a><br/><br/>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>"><spring:message code="lang.allUsers"/></a><br/><br/>
 
 <c:forEach items="${users}" var="user">
     <c:out value="${user.toString()}"/><br/>
@@ -28,13 +26,13 @@ ${user}<br/> <h4>${message}</h4>
 
 
 <h4><spring:message code="lang.findUserById"/></h4>
-<form action="${pageContext.request.contextPath}/user" method="get">
+<form action="<%=EndPoints.USER%>" method="get">
     <input type="number" name="id"/><spring:message code="lang.userID"/>
     <input type="submit" name="OK"/>
 </form>
 <br/><br/>
 <h4><spring:message code="lang.addNewUser"/></h4>
-<form action="${pageContext.request.contextPath}/user" method="post">
+<form action="<%=EndPoints.USER%>" method="post">
     <input type="email" name="email"/> <spring:message code="lang.email"/><br/>
     <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
     <input type="text" name="isAdmin"/> <spring:message code="lang.isAdmin"/><br/>
@@ -46,7 +44,7 @@ ${user}<br/> <h4>${message}</h4>
 </form>
 <br/><br/>
 <h4><spring:message code="lang.updateUser"/></h4>
-<form action="${pageContext.request.contextPath}/user/update" method="post">
+<form action="<%=EndPoints.USER + EndPoints.UPDATE%>" method="post">
     <input type="text" name="id"/> <spring:message code="lang.userID"/><br/>
     <input type="email" name="email"/> <spring:message code="lang.email"/><br/><br/>
     <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
@@ -59,7 +57,7 @@ ${user}<br/> <h4>${message}</h4>
 </form>
 
 <h4><spring:message code="lang.deleteUser"/> <br/></h4>
-<form action="${pageContext.request.contextPath}/user/delete" method="post">
+<form action="<%=EndPoints.USER + EndPoints.DELETE%>" method="post">
     <input type="number" name="id"/><spring:message code="lang.userID"/><br/>
     <input type="submit" name="OK"/>
 </form>

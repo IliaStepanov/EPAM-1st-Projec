@@ -1,3 +1,4 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -12,16 +13,13 @@
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.userSettings"/></title>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
-    <p align="right"><spring:message code="lang.currentUser"/> ${sessionUser.firstName} <a href="/entry/log-out">
-        <spring:message code="lang.logOut"/></a><br/></p>
-</head>
+    </head>
 <body>
 
-<a href="/tickets/self"><spring:message code="lang.backToCabinet"/></a><br/>
 
 <spring:message code="lang.changePersonalData"/><br/>
 
-<form action="/user/update" method="post">
+<form action="<%=EndPoints.USER + EndPoints.UPDATE%>" method="post">
     <input type="hidden" name="id" value="${sessionUser.id}"/>
     <input type="email"  value="${sessionUser.email}" name="email"/> <spring:message code="lang.newEmail"/> <br/>
     <input type="hidden" name="password" value="${sessionUser.password}"/>
@@ -41,15 +39,12 @@
 
 
 Change password.
-<form action="/user/change-password" method="post">
+<form action="<%=EndPoints.USER + EndPoints.CHANGE_PASSWORD%>" method="post">
     <input required type="password" name="oldPassword"> <spring:message code="lang.oldPassword"/> <br/>
     <input required type="password" name="newPassword"> <spring:message code="lang.newPassword"/><br/>
     <input required type="password" name="newPassword2"> <spring:message code="lang.repeatPassword"/><br/>
     <input type="submit" value="OK">
 </form>
 
-
-<script src="webjars/jquery/3.3.1-2/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

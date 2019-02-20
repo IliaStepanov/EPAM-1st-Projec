@@ -53,7 +53,7 @@ public class TicketController {
                         .build()));
 
         model.addAttribute("message", "Ticket successfully added");
-        return "buy";
+        return "redirect:" + TICKETS + SELF;
     }
 
     @PostMapping(value = UPDATE)
@@ -78,7 +78,7 @@ public class TicketController {
     @PostMapping(value = DELETE)
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
-        return "tickets";
+        return "redirect:" + FLIGHTS + ALL;
     }
 
 
