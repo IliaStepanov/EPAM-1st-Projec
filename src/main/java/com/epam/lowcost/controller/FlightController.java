@@ -6,20 +6,25 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 
 @Controller
-@RequestMapping(value = "/flights")
+@RequestMapping(value = FLIGHTS)
 public class FlightController {
     @Autowired
     FlightService flightService;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
         return "search";
@@ -42,12 +47,15 @@ public class FlightController {
     }
 
 
+
     @GetMapping(value = "add")
     public String addNewFlight(){
         return "flights";
     }
 
-    @GetMapping(value = "/search")
+
+    @GetMapping(value = SEARCH)
+
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
@@ -74,7 +82,7 @@ public class FlightController {
         return "redirect:/flights/all";
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updateFlight(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flight",
                 flightService.updateFlight(
@@ -96,7 +104,7 @@ public class FlightController {
         return "redirect:/flights/all";
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
         return "redirect:/flights/all";

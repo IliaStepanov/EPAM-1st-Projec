@@ -1,9 +1,5 @@
 package com.epam.lowcost.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +22,6 @@ public class Flight {
     private long placePriorityPrice;
     private long businessPrice;
     private long luggagePrice;
-
 
 
 }

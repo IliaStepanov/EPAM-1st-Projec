@@ -1,45 +1,33 @@
-<%@ page import="com.epam.lowcost.model.User" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.epam.lowcost.util.EndPoints" %><%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
-    <title>Welcome Aboard ${sessionUser.firstName}</title>
+    <title><spring:message code="lang.personalCabinet"/></title>
+    <jsp:include page="navigationPanel.jsp"/>
 </head>
+<body>
 <link>
-<h5>Here are all your tickets</h5>
 
-<%
-    User user = (User) session.getAttribute("sessionUser");
-    if (user.isAdmin()){
-        response.getWriter().write("<a href=\"/entry/admin-panel\"> Admin stuff.</a><br/>");
-    }
-%>
 
-<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
 
 <c:forEach items="${currentUserTickets}" var="ticket">
-  <%--Ticket#  <c:out value="${ticket.id}"/><br/>--%>
-  <%--Passenger First Name <c:out value="${ticket.user.firstName}"/><br/>--%>
-  <%--Passenger Last Name  <c:out value="${ticket.user.lastName}"/><br/>--%>
-  Departure   <c:out value="${ticket.flight.departureAirport}"/><br/>
-  Destination  <c:out value="${ticket.flight.arrivalAirport}"/><br/>
-  Date <c:out value="${ticket.flight.departureDate}"/><br/>
-    <input type="button" onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')" value="Details."/>
-    <br/>
 
+    <spring:message code="lang.ticket"/># <c:out value="${ticket.id}"/><br/>
+    <spring:message code="lang.passanger"/> <c:out value="${ticket.user.firstName}"/><br/>
+    <spring:message code="lang.destination"/> <c:out value="${ticket.flight.arrivalAirport}"/><br/>
+    <spring:message code="lang.date"/> <c:out value="${ticket.flight.departureDate}"/><br/>
+    <input type="button"
+           onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')"
+           value="<spring:message code="lang.details"/>"/>
 
 </c:forEach>
 
 
+<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"><spring:message code="lang.buyMoreTickets"/></a><br/>
 
-<div align="right">
-
-</div>
-
-
-<a href="/flights/all">Buy more tickets</a><br/>
-
-<a href="/user/settings">Change personal data.</a>
 
 </body>
 </html>

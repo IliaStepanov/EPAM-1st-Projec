@@ -1,3 +1,5 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -8,18 +10,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin Page Current admin is ${sessionUser.firstName}</title>
+    <jsp:include page="navigationPanel.jsp"/>
+    <title><spring:message code="lang.adminPage"/></title>
 </head>
 <body>
 
-<p align="right">Current USER in Session: ${sessionUser.firstName}  <a href="/entry/log-out"> Log Out.</a><br/></p>
+<p align="right"><spring:message code="lang.currentUser"/> ${sessionUser.firstName} <a href="/entry/log-out">
+    <spring:message code="lang.logOut"/></a><br/></p>
 
 
-<a href="/user/all"> User CRUD page.</a><br/>
-<a href="/plane/all"> Plane CRUD page.</a><br/>
-<a href="/flights/all"> Flights CRUD page.</a><br/>
-<a href="/tickets/all"> Tickets CRUD page.</a><br/>
-
+<a href="<%=EndPoints.USER + EndPoints.ALL%>"> <spring:message code="lang.userDAO"/></a><br/>
+<a href="<%=EndPoints.PLANE + EndPoints.ALL%>"> <spring:message code="lang.planeDAO"/></a><br/>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"> <spring:message code="lang.flightDAO"/></a><br/>
+<a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"> <spring:message code="lang.ticketDAO"/></a><br/>
 
 
 </body>

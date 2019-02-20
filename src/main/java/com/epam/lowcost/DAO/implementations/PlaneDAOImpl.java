@@ -2,9 +2,9 @@ package com.epam.lowcost.DAO.implementations;
 
 import com.epam.lowcost.DAO.interfaces.PlaneDAO;
 import com.epam.lowcost.model.Plane;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
-import org.springframework.jdbc.core.RowMapper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ public class PlaneDAOImpl implements PlaneDAO {
     private RowMapper<Plane> planeRowMapper;
 
 
-    public PlaneDAOImpl(DataSource dataSource, RowMapper <Plane> planeRowMapper) {
+    public PlaneDAOImpl(DataSource dataSource, RowMapper<Plane> planeRowMapper) {
 
         this.dataSource = dataSource;
         this.planeRowMapper = planeRowMapper;

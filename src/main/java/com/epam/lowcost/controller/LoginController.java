@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Map;
+import java.util.ResourceBundle;
+
+import static com.epam.lowcost.util.EndPoints.*;
 
 
 @Controller
-@RequestMapping(value = "/entry")
+@RequestMapping(value = ENTRY)
 @SessionAttributes(value = "sessionUser")
 public class LoginController {
     @Autowired
@@ -20,38 +23,40 @@ public class LoginController {
 
     @GetMapping
     public String auth(@ModelAttribute("sessionUser") User sessionUser) {
-        return "userPage";
+        return "search";
     }
 
-    @GetMapping(value = "/admin-panel")
+    @GetMapping(value = ADMIN_PANEL)
     public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
         return "admin";
     }
 
 
-    @GetMapping(value = "/registration")
-    public String registration() {
+    @GetMapping(value = REGISTRATION)
+    public String toRegistrationPage() {
         return "registration";
     }
 
     @PostMapping
     public String login(@RequestParam Map<String, String> logPass, Model model) {
 
+        ResourceBundle bundle = ResourceBundle.getBundle("lang");
+
         User user = userService.verifyUser(logPass.get("email"), logPass.get("password"));
 
         if (user == null) {
-            model.addAttribute("message", "No such User found, or password is wrong. Maybe you want to: ");
+            model.addAttribute("message", bundle.getString("lang.W1NoSuchUser"));
         } else {
             model.addAttribute("sessionUser", user);
-            return "redirect:/tickets/self";
+            return "redirect:" + TICKETS + SELF;
         }
         return "login";
     }
 
-    @GetMapping(value = "/log-out")
+    @GetMapping(value = LOG_OUT)
     public String logOut(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "redirect:/entry";
+        return "redirect:" + ENTRY;
     }
 
 }

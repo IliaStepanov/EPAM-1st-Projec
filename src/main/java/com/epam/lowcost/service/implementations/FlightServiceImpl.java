@@ -36,10 +36,12 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flight deleteFlight(Long id) { return flightDAO.deleteFlight(id); }
+    public Flight deleteFlight(Long id) {
+        return flightDAO.deleteFlight(id);
+    }
 
     @Override
-    public  List <Flight>  getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom,LocalDateTime departureDateTo) {
-        return  flightDAO.getByFromToDate(departureAirport,arrivalAirport,departureDateFrom,departureDateTo);
+    public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
+        return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
     }
 }

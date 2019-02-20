@@ -1,3 +1,5 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Ilia_Stepanov
@@ -8,32 +10,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Welcome to Login page.</title>
-    <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
+    <title><spring:message code="lang.loginPageEntry"/></title>
+
 </head>
 <body>
-<div class="container">
 
-    <h4>${message}</h4><br/><a href="/entry/registration">Sign in?</a>
+    <h4>${message}</h4><br/><a href="<%=EndPoints.ENTRY + EndPoints.REGISTRATION%>"><spring:message code="lang.signIn"/></a>
     <br/>
 
-
-    <h3>Enter login and password!</h3>
-    <form  action="/entry" method="post">
-        <input type="email" name="email" placeholder="Login"/>
-        <input type="password" name="password" placeholder="password"/>
-        <input type="submit" name="Log In!"/>
+    <h3><spring:message code="lang.loginIntroduction"/></h3>
+    <form action="<%=EndPoints.ENTRY %>" method="post">
+        <input type="email" name="email" placeholder="<spring:message code="lang.login"/>"/>
+        <input type="password" name="password" placeholder="<spring:message code="lang.password"/>"/>
+        <input type="submit" value="<spring:message code="lang.logIn"/>"/>
     </form>
 
 
-</div>
 
-
-
-
-
-
-<script src="webjars/jquery/3.3.1-2/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
