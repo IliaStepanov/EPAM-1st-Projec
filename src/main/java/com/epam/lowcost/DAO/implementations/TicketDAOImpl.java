@@ -162,6 +162,38 @@ public class TicketDAOImpl implements TicketDAO {
         return ticket;
     }
 
+    public int countBusinessPlaces(long id) {
+        int n = 0;
+        String sql = String.format("SELECT COUNT (*) AS total FROM TICKETS " +
+                "WHERE isDeleted=false and flightId=%d and isBusiness=%b", id, true);
+        try (Connection conn = dataSource.getConnection();
+             Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery(sql)) {
+            while (rs.next()) {
+                n = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
+
+    public int countEconomPlaces(long id) {
+        int n = 0;
+        String sql = String.format("SELECT COUNT (*) AS total FROM TICKETS " +
+                "WHERE isDeleted=false and flightId=%d and isBusiness=%b", id, false);
+        try (Connection conn = dataSource.getConnection();
+             Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery(sql)) {
+            while (rs.next()) {
+                n = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return n;
+    }
+
     private Ticket extractTicketFromRS(ResultSet rs) throws SQLException {
         return Ticket.builder()
                 .id(rs.getLong("id"))
