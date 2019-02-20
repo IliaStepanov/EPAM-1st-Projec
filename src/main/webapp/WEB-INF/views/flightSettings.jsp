@@ -1,3 +1,5 @@
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Anastasia
@@ -12,18 +14,25 @@
 </head>
 <body>
 <h4>Update flight.</h4>
-<form action="${pageContext.request.contextPath}/flights/update" method="post">
+<form action="<%=EndPoints.FLIGHTS + EndPoints.UPDATE%>" method="post">
     <input type="hidden" name="id" value="${flight.id}"/>
-    <input type="text" required name="planeId" value="${flight.plane.id}"/> Plane id.<br/>
-    <input type="text" required name="departureDate" value="${flight.departureDate}"/> Departure Date.<br/>
-    <input type="text" required name="arrivalDate" value="${flight.arrivalDate}"/> Arrival Date. <br/>
-    <input type="text" required name="departureAirport"value="${flight.departureAirport}" /> Departure Airport. <br/>
-    <input type="text" required name="arrivalAirport"value="${flight.arrivalAirport}"/> Arrival Airport. <br/>
-    <input type="text" required name="placePriorityPrice"value="${flight.placePriorityPrice}"/> place priority Price.<br/>
-    <input type="text" required name="businessPrice"value="${flight.businessPrice}"/> Business class Price.<br/>
-    <input type="text" required name="luggagePrice"value="${flight.luggagePrice}"/> Luggage Price.<br/>
-    <input type="text" required name="initialPrice"value="${flight.initialPrice}"/> Price.<br/>
-    <input type="submit" value="Update Flight"/>
+    <input type="text" required name="planeId" value="${flight.plane.id}"/> <spring:message code="lang.planeId"/><br/>
+    <input type="text" required name="departureDate" value="${flight.departureDate}"/> <spring:message
+        code="lang.departureAt"/><br/>
+    <input type="text" required name="arrivalDate" value="${flight.arrivalDate}"/> <spring:message
+        code="lang.arriveAt"/>. <br/>
+    <input type="text" required name="departureAirport" value="${flight.departureAirport}"/> <spring:message
+        code="lang.departureAirport"/> <br/>
+    <input type="text" required name="arrivalAirport" value="${flight.arrivalAirport}"/> <spring:message
+        code="lang.arrivalAirport"/> <br/>
+    <input type="text" required name="placePriorityPrice" value="${flight.placePriorityPrice}"/> <spring:message
+        code="lang.placePriorityPrice"/><br/>
+    <input type="text" required name="businessPrice" value="${flight.businessPrice}"/> <spring:message
+        code="lang.businessPrice"/><br/>
+    <input type="text" required name="luggagePrice" value="${flight.luggagePrice}"/> <spring:message
+        code="lang.luggagePrice"/><br/>
+    <input type="text" required name="initialPrice" value="${flight.initialPrice}"/> <spring:message code="lang.price"/>.<br/>
+    <input type="submit" value="<spring:message code="lang.updateFlight"/>"/>
 </form>
 
 <%--<datalist id="planes">--%>

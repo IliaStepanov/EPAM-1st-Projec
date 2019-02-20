@@ -15,8 +15,6 @@
 </head>
 <body>
 
-
-
     <h4>${message}</h4><br/><a href="<%=EndPoints.ENTRY + EndPoints.REGISTRATION%>"><spring:message code="lang.signIn"/></a>
     <br/>
 
@@ -26,10 +24,6 @@
         <input type="password" name="password" placeholder="<spring:message code="lang.password"/>"/>
         <input type="submit" value="<spring:message code="lang.logIn"/>"/>
     </form>
-
-
-
-
 
 
 
