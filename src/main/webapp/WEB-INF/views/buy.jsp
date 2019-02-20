@@ -51,12 +51,13 @@
             value="${flight.luggagePrice}"/><br/>
         <input type="hidden" name="flightId" value="${flight.id}"/>
         </br> <input type="submit" value="<spring:message code="lang.buy"/>"/>
-
-
-        <form action="${pageContext.request.contextPath}/flights/return" method="get">
-            </br> <input type="submit" value="<spring:message code="lang.cancel"/>"/>
-        </form>
     </form>
+
+
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.RETURN%>" method="get">
+        </br> <input type="submit" value="<spring:message code="lang.cancel"/>"/>
+    </form>
+
 
 </h3>
 </body>

@@ -25,7 +25,7 @@
 
         #content {
             left: 500px; /* Расстояние от левого края */
-            top: 0px;
+            top: 100px;
         }
     </style>
 </head>
@@ -47,30 +47,7 @@
         <input type="submit" value="<spring:message code="lang.buy"/>"/>
 
     </form>
-
-
-    </form>
-    <c:if test="${sessionUser.isAdmin()}">
-        <form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">
-            <input type="hidden" name="id" value="${flight.id}"/>
-            <input type="submit" value="<spring:message code="lang.deleteFlight"/>"/>
-        </form>
-        <form action=""
-        <%=EndPoints.FLIGHTS%>" method="get">
-        <input type="hidden" name="id" value="${flight.id}"/>
-        <input type="submit" value="<spring:message code="lang.updateFlight"/>"/>
-        </form>
-
-
-    </c:if>
 </c:forEach>
-<c:if test="${sessionUser.isAdmin()}">
-
-    <form action="<%=EndPoints.FLIGHTS + EndPoints.ADD%>" method="get">
-        <input type="submit" value="<spring:message code="lang.addNewFlight"/>"/>
-    </form>
-</c:if>
-
 
 <div id="content">
 
@@ -82,7 +59,7 @@
             <input type="date" required name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
             <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
             <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
-
+            <input type="text" hidden name="adminPage" value="false"/>
             <input type="submit" value="<spring:message code="lang.search"/>"/>
 
         </form>
