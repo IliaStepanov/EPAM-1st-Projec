@@ -35,7 +35,7 @@ public class TicketDAOImpl implements TicketDAO {
                         "JOIN  USERS ON TICKETS.userId=USERS.id " +
                         "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
                         "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
-                        "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d ", currentUserId);
+                        "WHERE TICKETS.isDeleted=false and TICKETS.userId=%d", currentUserId);
         try (Connection conn = dataSource.getConnection();
              Statement stm = conn.createStatement();
              ResultSet rs = stm.executeQuery(sql)) {
