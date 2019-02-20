@@ -40,5 +40,7 @@ public class PlaneServiceImplTest {
 
     @Test
     public void deletePlane() {
+        planeService.deletePlane(1);
+        verify(planeService).deletePlane(anyInt());
     }
 }
