@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Ticket DAO page </title>
+    <jsp:include page="navigationPanel.jsp"/>
 </head>
 <body>
 <spring:message code="lang.adminPage"/> <spring:message code="lang.currentUser"/>${sessionUser.firstName}

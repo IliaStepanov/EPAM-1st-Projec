@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Title</title>
+    <jsp:include page="navigationPanel.jsp"/>
 </head>
 <body>
 <h3>
@@ -44,7 +45,7 @@
         <input type="hidden" name="ticketId" value="${ticket.id}"/>
         </br> <input type="submit" value="Buy ticket"/>
 
-</form>
+    </form>
 </h3>
 </body>
 </html>

@@ -14,7 +14,7 @@
 
         .topnav {
             overflow: hidden;
-            background-color: #333;
+            background-color: #000540;
         }
 
         .topnav a {
@@ -28,11 +28,11 @@
 
         .topnav a:hover {
             background-color: #ddd;
-            color: black;
+            color: #248baf;
         }
 
         .topnav a.active {
-            background-color: #4CAF50;
+            background-color: #39af82;
             color: white;
         }
     </style>
@@ -42,9 +42,13 @@
 <div class="topnav">
     <a class="active" href="/tickets/self"><spring:message code="lang.ticket"/></a>
     <a href="/user/settings"><spring:message code="lang.userSettings"/></a>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="/entry/admin-panel"><spring:message code="lang.adminPage"/></a> </c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="/user/all"> <spring:message code="lang.userDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="/plane/all"> <spring:message code="lang.planeDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="/flights/all"> <spring:message code="lang.flightDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="/tickets/all"> <spring:message code="lang.ticketDAO"/></a></c:if>
     <a href="/entry/log-out"><spring:message code="lang.logOut"/></a>
 </div>
 
 </body>
 </html>
+

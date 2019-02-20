@@ -104,7 +104,7 @@ public class UserController {
 
     @GetMapping(value = SETTINGS)
     public String settings(@ModelAttribute("sessionUser") User sessionUser){
-            return "userSettings";
+            return "settings";
     }
 
     @PostMapping(value = CHANGE_PASSWORD)
@@ -132,8 +132,5 @@ public class UserController {
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
     }
-
-    @GetMapping(value = "/navpage")
-    public String nav(){return "navigationPanel";}
 
 }
