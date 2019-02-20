@@ -37,10 +37,10 @@
         <spring:message code="lang.to"/>
         <output name="arrivaAirport">${flight.arrivalAirport}</output>
         <br/>
-        <spring:message code="lang.departureDateFrom"/>
+        <spring:message code="lang.departureAt"/>
         <output name="departureDate">${flight.departureDate}</output>
         <br/>
-        <spring:message code="lang.arrivalAirport"/>
+        <spring:message code="lang.arriveAt"/>
         <output name="arrivalDate">${flight.arrivalDate}</output>
         <br/>
         <spring:message code="lang.isBusiness"/>: <input type="checkbox" value="true" name="isBusiness"/> +
