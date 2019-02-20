@@ -30,7 +30,7 @@ public class FlightDAOImpl implements FlightDAO {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
-                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
+                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ORDER BY FLIGHTS.id DESC ")) {
             while (rs.next()) {
                 flights.add(flightRowMapper.mapRow(rs, 1));
             }
@@ -66,13 +66,16 @@ public class FlightDAOImpl implements FlightDAO {
         Long planeId = flight.getPlane().getId();
         String departureAirport = flight.getDepartureAirport().toUpperCase();
         String arrivalAirport = flight.getArrivalAirport().toUpperCase();
+        Long businessPrice = flight.getBusinessPrice();
+        Long placePriorityPrice = flight.getPlacePriorityPrice();
+        Long luggagePrice = flight.getLuggagePrice();
         String sql = String.format("INSERT INTO Flights (initialPrice, planeId, departureDate," +
-                        "arrivalDate,isDeleted, departureAirport,arrivalAirport)" +
-                        " VALUES (%d,%d,'%s','%s','%s', '%s','%s')", price,
+                        "arrivalDate,isDeleted, departureAirport,arrivalAirport,businessPrice,placePriorityPrice,luggagePrice)" +
+                        " VALUES (%d,%d,'%s','%s','%s', '%s','%s',%d,%d,%d5)", price,
                 planeId,
                 DateFormatter.format(depatureDate),
                 DateFormatter.format(arrivalDate),
-                "FALSE", departureAirport, arrivalAirport);
+                "FALSE", departureAirport, arrivalAirport, businessPrice,placePriorityPrice,luggagePrice);
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
             int lines = stmt.executeUpdate(sql, 1);
@@ -121,13 +124,17 @@ public class FlightDAOImpl implements FlightDAO {
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s' WHERE id = %d",
+                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s'" +
+                        "luggagePrice=%d, placePriorityPrice=%d, businessPrice=%d WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),
                 DateFormatter.format(flight.getArrivalDate()),
                 flight.getPlane().getId(),
                 flight.getDepartureAirport().toUpperCase(),
                 flight.getArrivalAirport().toUpperCase(),
+                flight.getLuggagePrice(),
+                flight.getPlacePriorityPrice(),
+                flight.getBusinessPrice(),
                 flight.getId());
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()) {
