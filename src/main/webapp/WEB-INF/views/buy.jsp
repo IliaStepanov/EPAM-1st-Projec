@@ -16,7 +16,7 @@
 <body>
 <h3>
 
-    <form action="<%=EndPoints.TICKETS + EndPoints.UPDATE%>" method="post">
+    <form action="<%=EndPoints.TICKETS + EndPoints.ADD%>" method="post">
 
         First Name:
         <output name="firstName">${sessionUser.firstName}</output>
