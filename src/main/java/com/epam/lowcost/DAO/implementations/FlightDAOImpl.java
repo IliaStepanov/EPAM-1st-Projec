@@ -30,7 +30,7 @@ public class FlightDAOImpl implements FlightDAO {
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM FLIGHTS JOIN  PLANES " +
-                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false")) {
+                     "ON FLIGHTS.planeId = PLANES.id WHERE  FLIGHTS.ISDELETED = false ")) {
             while (rs.next()) {
                 flights.add(flightRowMapper.mapRow(rs, 1));
             }
