@@ -66,6 +66,11 @@ public class PlaneServiceImplTest {
 
     @Test
     public void updatePlane() {
+        Plane plane = new Plane();
+
+        planeService.updatePlane(plane);
+
+        verify(planeDAO).updatePlane(plane);
     }
 
     @Test
