@@ -146,29 +146,42 @@ public class TicketDAOImpl implements TicketDAO {
         return ticket;
     }
 
-    public void deleteTicketsByFlightId(long id) {
-
+    public boolean deleteTicketsByFlightId(long id) {
+        int required = 0, updated = 0;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
+                    "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                    "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                    "WHERE TICKETS.isDeleted=false AND TICKETS.FLIGHTID = ?";
+            List<Ticket> tickets = jdbcTemplate.query(query, ticketRowMapper, id);
+            required = tickets.size();
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.flightId = ?";
-            jdbcTemplate.update(sql, id);
+            updated = jdbcTemplate.update(sql, id);
         } catch (EmptyResultDataAccessException e) {
-
+            return false;
         }
+        return required == updated;
     }
-    public void deleteTicketsByUserId(long id) {
 
+    public boolean deleteTicketsByUserId(long id) {
+        int required = 0, updated = 0;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
+                    "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                    "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                    "WHERE TICKETS.isDeleted=false AND userId = ?";
+            List<Ticket> tickets = jdbcTemplate.query(query, ticketRowMapper, id);
+            required = tickets.size();
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
-            jdbcTemplate.update(sql, id);
+            updated = jdbcTemplate.update(sql, id);
+
         } catch (EmptyResultDataAccessException e) {
-
+            return false;
         }
+        return required == updated;
     }
-
-
-
 
 
     public int countBusinessPlaces(long id) {

@@ -43,9 +43,10 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight deleteFlight(Long id) {
-        ticketDAO.deleteTicketsByFlightId(id);
-        return flightDAO.deleteFlight(id);
-
+        if (ticketDAO.deleteTicketsByFlightId(id)) {
+            return flightDAO.deleteFlight(id);
+        }
+        return null;
     }
 
     @Override
