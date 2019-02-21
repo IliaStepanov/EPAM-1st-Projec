@@ -34,7 +34,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket addTicket(Ticket ticket) {
-        Flight flight = ((FlightServiceImpl) flightService).getUpdatedFlightById(ticket.getFlight().getId());
+        Flight flight = ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(ticket.getFlight().getId());
         User user = userService.getById(ticket.getUser().getId());
         ticket.setFlight(flight);
         ticket.setUser(user);

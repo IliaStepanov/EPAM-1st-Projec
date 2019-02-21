@@ -27,7 +27,7 @@ public class FlightController {
 
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllUpdatedFlights());
+        model.addAttribute("flights", flightService.getAllFlights());
         return "flights";
     }
 
@@ -40,7 +40,7 @@ public class FlightController {
 
     @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
-        model.addAttribute("flight", ((FlightServiceImpl) flightService).getUpdatedFlightById(id));
+        model.addAttribute("flight", ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(id));
         return "buy";
     }
 
@@ -57,7 +57,7 @@ public class FlightController {
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
         return "search";
     }
 

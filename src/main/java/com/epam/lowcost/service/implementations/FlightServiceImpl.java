@@ -17,13 +17,18 @@ public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
 
-    public List<Flight> getAllUpdatedFlights() {
+    public List<Flight> getAllFlightsWithUpdatedPrice() {
         List<Flight> flights = getAllFlights();
-        for (Flight flight : flights) {
-            flight.setInitialPrice(updateFlightPrice(flight));
-        }
+        flights.forEach(f -> updateFlightPrice(f));
 
         return flights;
+    }
+
+    public Flight getFlightByIdWithUpdatedPrice(Long id) {
+        Flight flight = getById(id);
+        updateFlightPrice(flight);
+
+        return flight;
     }
 
     @Override
@@ -42,12 +47,6 @@ public class FlightServiceImpl implements FlightService {
         return flightDAO.addNewFlight(flight);
     }
 
-    public Flight getUpdatedFlightById(Long id) {
-        Flight flight = getById(id);
-        flight.setInitialPrice(updateFlightPrice(flight));
-        return flight;
-    }
-
     @Override
     public Flight updateFlight(Flight flight) {
         return flightDAO.updateFlight(flight);
@@ -63,16 +62,25 @@ public class FlightServiceImpl implements FlightService {
         return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
     }
 
-    private long updateFlightPrice(Flight flight) {
+    private long calculateInitialFlightPriceByDate(long daysBetween, long minPrice) {
+        long daysNumber = 60;//min number of days for price rising
+        long price;
+        if (daysBetween > daysNumber) {
+            price = minPrice;
+        }
+        else{
+            price = (long) (minPrice + (daysNumber - daysBetween) * (daysNumber - daysBetween) * (minPrice / ((double)daysNumber*daysNumber)));
+        }
+
+        return price;
+    }
+
+    private void updateFlightPrice(Flight flight){
         LocalDateTime dateAfter = flight.getDepartureDate();
         LocalDateTime dateBefore = LocalDateTime.now();
         long daysBetween = DAYS.between(dateBefore, dateAfter);
         long minPrice = flight.getInitialPrice();
-        long price = (long) (minPrice + (60 - daysBetween) * (60 - daysBetween) * (minPrice / 3600.0));
-        if (daysBetween > 60) {
-            price = minPrice;
-        }
-        return price;
+        flight.setInitialPrice(calculateInitialFlightPriceByDate(daysBetween, minPrice));
     }
 
 }
