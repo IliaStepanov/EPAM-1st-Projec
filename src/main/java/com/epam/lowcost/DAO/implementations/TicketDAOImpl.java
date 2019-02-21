@@ -147,7 +147,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     public boolean deleteTicketsByFlightId(long id) {
-        int required = 0, updated = 0;
+        int required, updated;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
@@ -165,7 +165,7 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     public boolean deleteTicketsByUserId(long id) {
-        int required = 0, updated = 0;
+        int required, updated;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
