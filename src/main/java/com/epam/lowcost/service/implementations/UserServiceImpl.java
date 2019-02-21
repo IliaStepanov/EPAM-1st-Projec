@@ -5,7 +5,9 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
@@ -50,8 +52,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsersByPage(int pageId, int total) {
-        return userDAO.getUsersByPage(pageId, total);
+    public Map<String, Object> getUsersByPage(int pageId, int total) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int users = userDAO.countUsers();
+        int pagesNum;
+        if (users % total != 0) {
+            pagesNum = (users / total + 1);
+        } else {
+            pagesNum = (users / total);
+        }
+        if (pageId >= pagesNum) {
+            pageId = pagesNum;
+        }
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("users", userDAO.getUsersByPage(pageId, total));
+        pageInfo.put("pagesNum", pagesNum);
+
+
+        return pageInfo;
     }
 
     @Override

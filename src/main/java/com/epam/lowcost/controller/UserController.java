@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 import static com.epam.lowcost.util.EndPoints.*;
@@ -27,24 +26,12 @@ public class UserController {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        int usersByPage = 5;
+        int usersByPage = 2;
 
-        if (pageId <= 0) {
-            pageId = 1;
-        }
-        int users = userService.countUsers();
-        int pagesNum;
-        if (users % usersByPage != 0) {
-            pagesNum = (users / usersByPage + 1);
-        } else {
-            pagesNum = (users / usersByPage);
-        }
-        if (pageId >= pagesNum) {
-            pageId = pagesNum;
-        }
-        List<User> list = userService.getUsersByPage(pageId, usersByPage);
-        model.addAttribute("pagesNum", pagesNum);
-        model.addAttribute("users", list);
+        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("users", pageRepresentation.get("users"));
         model.addAttribute("pageId", pageId);
         return "users";
     }
