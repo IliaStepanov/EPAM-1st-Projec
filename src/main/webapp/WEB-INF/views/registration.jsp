@@ -10,7 +10,7 @@
 <html>
 <head>
     <title><spring:message code="lang.registrationPage"/></title>
-    <div align="right"> <a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></div>
+    <div align="right"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></div>
 </head>
 <body>
 <h5><spring:message code="lang.fillForm"/></h5>

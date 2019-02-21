@@ -13,7 +13,10 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="navigationPanel.jsp"/>
 <h4>Update flight.</h4>
+
+
 <form action="<%=EndPoints.FLIGHTS + EndPoints.UPDATE%>" method="post">
     <input type="hidden" name="id" value="${flight.id}"/>
     <input type="text" required name="planeId" value="${flight.plane.id}"/> <spring:message code="lang.planeId"/><br/>
