@@ -30,6 +30,7 @@
             <td>${user.email}</td>
         </tr>
     </c:forEach>
+
 </table>
 <br/>
 
@@ -41,7 +42,7 @@
 
 
 <br/>
-${user}<br/> <h4>${message}</h4>
+<h4>${message}</h4>
 
 
 <h4><spring:message code="lang.findUserById"/></h4>

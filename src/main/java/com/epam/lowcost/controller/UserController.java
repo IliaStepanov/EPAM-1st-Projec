@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.epam.lowcost.util.EndPoints.*;
@@ -42,7 +44,9 @@ public class UserController {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        model.addAttribute("user", userService.getById(id));
+        List<User> user = new ArrayList<>();
+        user.add(userService.getById(id));
+        model.addAttribute("users", user);
         model.addAttribute("message", "Here is your User!");
         return "users";
     }
