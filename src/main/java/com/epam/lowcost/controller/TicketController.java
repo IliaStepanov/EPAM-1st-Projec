@@ -35,13 +35,12 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping(value = ADD)
+    @PostMapping
     public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
                             @RequestParam Map<String, String> params, Model model) {
-        User user = new User();
-        user.setId(sessionUser.getId());
-        Flight flight = new Flight();
-        flight.setId(Long.parseLong(params.get("flightId")));
+        Flight flight = Flight.builder()
+                .id(Long.parseLong(params.get("flightId")))
+                .build();
 
         model.addAttribute("ticket", ticketService.addTicket(
                 Ticket.builder()

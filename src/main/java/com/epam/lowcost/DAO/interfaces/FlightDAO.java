@@ -9,11 +9,11 @@ import java.util.List;
 public interface FlightDAO {
     List<Flight> getAllFlights();
 
-    Flight getById(Long id);
+    Flight getById(long id);
 
     Flight addNewFlight(Flight flight);
 
-    Flight deleteFlight(Long id);
+    String deleteFlight(long id);
 
     Flight updateFlight(Flight flight);
 

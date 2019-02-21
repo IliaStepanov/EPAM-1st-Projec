@@ -39,7 +39,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
     <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
     <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
-    <input type="date" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
+    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
     <input type="submit" value="OK"/>
 </form>
 <br/><br/>
@@ -52,7 +52,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
     <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
     <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
-    <input type="date" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
+    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
     <input type="submit" value="OK"/>
 </form>
 
