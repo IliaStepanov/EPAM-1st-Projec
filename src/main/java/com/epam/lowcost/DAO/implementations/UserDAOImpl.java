@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl  implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
     private DataSource dataSource;
     private RowMapper<User> rowMapper;
@@ -142,9 +142,9 @@ public class UserDAOImpl  implements UserDAO {
 
     @Override
     public List<User> getUsersByPage(int pageId, int total) {
-        pageId = pageId -1;
+        pageId = pageId - 1;
 
-        if(pageId > 0){
+        if (pageId > 0) {
             pageId = pageId * total;
         }
 
@@ -157,6 +157,6 @@ public class UserDAOImpl  implements UserDAO {
     @Override
     public int countUsers() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM USERS WHERE isDeleted=false",Integer.class);
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM USERS WHERE isDeleted=false", Integer.class);
     }
 }

@@ -5,6 +5,7 @@ import com.epam.lowcost.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = USER)
-@SessionAttributes(value = "sessionUser")
+@SessionAttributes({"sessionUser", "number"})
 public class UserController {
 
     @Autowired
@@ -24,18 +25,25 @@ public class UserController {
 
 
     @GetMapping(value = "all/{pageId}")
-    public String getAllUsers(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
+    public String getAllUsers(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, ModelMap model) {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        int usersByPage = 2;
+
+        int usersByPage = (int) model.getOrDefault("number", 5);
 
         Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("users", pageRepresentation.get("users"));
-        model.addAttribute("pageId", pageId);
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         return "users";
+    }
+
+    @GetMapping(value = "/setUsersByPage")
+    public String setUsersByPage(@RequestParam String number, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:/user/all/1";
     }
 
 

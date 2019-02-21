@@ -14,10 +14,29 @@
 
 
 <br/><br/>
-<a href="<%=EndPoints.USER + EndPoints.ALL + "/0"%>"><spring:message code="lang.allUsers"/></a><br/><br/>
+<a href="<%=EndPoints.USER + EndPoints.ALL + "/1"%>"><spring:message code="lang.allUsers"/></a><br/><br/>
+
+<div>
+    <form action="/user/setUsersByPage" method="get">
+        <input type="hidden" name="number" value="1"/>
+        <input type="submit" value="Show Users by 1"/>
+    </form>
+    <form action="/user/setUsersByPage" method="get">
+        <input type="hidden" name="number" value="3"/>
+        <input type="submit" value="Show Users by 3"/>
+    </form>
+    <form action="/user/setUsersByPage" method="get">
+        <input type="hidden" name="number" value="5"/>
+        <input type="submit" value="Show Users by 5"/>
+    </form>
+    <form action="/user/setUsersByPage" method="get">
+        <input type="hidden" name="number" value="20"/>
+        <input type="submit" value="Show Users by 20"/>
+    </form>
+</div>
 
 <h1>All Users</h1>
-<table border="2" width="70%" cellpadding="2">
+<table border="12" width="70%" cellpadding="2">
     <tr>
         <th>Id</th>
         <th>Name</th>
