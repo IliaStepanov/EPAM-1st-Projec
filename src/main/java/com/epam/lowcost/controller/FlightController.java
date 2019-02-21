@@ -27,7 +27,7 @@ public class FlightController {
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
-        return "search";
+        return "flights";
     }
 
     @GetMapping
@@ -36,32 +36,41 @@ public class FlightController {
         return "flightSettings";
     }
 
-    @GetMapping(value = "/new-ticket")
+
+    @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         return "buy";
     }
 
-    @GetMapping(value = "/return")
+    @GetMapping(value = RETURN)
     public String goToSearchPage() {
-        return "redirect:/flights/all";
+        return "redirect:" + FLIGHTS + FLIGHT;
     }
 
 
-    @GetMapping(value = "add")
+    @GetMapping(value = ADD)
     public String addNewFlight() {
-        return "flights";
+        return "addFlight";
     }
 
+    @GetMapping(value = FLIGHT)
+    public String searchForFlight(Model model) {
+        model.addAttribute("flights", flightService.getAllFlights());
+        return "search";
+    }
 
     @GetMapping(value = SEARCH)
-
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("flights", flightService.getByFromToDate
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
+        if (params.get("adminPage").equals("true")) {
+            return "flights";
+        }
         return "search";
+
     }
 
     @PostMapping

@@ -27,6 +27,7 @@ public final class TicketRowMapper implements RowMapper<Ticket> {
                 .isBusiness(rs.getBoolean("isBusiness"))
                 .hasLuggage(rs.getBoolean("hasLuggage"))
                 .placePriority(rs.getBoolean("placePriority"))
+                .purchaseDate(rs.getTimestamp("purchaseDate").toLocalDateTime())
                 .price(rs.getLong("price"))
                 .isDeleted(false).build();
     }

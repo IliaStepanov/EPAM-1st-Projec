@@ -49,14 +49,4 @@ public class PlaneDAOImpl extends AbstractDAOImpl<Plane> implements PlaneDAO {
         return executeSqlUpdate(sql) == 1 ? String.format("UPDATE PLANES SET isDeleted=true WHERE id=%d", planeId)
                 : "Plane was not deleted";
     }
-
-    /* Plane extractUserFromRS(ResultSet rs) throws SQLException {
-        return Plane.builder()
-                .id(rs.getLong("id"))
-                .model(rs.getString("model"))
-                .businessPlacesNumber(rs.getInt("businessPlacesNumber"))
-                .economPlacesNumber(rs.getInt("economPlacesNumber"))
-                .isDeleted(rs.getBoolean("isDeleted"))
-                .build();
-    }*/
 }
