@@ -9,7 +9,9 @@ public interface TicketService {
 
     List<Ticket> getAllTickets();
 
-    int deleteTicketsByFlightId(long id);
+    void deleteTicketsByFlightId(long id);
+
+    void deleteTicketsByUserId(long id);
 
     Ticket addTicket(Ticket ticket);
 

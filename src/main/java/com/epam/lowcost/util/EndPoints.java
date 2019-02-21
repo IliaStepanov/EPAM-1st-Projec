@@ -35,6 +35,7 @@ public final class EndPoints {
 
     public static final String TICKETS = "/tickets";
     public static final String SELF = "/self";
+    public static final String CANCEL = "/cancel";
 
 //  User Controller endpoints
 

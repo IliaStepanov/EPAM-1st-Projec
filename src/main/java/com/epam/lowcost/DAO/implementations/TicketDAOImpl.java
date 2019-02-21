@@ -146,19 +146,29 @@ public class TicketDAOImpl implements TicketDAO {
         return ticket;
     }
 
-    public int deleteTicketsByFlightId(long id) {
-        int n;
+    public void deleteTicketsByFlightId(long id) {
+
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
-            String sql = "UPDATE TICKETS SET isDeleted =? WHERE flightId = ?";
-            n = jdbcTemplate.update(sql, true, id);
+            String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.flightId = ?";
+            jdbcTemplate.update(sql, id);
         } catch (EmptyResultDataAccessException e) {
-            return 0;
-        }
-        return n;
 
+        }
     }
+    public void deleteTicketsByUserId(long id) {
+
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
+            jdbcTemplate.update(sql, id);
+        } catch (EmptyResultDataAccessException e) {
+
+        }
+    }
+
+
+
 
 
     public int countBusinessPlaces(long id) {
