@@ -149,7 +149,7 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("message", userService.deleteUser(id));
-        return "users";
+        return "redirect:/user/all/1";
     }
 
 }

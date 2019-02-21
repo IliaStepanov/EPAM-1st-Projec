@@ -148,7 +148,7 @@ public class UserDAOImpl implements UserDAO {
             pageId = pageId * total;
         }
 
-        String sql = "SELECT * FROM USERS LIMIT " + (pageId) + "," + total;
+        String sql = "SELECT * FROM USERS WHERE isDeleted=false LIMIT " + (pageId) + "," + total;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         return jdbcTemplate.query(sql, rowMapper);
 
