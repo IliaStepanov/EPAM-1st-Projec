@@ -77,11 +77,11 @@
         <input type="hidden" name="flightId" value="${flight.id}"/>
         <output id="price">${flight.initialPrice}</output>
         </br> <input type="submit" value="<spring:message code="lang.buy"/>"/>
+    </form>
 
 
-        <form action="${pageContext.request.contextPath}/flights/return" method="get">
-            </br> <input type="submit" value="<spring:message code="lang.cancel"/>"/>
-        </form>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.RETURN%>" method="get">
+        </br> <input type="submit" value="<spring:message code="lang.cancel"/>"/>
     </form>
 
 
