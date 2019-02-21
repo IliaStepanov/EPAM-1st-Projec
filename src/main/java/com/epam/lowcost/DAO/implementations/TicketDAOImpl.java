@@ -3,6 +3,7 @@ package com.epam.lowcost.DAO.implementations;
 
 import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Ticket;
+import com.epam.lowcost.util.DateFormatter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +64,10 @@ public class TicketDAOImpl implements TicketDAO {
     @Override
     public Ticket addTicket(Ticket ticket) {
         String sql = String.format(
-                "INSERT INTO TICKETS (userId, flightId, isBusiness, hasLuggage,placePriority, price, isDeleted) " +
-                        "VALUES ('%d', '%d', '%b', '%b', '%b', '%d', false)",
+                "INSERT INTO TICKETS (userId, flightId, isBusiness, hasLuggage, placePriority, price, purchaseDate, isDeleted) " +
+                        "VALUES ('%d', '%d', '%b', '%b', '%b', '%d', '%s', false)",
                 ticket.getUser().getId(), ticket.getFlight().getId(), ticket.isBusiness(), ticket.isHasLuggage(),
-                ticket.isPlacePriority(), ticket.getPrice());
+                ticket.isPlacePriority(), ticket.getPrice(), DateFormatter.format(LocalDateTime.now()));
 
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()

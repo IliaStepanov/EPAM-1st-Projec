@@ -20,6 +20,7 @@
     <spring:message code="lang.departureAirport"/> <c:out value="${ticket.flight.departureAirport}"/><br/>
     <spring:message code="lang.destination"/> <c:out value="${ticket.flight.arrivalAirport}"/><br/>
     <spring:message code="lang.date"/> <c:out value="${ticket.flight.departureDate}"/><br/>
+    <spring:message code="lang.price"/> <c:out value="${ticket.price}"/><br/>
     <input type="button"
            onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')"
            value="<spring:message code="lang.details"/>"/>
