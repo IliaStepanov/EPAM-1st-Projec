@@ -1,10 +1,10 @@
 package com.epam.lowcost.service.implementations;
 
 import com.epam.lowcost.DAO.interfaces.FlightDAO;
-import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
+import com.epam.lowcost.service.interfaces.TicketService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,12 +12,15 @@ import java.util.List;
 public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
-    private TicketDAO ticketDAO;
+    private TicketService ticketService;
 
-    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService, TicketDAO ticketDAO) {
+    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService) {
         this.flightDAO = flightDAO;
         this.planeService = planeService;
-        this.ticketDAO = ticketDAO;
+    }
+
+    public void setTicketService (TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight deleteFlight(Long id) {
-        if (ticketDAO.deleteTicketsByFlightId(id)) {
+        if (ticketService.deleteTicketsByFlightId(id)) {
             return flightDAO.deleteFlight(id);
         }
         return null;
