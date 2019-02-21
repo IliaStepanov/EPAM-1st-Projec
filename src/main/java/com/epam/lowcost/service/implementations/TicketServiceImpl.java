@@ -16,9 +16,15 @@ public class TicketServiceImpl implements TicketService {
     private FlightService flightService;
 
 
-    public TicketServiceImpl(TicketDAO ticketDAO, UserService userService, FlightService flightService) {
+    public TicketServiceImpl(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
+    }
+
+    public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public void setFlightService(FlightService flightService) {
         this.flightService = flightService;
     }
 

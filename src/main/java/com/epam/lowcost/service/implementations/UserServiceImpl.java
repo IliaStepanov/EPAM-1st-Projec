@@ -3,6 +3,7 @@ package com.epam.lowcost.service.implementations;
 import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.DAO.interfaces.UserDAO;
 import com.epam.lowcost.model.User;
+import com.epam.lowcost.service.interfaces.TicketService;
 import com.epam.lowcost.service.interfaces.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -11,11 +12,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private UserDAO userDAO;
-    private TicketDAO ticketDAO;
+    private TicketService ticketService;
 
-    public UserServiceImpl(UserDAO userDAO, TicketDAO ticketDAO) {
+    public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
-        this.ticketDAO = ticketDAO;
+    }
+
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -42,8 +46,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUser(long userId) {
-        ticketDAO.deleteTicketsByUserId(userId);
-        return userDAO.deleteUser(userId);
+       if (ticketService.deleteTicketsByUserId(userId)) {
+           return userDAO.deleteUser(userId);
+       }
+       return null;
     }
 
     @Override
