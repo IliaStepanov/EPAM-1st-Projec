@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByPage(int pageId, int total) {
         return userDAO.getUsersByPage(pageId, total);
     }
+
+    @Override
+    public int countUsers() {
+        return userDAO.countUsers();
+    }
 }

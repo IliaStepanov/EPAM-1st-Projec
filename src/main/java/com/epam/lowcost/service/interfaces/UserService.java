@@ -18,4 +18,6 @@ public interface UserService {
     User verifyUser(String log, String pass);
 
     List<User> getUsersByPage(int pageId, int total);
+
+    int countUsers();
 }

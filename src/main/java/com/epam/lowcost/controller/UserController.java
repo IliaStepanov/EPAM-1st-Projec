@@ -23,39 +23,31 @@ public class UserController {
 
 
     @GetMapping(value = "all/{pageId}")
-    public String getAllUsers (@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, @ModelAttribute(value = "usersByPage") String usersByPage, Model model){
+    public String getAllUsers(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
+        int usersByPage = 5;
 
-        if(usersByPage.equals("")){
-            usersByPage = "5";
-        }
-
-        int usersOnPage = Integer.parseInt(usersByPage);
-        if(usersOnPage <= 0)
-        {
-            usersOnPage = 10;
-        }
-        if(pageId <= 0){
+        if (pageId <= 0) {
             pageId = 1;
         }
-            int pagesNum = (int)Math.ceil(userService.getAllUsers().size()/ 1);
-        if(pageId >= pagesNum){
+        int users = userService.countUsers();
+        int pagesNum;
+        if (users % usersByPage != 0) {
+            pagesNum = (users / usersByPage + 1);
+        } else {
+            pagesNum = (users / usersByPage);
+        }
+        if (pageId >= pagesNum) {
             pageId = pagesNum;
         }
-
-        List<User> list = userService.getUsersByPage(pageId, 1);
-
+        List<User> list = userService.getUsersByPage(pageId, usersByPage);
         model.addAttribute("pagesNum", pagesNum);
         model.addAttribute("users", list);
-        model.addAttribute("pageId",pageId);
-                return "users";
-
+        model.addAttribute("pageId", pageId);
+        return "users";
     }
-
-
-
 
 
     @GetMapping

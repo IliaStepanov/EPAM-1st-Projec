@@ -16,11 +16,6 @@
 <br/><br/>
 <a href="<%=EndPoints.USER + EndPoints.ALL + "/0"%>"><spring:message code="lang.allUsers"/></a><br/><br/>
 
-
-<div align="right"> Show Users by <form action="/user/all/1" method="get">
-    <input type="radio" name="usersByPage" value="1"/>
-    <input type="submit" value="Submit"/>
-</form> </div>
 <h1>All Users</h1>
 <table border="2" width="70%" cellpadding="2">
     <tr>
@@ -38,12 +33,11 @@
 </table>
 <br/>
 
-<a href="/user/all/${pageId-1}"><B></B>Previous</a>
+<a href="/user/all/${pageId-1}">Previous</a>
 <c:forEach var="page" begin="1" end="${pagesNum}">
     <a href="/user/all/${page}">${page}</a>
 </c:forEach>
 <a href="/user/all/${pageId+1}">Next</a>
-
 
 
 <br/>
@@ -64,7 +58,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
     <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
     <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
-    <input type="date" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
+    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
     <input type="submit" value="OK"/>
 </form>
 <br/><br/>
@@ -77,7 +71,7 @@ ${user}<br/> <h4>${message}</h4>
     <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
     <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
     <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
-    <input type="date" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
+    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
     <input type="submit" value="OK"/>
 </form>
 
