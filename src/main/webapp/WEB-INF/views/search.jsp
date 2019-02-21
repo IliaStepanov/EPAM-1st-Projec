@@ -1,4 +1,5 @@
 <%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@page import="java.time.LocalDateTime" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -34,11 +35,13 @@
     <h3>
 
 
+
         <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
         <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport}"/><br/>
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
         <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
         <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
+
 
 
     </h3>

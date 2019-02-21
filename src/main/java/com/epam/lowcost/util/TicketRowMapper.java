@@ -13,7 +13,7 @@ public final class TicketRowMapper implements RowMapper<Ticket> {
     private RowMapper<Flight> flightRowMapper;
     private RowMapper<User> userRowMapper;
 
-    public TicketRowMapper(RowMapper<Flight> flightRowMapper, RowMapper<User> userRowMapper) {
+    private TicketRowMapper(RowMapper<Flight> flightRowMapper, RowMapper<User> userRowMapper) {
         this.flightRowMapper = flightRowMapper;
         this.userRowMapper = userRowMapper;
     }

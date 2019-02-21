@@ -6,7 +6,6 @@ import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.UserService;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.awt.*;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {

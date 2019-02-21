@@ -61,10 +61,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public  void deleteTicketsByFlightId(long id) {ticketDAO.deleteTicketsByFlightId(id);}
+    public  boolean deleteTicketsByFlightId(long id) { return ticketDAO.deleteTicketsByFlightId(id);}
 
     @Override
-    public void deleteTicketsByUserId(long id) {ticketDAO.deleteTicketsByUserId(id);}
+    public boolean deleteTicketsByUserId(long id) { return  ticketDAO.deleteTicketsByUserId(id);}
 
 
 }
