@@ -13,7 +13,7 @@
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.userSettings"/></title>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
-</head>
+    </head>
 <body>
 
 
@@ -21,7 +21,7 @@
 
 <form action="<%=EndPoints.USER + EndPoints.UPDATE%>" method="post">
     <input type="hidden" name="id" value="${sessionUser.id}"/>
-    <input type="email" value="${sessionUser.email}" name="email"/> <spring:message code="lang.newEmail"/> <br/>
+    <input type="email"  value="${sessionUser.email}" name="email"/> <spring:message code="lang.newEmail"/> <br/>
     <input type="hidden" name="password" value="${sessionUser.password}"/>
     <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
 

@@ -1,153 +1,45 @@
-CREATE TABLE USERS
-(
-  id           LONG AUTO_INCREMENT NOT NULL,
-  email        VARCHAR(255) UNIQUE,
-  password     VARCHAR(255),
-  isAdmin      BOOL,
-  firstName    VARCHAR(255),
-  lastName     VARCHAR(255),
-  documentInfo VARCHAR(255),
-  birthday     DATETIME,
-  isDeleted    BOOL,
-  PRIMARY KEY (id),
-  UNIQUE (email)
-);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('EMAIL@MAIL.COM', '$2a$10$JvCWszTWV.jjPaRy.gqYfOpBzpntX3/eIjOGWO.BE5inOHxTzJmUi', true, 'Thomas1', 'Testyman1',
-        '№1234 bestpassport ever', '2000-06-05 00:00:00', false);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('ExampleEmail2@google.com', '$2a$10$kPySdPurz7ObKctRfurc9eBOfgheI8kULb3f6CvhtHwf5uFCyJLV2', false, 'Thomas2',
-        'Testyman2', '№1234 bestpassport ever', '2000-06-04 00:00:00', false);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('ExampleEmail3@google.com', '$2a$10$vWb35EcZlonHWRCYMAY.1ud/4MaaThFV9EGIanNhAmqD5juym2qV6', false, 'Thomas3',
-        'Testyman3', '№1234 bestpassport ever', '2000-06-03 00:00:00', false);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('ExampleEmail4@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas4',
-        'Testyman4', '№1234 bestpassport ever', '2000-06-02 00:00:00', false);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('ExampleEmail5@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas5',
-        'Testyman5', '№1234 bestpassport ever', '2000-06-05 00:00:00', false);
-INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)
-VALUES ('ExampleEmail6@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas6',
-        'Testyman6', '№1234 bestpassport ever', '2000-06-05 00:00:00', false);
-CREATE TABLE PLANES
-(
-  id                   LONG AUTO_INCREMENT NOT NULL,
-  model                VARCHAR(255),
-  businessPlacesNumber NUMBER,
-  economPlacesNumber   NUMBER,
-  isDeleted            BOOL,
-  PRIMARY KEY (id)
-);
-INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted)
-VALUES ('Airbus A380', 25, 500, false);
-INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted)
-VALUES ('Boeing 777x', 30, 370, false);
-INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted)
-VALUES ('Boeinig 747-8', 100, 900, false);
-CREATE TABLE FLIGHTS
-(
-  id                 LONG AUTO_INCREMENT NOT NULL,
-  planeId            LONG                NOT NULL,
-  initialPrice       LONG,
-  departureAirport   VARCHAR(255),
-  arrivalAirport     VARCHAR(255),
-  departureDate      DATETIME,
-  arrivalDate        DATETIME,
-  isDeleted          BOOL,
-  luggagePrice       LONG,
-  placePriorityPrice LONG,
-  businessPrice      LONG,
-  PRIMARY KEY (id),
-  FOREIGN KEY (planeId) REFERENCES PLANES
-);
-INSERT INTO FLIGHTS(initialPrice, planeId, isDeleted, departureDate, arrivalDate, placePriorityPrice, businessPrice,
-                    luggagePrice, departureAirport, arrivalAirport)
-VALUES ('500', '1', FALSE, '2019-02-11 11:00:00', '2019-02-11 13:00:00', '1000', '5000', '1500', 'MOSCOW',
-        'SAINT-PETERSBURG');
-INSERT INTO FLIGHTS(initialPrice, planeId, isDeleted, departureDate, arrivalDate, placePriorityPrice, businessPrice,
-                    luggagePrice, departureAirport, arrivalAirport)
-VALUES ('1200', '2', FALSE, '2019-01-14 05:45:00', '2019-01-14 08:10:00', '800', '10000', '1900', 'SAINT-PETERSBURG',
-        'MAGNITOGORSK');
-INSERT INTO FLIGHTS(initialPrice, planeId, isDeleted, departureDate, arrivalDate, placePriorityPrice, businessPrice,
-                    luggagePrice, departureAirport, arrivalAirport)
-VALUES ('1500', '2', FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00', '600', '15000', '1800', 'MOSCOW', 'TOMSK');
-INSERT INTO FLIGHTS(initialPrice, planeId, isDeleted, departureDate, arrivalDate, placePriorityPrice, businessPrice,
-                    luggagePrice, departureAirport, arrivalAirport)
-VALUES ('2000', '3', FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00', '450', '8700', '900', 'TOMSK', 'HABAROVSK');
-CREATE TABLE TICKETS
-(
-  id            LONG AUTO_INCREMENT NOT NULL,
-  userId        LONG                NOT NULL,
-  flightId      LONG                NOT NULL,
-  isBusiness    BOOL,
-  hasLuggage    BOOL,
-  placePriority BOOL,
-  price         LONG,
-  isDeleted     BOOL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (userId) REFERENCES USERS (id) ON UPDATE CASCADE,
-  FOREIGN KEY (flightId) REFERENCES FLIGHTS (id) ON UPDATE CASCADE
-);
-INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted)
-VALUES (1, 1, TRUE, TRUE, TRUE, 1000, false);
-INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted)
-VALUES (1, 2, TRUE, TRUE, TRUE, 7000, false);
-INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted)
-VALUES (2, 2, FALSE, TRUE, FALSE, 2000, false);
-INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted)
-VALUES (3, 1, FALSE, FALSE, FALSE, 2000, false);
-CREATE TABLE AIRPORTS
-(
-  id         LONG AUTO_INCREMENT NOT NULL,
-  iataCode   VARCHAR(255),
-  nameEng    VARCHAR(255),
-  nameRus    VARCHAR(255),
-  cityEng    VARCHAR(255),
-  cityRus    VARCHAR(255),
-  countryEng VARCHAR(255),
-  countryRus VARCHAR(255),
-  PRIMARY KEY (id)
-);
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAA', 'Anaa', 'Анаа', 'Anaa', 'Анаа', 'French Polynesia', 'Французская Полинезия');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAK', 'Aranuka', 'Аранука', 'Aranuka', 'Аранука', 'Kiribati', 'Кирибати');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAL', 'Aalborg', 'Аальборг', 'Aalborg', 'Аальбург', 'Denmark', 'Дания');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAM', 'Mala Mala', 'Мала-Мала', 'Mala Mala', 'Мала-Мала', 'South Africa', 'ЮАР');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAN', 'Al Ain', 'Эль-Аин', 'Al Ain', 'Аль-Айн', 'United Arab Emirates', 'ОАЭ');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAO', 'Anaco', 'Анако', 'Anaco', 'Анако', 'Venezuela', 'Венесуэла');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAQ', 'Vityazevo', 'Витязево', 'Anapa', 'Анапа', 'Russian Federation', 'Россия');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAT', 'Altay', 'Алтай', 'Altay', 'Алтай', 'China', 'Китай');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAU', 'Asau', 'Асау', 'Asau', 'Асау', 'Samoa', 'Самоа');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('AAY', 'Al Ghaydah', 'Аль-Гайда', 'Al Ghaydah', 'Аль-Гайда', 'Yemen', 'Йемен');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABA', 'Abakan', 'Абакан', 'Abakan', 'Абакан', 'Russian Federation', 'Россия');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABD', 'Abadan', 'Абадан', 'Abadan', 'Абадан', 'Iran', 'Иран');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABF', 'Abaiang', 'Абайянг', 'Abaiang', 'Абайянг', 'Kiribati', 'Кирибати');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABG', 'Abingdon', 'Абингдон', 'Abingdon', 'Абингдон', 'Australia', 'Австралия');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABK', 'Kabri Dar', 'Кабри-Дар', 'Kabri Dar', 'Кабри-Дар', 'Ethiopia', 'Эфиопия');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABN', 'Albina', 'Альбина', 'Albina', 'Альбина', 'Suriname', 'Суринам');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABP', 'Atkamba', 'Аткамба', 'Atkamba', 'Аткамба', 'Papua New Guinea', 'Папуа - Новая Гвинея');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABS', 'Abu Simbel', 'Абу-Симбель', 'Abu Simbel', 'Абу-Симбель', 'Egypt', 'Египет');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABW', 'Abau', 'Абау', 'Abau', 'Абау', 'Papua New Guinea', 'Папуа - Новая Гвинея');
-INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus)
-VALUES ('ABX', 'Albury', 'Элбери', 'Albury', 'Элбери', 'Australia', 'Австралия');
+CREATE TABLE USERS(id LONG AUTO_INCREMENT NOT NULL, email VARCHAR(255) UNIQUE, password VARCHAR(255), isAdmin BOOL, firstName VARCHAR(255), lastName VARCHAR(255), documentInfo VARCHAR(255), birthday DATETIME, isDeleted BOOL, PRIMARY KEY (id),UNIQUE (email));
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('EMAIL@MAIL.COM', '$2a$10$JvCWszTWV.jjPaRy.gqYfOpBzpntX3/eIjOGWO.BE5inOHxTzJmUi',true ,'Thomas1','Testyman1','№1234 bestpassport ever','2000-06-05 00:00:00',false);
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('ExampleEmail2@google.com', '$2a$10$kPySdPurz7ObKctRfurc9eBOfgheI8kULb3f6CvhtHwf5uFCyJLV2',false,'Thomas2','Testyman2','№1234 bestpassport ever','2000-06-04 00:00:00',false);
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('ExampleEmail3@google.com', '$2a$10$vWb35EcZlonHWRCYMAY.1ud/4MaaThFV9EGIanNhAmqD5juym2qV6',false,'Thomas3','Testyman3','№1234 bestpassport ever','2000-06-03 00:00:00',false);
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted) VALUES ('ExampleEmail4@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22',false,'Thomas4','Testyman4','№1234 bestpassport ever','2000-06-02 00:00:00',false);
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)VALUES ('ExampleEmail5@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas5', 'Testyman5', '№1234 bestpassport ever', '2000-06-05 00:00:00', false);
+INSERT INTO USERS (email, password, isAdmin, firstName, lastName, documentInfo, birthday, isDeleted)VALUES ('ExampleEmail6@google.com', '$2a$10$QSDvYQUH8iszQStjWwoVjuLM58Z9SCxE3ZvHTABTn1nTAdhoLPw22', false, 'Thomas6', 'Testyman6', '№1234 bestpassport ever', '2000-06-05 00:00:00', false);
+CREATE TABLE PLANES(id LONG AUTO_INCREMENT NOT NULL, model VARCHAR(255), businessPlacesNumber NUMBER, economPlacesNumber NUMBER, isDeleted BOOL, PRIMARY KEY (id));
+INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Airbus A380',25,500,false);
+INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeing 777x',30,370,false);
+INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeinig 747-8',100,900,false);
+CREATE TABLE FLIGHTS(id LONG AUTO_INCREMENT NOT NULL, planeId LONG NOT NULL, initialPrice LONG, departureAirport VARCHAR (255), arrivalAirport VARCHAR (255), departureDate DATETIME, arrivalDate DATETIME, isDeleted BOOL, luggagePrice LONG, placePriorityPrice LONG,businessPrice LONG,  PRIMARY KEY(id), FOREIGN KEY (planeId) REFERENCES PLANES);
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate,placePriorityPrice,businessPrice,luggagePrice, departureAirport, arrivalAirport) VALUES ('500','1', FALSE, '2019-02-11 11:00:00', '2019-02-11 13:00:00', '1000', '5000', '1500', 'MOSCOW', 'SAINT-PETERSBURG');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate,placePriorityPrice,businessPrice,luggagePrice, departureAirport, arrivalAirport) VALUES ('1200','2',FALSE,'2019-01-14 05:45:00', '2019-01-14 08:10:00','800', '10000', '1900', 'SAINT-PETERSBURG', 'MAGNITOGORSK');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate,placePriorityPrice,businessPrice,luggagePrice, departureAirport, arrivalAirport) VALUES ('1500','2',FALSE, '2019-02-21 22:50:00', '2019-02-22 01:25:00','600', '15000', '1800', 'MOSCOW', 'TOMSK');
+INSERT INTO FLIGHTS(initialPrice,planeId, isDeleted, departureDate,arrivalDate,placePriorityPrice,businessPrice,luggagePrice, departureAirport, arrivalAirport) VALUES ('2000', '3',FALSE, '2019-03-17 14:30:00', '2019-03-18 00:05:00','450', '8700', '900', 'TOMSK', 'HABAROVSK');
+CREATE TABLE TICKETS(id LONG AUTO_INCREMENT NOT NULL, userId LONG NOT NULL, flightId LONG NOT NULL, isBusiness BOOL, hasLuggage BOOL, placePriority BOOL, price LONG, isDeleted BOOL, PRIMARY KEY (id), FOREIGN KEY (userId) REFERENCES USERS(id) ON UPDATE CASCADE, FOREIGN KEY (flightId) REFERENCES FLIGHTS(id) ON UPDATE CASCADE);
+INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (1, 1, TRUE, TRUE, TRUE, 1000, false);
+INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (1, 2, TRUE, TRUE, TRUE, 7000, false);
+INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (2, 2, FALSE, TRUE, FALSE, 2000, false);
+INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (3, 1, FALSE, FALSE, FALSE, 2000, false);
+CREATE TABLE AIRPORTS (id LONG AUTO_INCREMENT NOT NULL, iataCode VARCHAR(255), nameEng VARCHAR(255), nameRus VARCHAR(255), cityEng VARCHAR(255), cityRus VARCHAR(255), countryEng VARCHAR(255), countryRus VARCHAR(255), PRIMARY KEY (id));
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAA','Anaa','Анаа','Anaa','Анаа','French Polynesia','Французская Полинезия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAK','Aranuka','Аранука','Aranuka','Аранука','Kiribati','Кирибати');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAL','Aalborg','Аальборг','Aalborg','Аальбург','Denmark','Дания');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAM','Mala Mala','Мала-Мала','Mala Mala','Мала-Мала','South Africa','ЮАР');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAN','Al Ain','Эль-Аин','Al Ain','Аль-Айн','United Arab Emirates','ОАЭ');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAO','Anaco','Анако','Anaco','Анако','Venezuela','Венесуэла');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAQ','Vityazevo','Витязево','Anapa','Анапа','Russian Federation','Россия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAT','Altay','Алтай','Altay','Алтай','China','Китай');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAU','Asau','Асау','Asau','Асау','Samoa','Самоа');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAY','Al Ghaydah','Аль-Гайда','Al Ghaydah','Аль-Гайда','Yemen','Йемен');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABA','Abakan','Абакан','Abakan','Абакан','Russian Federation','Россия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABD','Abadan','Абадан','Abadan','Абадан','Iran','Иран');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABF','Abaiang','Абайянг','Abaiang','Абайянг','Kiribati','Кирибати');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABG','Abingdon','Абингдон','Abingdon','Абингдон','Australia','Австралия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABK','Kabri Dar','Кабри-Дар','Kabri Dar','Кабри-Дар','Ethiopia','Эфиопия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABN','Albina','Альбина','Albina','Альбина','Suriname','Суринам');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABP','Atkamba','Аткамба','Atkamba','Аткамба','Papua New Guinea','Папуа - Новая Гвинея');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABS','Abu Simbel','Абу-Симбель','Abu Simbel','Абу-Симбель','Egypt','Египет');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABW','Abau','Абау','Abau','Абау','Papua New Guinea','Папуа - Новая Гвинея');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABX','Albury','Элбери','Albury','Элбери','Australia','Австралия');
+
 
 
