@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl  implements UserDAO {
 
     private DataSource dataSource;
     private RowMapper<User> rowMapper;
@@ -144,7 +144,6 @@ public class UserDAOImpl implements UserDAO {
     public List<User> getUsersByPage(int pageid, int total) {
         String sql = "SELECT * FROM USERS LIMIT " + (pageid - 1) + "," + total;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        //int usersCount = jdbcTemplate.queryForObject("SELECT COUNT(id)FROM USERS",Integer.class);
         return jdbcTemplate.query(sql, rowMapper);
 
     }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import static com.epam.lowcost.util.EndPoints.*;
@@ -21,14 +22,41 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping(value = ALL)
-    public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
+    @GetMapping(value = "all/{pageId}")
+    public String getAllUsers (@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, @ModelAttribute(value = "usersByPage") String usersByPage, Model model){
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        model.addAttribute("users", userService.getAllUsers());
-        return "users";
+
+        if(usersByPage.equals("")){
+            usersByPage = "5";
+        }
+
+        int usersOnPage = Integer.parseInt(usersByPage);
+        if(usersOnPage <= 0)
+        {
+            usersOnPage = 10;
+        }
+        if(pageId <= 0){
+            pageId = 1;
+        }
+            int pagesNum = (int)Math.ceil(userService.getAllUsers().size()/ 1);
+        if(pageId >= pagesNum){
+            pageId = pagesNum;
+        }
+
+        List<User> list = userService.getUsersByPage(pageId, 1);
+
+        model.addAttribute("pagesNum", pagesNum);
+        model.addAttribute("users", list);
+        model.addAttribute("pageId",pageId);
+                return "users";
+
     }
+
+
+
+
 
     @GetMapping
     public String getById(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {

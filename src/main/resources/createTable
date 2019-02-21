@@ -17,4 +17,26 @@ INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, pri
 INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (1, 2, TRUE, TRUE, TRUE, 7000, false);
 INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (2, 2, FALSE, TRUE, FALSE, 2000, false);
 INSERT INTO TICKETS(userId, flightId, isBusiness, hasLuggage, placePriority, price, isDeleted) VALUES (3, 1, FALSE, FALSE, FALSE, 2000, false);
+CREATE TABLE AIRPORTS (id LONG AUTO_INCREMENT NOT NULL, iataCode VARCHAR(255), nameEng VARCHAR(255), nameRus VARCHAR(255), cityEng VARCHAR(255), cityRus VARCHAR(255), countryEng VARCHAR(255), countryRus VARCHAR(255), PRIMARY KEY (id));
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAA','Anaa','Анаа','Anaa','Анаа','French Polynesia','Французская Полинезия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAK','Aranuka','Аранука','Aranuka','Аранука','Kiribati','Кирибати');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAL','Aalborg','Аальборг','Aalborg','Аальбург','Denmark','Дания');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAM','Mala Mala','Мала-Мала','Mala Mala','Мала-Мала','South Africa','ЮАР');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAN','Al Ain','Эль-Аин','Al Ain','Аль-Айн','United Arab Emirates','ОАЭ');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAO','Anaco','Анако','Anaco','Анако','Venezuela','Венесуэла');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAQ','Vityazevo','Витязево','Anapa','Анапа','Russian Federation','Россия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAT','Altay','Алтай','Altay','Алтай','China','Китай');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAU','Asau','Асау','Asau','Асау','Samoa','Самоа');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAY','Al Ghaydah','Аль-Гайда','Al Ghaydah','Аль-Гайда','Yemen','Йемен');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABA','Abakan','Абакан','Abakan','Абакан','Russian Federation','Россия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABD','Abadan','Абадан','Abadan','Абадан','Iran','Иран');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABF','Abaiang','Абайянг','Abaiang','Абайянг','Kiribati','Кирибати');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABG','Abingdon','Абингдон','Abingdon','Абингдон','Australia','Австралия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABK','Kabri Dar','Кабри-Дар','Kabri Dar','Кабри-Дар','Ethiopia','Эфиопия');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABN','Albina','Альбина','Albina','Альбина','Suriname','Суринам');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABP','Atkamba','Аткамба','Atkamba','Аткамба','Papua New Guinea','Папуа - Новая Гвинея');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABS','Abu Simbel','Абу-Симбель','Abu Simbel','Абу-Симбель','Egypt','Египет');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABW','Abau','Абау','Abau','Абау','Papua New Guinea','Папуа - Новая Гвинея');
+INSERT INTO AIRPORTS (iataCode, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('ABX','Albury','Элбери','Albury','Элбери','Australia','Австралия');
+
 

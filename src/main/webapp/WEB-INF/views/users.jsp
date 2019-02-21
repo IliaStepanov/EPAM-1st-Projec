@@ -14,11 +14,36 @@
 
 
 <br/><br/>
-<a href="<%=EndPoints.USER + EndPoints.ALL%>"><spring:message code="lang.allUsers"/></a><br/><br/>
+<a href="<%=EndPoints.USER + EndPoints.ALL + "/0"%>"><spring:message code="lang.allUsers"/></a><br/><br/>
 
-<c:forEach items="${users}" var="user">
-    <c:out value="${user.toString()}"/><br/>
+
+<div align="right"> Show Users by <form action="/user/all/1" method="get">
+    <input type="radio" name="usersByPage" value="1"/>
+    <input type="submit" value="Submit"/>
+</form> </div>
+<h1>All Users</h1>
+<table border="2" width="70%" cellpadding="2">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <c:forEach var="user" items="${users}">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.firstName}</td>
+            <td>${user.email}</td>
+        </tr>
+    </c:forEach>
+</table>
+<br/>
+
+<a href="/user/all/${pageId-1}"><B></B>Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="/user/all/${page}">${page}</a>
 </c:forEach>
+<a href="/user/all/${pageId+1}">Next</a>
+
 
 
 <br/>
