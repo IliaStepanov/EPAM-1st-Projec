@@ -36,7 +36,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flight deleteFlight(Long id) {
+    public String deleteFlight(Long id) {
         return flightDAO.deleteFlight(id);
     }
 

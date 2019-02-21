@@ -39,7 +39,7 @@ public abstract class AbstractDAOImpl<T extends AbstractJdbcModel> {
     T executeSqlInsert(T model, String sql) throws DatabaseErrorException {
         try (Connection connection = dataSource.getConnection();
              Statement stm = connection.createStatement()) {
-            int insert = stm.executeUpdate(sql);
+            int insert = stm.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             if (insert == 1) {
                 try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
                     if (generatedKeys.next()) {

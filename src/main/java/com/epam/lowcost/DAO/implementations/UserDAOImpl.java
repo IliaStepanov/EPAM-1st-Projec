@@ -19,7 +19,7 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 
     @Override
     public List<User> getAllUsers() throws DatabaseErrorException {
-        String sql = "SELECT * FROM USERS WHERE isDeleted=false";
+        String sql = "SELECT * FROM USERS WHERE ISDELETED=FALSE";
         return executeSqlSelect(sql);
     }
 

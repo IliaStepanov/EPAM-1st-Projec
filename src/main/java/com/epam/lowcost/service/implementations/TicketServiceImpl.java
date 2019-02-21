@@ -56,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket deleteTicket(long id) {
+    public String deleteTicket(long id) {
         return ticketDAO.deleteTicket(id);
     }
 
