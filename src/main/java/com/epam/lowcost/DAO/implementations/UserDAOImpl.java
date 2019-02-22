@@ -71,4 +71,25 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
         return executeSqlUpdate(sql) == 1 ? String.format("User %d successfully deleted", userId)
                 : "User was not deleted";
     }
+
+
+    @Override
+    public List<User> getUsersByPage(int pageId, int total) {
+        pageId = pageId - 1;
+
+        if (pageId > 0) {
+            pageId = pageId * total;
+        }
+
+        String sql = "SELECT * FROM USERS WHERE isDeleted=false LIMIT " + (pageId) + "," + total;
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.query(sql, rowMapper);
+
+    }
+
+    @Override
+    public int countUsers() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM USERS WHERE isDeleted=false", Integer.class);
+    }
 }
