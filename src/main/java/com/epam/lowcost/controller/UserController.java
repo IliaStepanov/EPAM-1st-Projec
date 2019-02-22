@@ -149,8 +149,7 @@ public class UserController {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        if (sessionUser.getId() == id) {
-            System.out.println(sessionUser.getId() + "" + id);
+        if (sessionUser.getId() == id) {            
             model.addAttribute("message", "You cant delete yourself!");
             return "redirect:" + USER + ALL + FIRST_PAGE;
         }
