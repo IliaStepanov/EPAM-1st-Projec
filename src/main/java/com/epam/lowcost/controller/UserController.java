@@ -152,7 +152,7 @@ public class UserController {
         if (sessionUser.getId() == id) {
             System.out.println(sessionUser.getId() + "" + id);
             model.addAttribute("message", "You cant delete yourself!");
-            return "users";
+            return "redirect:" + USER + ALL + FIRST_PAGE;
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "redirect:" + USER + ALL + FIRST_PAGE;

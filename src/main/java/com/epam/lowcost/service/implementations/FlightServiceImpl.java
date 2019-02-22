@@ -14,7 +14,6 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
-@AllArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
