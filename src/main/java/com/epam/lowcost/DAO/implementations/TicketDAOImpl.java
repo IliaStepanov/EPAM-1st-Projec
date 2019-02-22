@@ -69,6 +69,29 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 : "Ticket was not deleted";
     }
 
+     public boolean deleteTicketsByFlightId(long id) {
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+            String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.flightId = ?";
+            jdbcTemplate.update(sql, id);
+            return true;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
+    }
+
+    public boolean deleteTicketsByUserId(long id) {
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
+            jdbcTemplate.update(sql, id);
+            return true;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
+    }
+
 
     public int numberBoughtPlaces(long flightId, boolean isBusiness) {
         Integer n;

@@ -22,8 +22,13 @@ import static com.epam.lowcost.util.EndPoints.*;
 @Controller
 @RequestMapping(value = FLIGHTS)
 public class FlightController {
-    @Autowired
+
     FlightService flightService;
+
+    @Autowired
+    public FlightController(FlightService flightService) {
+        this.flightService = flightService;
+    }
 
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
@@ -63,7 +68,7 @@ public class FlightController {
 
     @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("flights", flightService.getByFromToDate
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
