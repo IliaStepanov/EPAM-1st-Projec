@@ -25,7 +25,7 @@ public class FlightServiceImpl implements FlightService {
         this.planeService = planeService;
     }
 
-    public void setTicketService (TicketService ticketService) {
+    public void setTicketService(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 

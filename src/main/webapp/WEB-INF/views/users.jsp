@@ -20,18 +20,22 @@
 <div>
     <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="1"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
         <input type="submit" value="Show Users by 1"/>
     </form>
     <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="3"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
         <input type="submit" value="Show Users by 3"/>
     </form>
     <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="5"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
         <input type="submit" value="Show Users by 5"/>
     </form>
     <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="20"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
         <input type="submit" value="Show Users by 20"/>
     </form>
 </div>
