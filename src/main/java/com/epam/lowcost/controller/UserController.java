@@ -5,6 +5,7 @@ import com.epam.lowcost.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -125,9 +126,15 @@ public class UserController {
     }
 
     @PostMapping(value = DELETE)
-    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {
+    public String deleteUser(@RequestParam long id, ModelMap model) {
+        User sessionUser = (User) model.get("sessionUser");
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
+        }
+        if (sessionUser.getId() == id) {
+            System.out.println(sessionUser.getId() + "" + id);
+            model.addAttribute("message", "You cant delete yourself!");
+            return "users";
         }
         model.addAttribute("message", userService.deleteUser(id));
         return "users";
