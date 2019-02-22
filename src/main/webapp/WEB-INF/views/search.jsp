@@ -63,6 +63,16 @@
 </c:forEach>
 <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId+1}">Next</a>
 <div>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.SET_FLIGHT_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="3"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"/>
+        <input type="submit" value="Show Flights by 3"/>
+    </form>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.SET_FLIGHT_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="5"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"/>
+        <input type="submit" value="Show Flights by 5"/>
+    </form>
 
 </div>
 

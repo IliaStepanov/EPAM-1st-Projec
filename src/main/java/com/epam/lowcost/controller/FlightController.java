@@ -44,9 +44,12 @@ public class FlightController {
     }
 
     @GetMapping(value = SET_FLIGHT_BY_PAGE)
-    public String setFlightsByPage(@RequestParam String number, Model model) {
+    public String setFlightsByPage(@RequestParam String number,@RequestParam String fromPage, ModelMap model) {
         model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
+        String redirectTo = fromPage;
+        System.out.println(redirectTo);
+
+        return "redirect:" + redirectTo + FIRST_PAGE;
     }
 
     @GetMapping
