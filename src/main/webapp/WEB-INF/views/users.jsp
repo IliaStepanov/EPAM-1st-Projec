@@ -65,11 +65,11 @@
 </table>
 <br/>
 
-<a href="<%=EndPoints.USER + EndPoints.ALL%>+/${pageId-1}">Previous</a>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>/${pageId-1}">Previous</a>
 <c:forEach var="page" begin="1" end="${pagesNum}">
     <a href="<%=EndPoints.USER + EndPoints.ALL%>/${page}">${page}</a>
 </c:forEach>
-<a href="<%=EndPoints.USER + EndPoints.ALL%>+/${pageId+1}">Next</a>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>/${pageId+1}">Next</a>
 
 
 <br/>
