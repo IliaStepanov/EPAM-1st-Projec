@@ -42,6 +42,8 @@ public final class EndPoints {
     public static final String ENROLL = "/enroll";
     public static final String SETTINGS = "/settings";
     public static final String CHANGE_PASSWORD = "/change-password";
+    public static final String SET_USERS_BY_PAGE = "/setUsersByPage";
+    public static final String FIRST_PAGE = "/1";
 
 
 }

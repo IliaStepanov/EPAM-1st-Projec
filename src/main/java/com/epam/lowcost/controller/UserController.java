@@ -24,7 +24,7 @@ public class UserController {
     UserService userService;
 
 
-    @GetMapping(value = "all/{pageId}")
+    @GetMapping(value = ALL + "/{pageId}")
     public String getAllUsers(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, ModelMap model) {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
@@ -40,10 +40,10 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = "/setUsersByPage")
+    @GetMapping(value = SET_USERS_BY_PAGE)
     public String setUsersByPage(@RequestParam String number, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:" + USER + ALL +"/1";
+        return "redirect:" + USER + ALL + FIRST_PAGE;
     }
 
 
@@ -149,7 +149,7 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("message", userService.deleteUser(id));
-        return "redirect:" + USER + ALL +"/1";
+        return "redirect:" + USER + ALL + FIRST_PAGE;
     }
 
 }

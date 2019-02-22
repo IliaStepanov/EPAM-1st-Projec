@@ -15,22 +15,22 @@
 
 
 <br/><br/>
-<a href="<%=EndPoints.USER + EndPoints.ALL + "/1"%>"><spring:message code="lang.allUsers"/></a><br/><br/>
+<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>"><spring:message code="lang.allUsers"/></a><br/><br/>
 
 <div>
-    <form action="/user/setUsersByPage" method="get">
+    <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="1"/>
         <input type="submit" value="Show Users by 1"/>
     </form>
-    <form action="/user/setUsersByPage" method="get">
+    <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="3"/>
         <input type="submit" value="Show Users by 3"/>
     </form>
-    <form action="/user/setUsersByPage" method="get">
+    <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="5"/>
         <input type="submit" value="Show Users by 5"/>
     </form>
-    <form action="/user/setUsersByPage" method="get">
+    <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
         <input type="hidden" name="number" value="20"/>
         <input type="submit" value="Show Users by 20"/>
     </form>
@@ -65,11 +65,11 @@
 </table>
 <br/>
 
-<a href="/user/all/${pageId-1}">Previous</a>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>+/${pageId-1}">Previous</a>
 <c:forEach var="page" begin="1" end="${pagesNum}">
-    <a href="/user/all/${page}">${page}</a>
+    <a href="<%=EndPoints.USER + EndPoints.ALL%>/${page}">${page}</a>
 </c:forEach>
-<a href="/user/all/${pageId+1}">Next</a>
+<a href="<%=EndPoints.USER + EndPoints.ALL%>+/${pageId+1}">Next</a>
 
 
 <br/>
