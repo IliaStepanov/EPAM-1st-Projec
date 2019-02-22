@@ -15,5 +15,5 @@ public interface TicketDAO {
 
     Ticket updateTicket(Ticket ticket);
 
-    Ticket deleteTicket(long id);
+    String deleteTicket(long id);
 }

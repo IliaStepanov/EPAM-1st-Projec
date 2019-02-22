@@ -15,7 +15,7 @@
 <body>
 <h5><spring:message code="lang.fillForm"/></h5>
 
-<form action="<%=EndPoints.USER + EndPoints.REGISTRATION%>" method="post">
+<form action="<%=EndPoints.USER + EndPoints.ENROLL%>" method="post">
     <input type="email" name="email"/> <spring:message code="lang.email"/><br/>
     <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
     <input type="hidden" name="isAdmin" value="false"/>
