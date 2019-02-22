@@ -43,7 +43,7 @@ public class UserController {
     @GetMapping(value = "/setUsersByPage")
     public String setUsersByPage(@RequestParam String number, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:/user/all/1";
+        return "redirect:" + USER + ALL +"/1";
     }
 
 
@@ -149,7 +149,7 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
         model.addAttribute("message", userService.deleteUser(id));
-        return "redirect:/user/all/1";
+        return "redirect:" + USER + ALL +"/1";
     }
 
 }
