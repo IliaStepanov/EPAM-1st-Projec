@@ -18,7 +18,7 @@ public interface UserService {
 
     User verifyUser(String log, String pass);
 
-    Map<String,Object> getUsersByPage(int pageId, int total);
+    Map<String,Object> getUsersByPage(int pageId, int usersByPage);
 
     int countUsers();
 }

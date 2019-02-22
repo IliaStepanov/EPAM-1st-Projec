@@ -19,6 +19,7 @@ public final class EndPoints {
     public static final String NEW_TICKET = "/new-ticket";
     public static final String RETURN = "/return";
     public static final String FLIGHT = "/flight";
+    public static final String SET_FLIGHT_BY_PAGE = "/setFlightsByPage";
 
 //  Login Controller endpoints
 

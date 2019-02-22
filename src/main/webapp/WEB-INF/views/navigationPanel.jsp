@@ -44,7 +44,7 @@
     <a class="active" href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.ticket"/></a>
     <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>"> <spring:message code="lang.userDAO"/></a></c:if>
     <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL%>"> <spring:message code="lang.planeDAO"/></a></c:if>
-    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"> <spring:message code="lang.flightDAO"/></a></c:if>
+    <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL + EndPoints.FIRST_PAGE%>"> <spring:message code="lang.flightDAO"/></a></c:if>
     <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"> <spring:message code="lang.ticketDAO"/></a></c:if>
     <a href="<%=EndPoints.USER + EndPoints.SETTINGS%>"><spring:message code="lang.loginPageEntry"/>  ${sessionUser.firstName}</a>
     <a href="<%=EndPoints.ENTRY + EndPoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>

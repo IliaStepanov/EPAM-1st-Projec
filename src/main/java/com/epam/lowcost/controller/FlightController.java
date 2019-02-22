@@ -7,10 +7,8 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,19 +19,36 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = FLIGHTS)
+@SessionAttributes(value = "number")
 public class FlightController {
 
-    FlightService flightService;
+    private FlightService flightService;
 
     @Autowired
     public FlightController(FlightService flightService) {
         this.flightService = flightService;
     }
 
-    @GetMapping(value = ALL)
-    public String getAllFlights(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+    @GetMapping(value = ALL + "/{pageId}")
+    public String getAllFlights(@PathVariable int pageId, ModelMap model) {
+
+//        model.addAttribute("flights", flightService.getAllFlights());
+//        return "flights";
+        int flightsByPage = (int) model.getOrDefault("number", 2);
+
+        Map<String, Object> pageRepresentation = flightService.getFlightsByPage(pageId, flightsByPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("flights", pageRepresentation.get("flights"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         return "flights";
+
+    }
+
+    @GetMapping(value = SET_FLIGHT_BY_PAGE)
+    public String setFlightsByPage(@RequestParam String number, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
     }
 
     @GetMapping
@@ -68,13 +83,16 @@ public class FlightController {
 
     @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
+
         model.addAttribute("flights", ((FlightServiceImpl) flightService).getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
+
         if (params.get("adminPage").equals("true")) {
             return "flights";
         }
+
         return "search";
 
     }

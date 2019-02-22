@@ -7,7 +7,9 @@ import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -105,4 +107,32 @@ public class FlightServiceImpl implements FlightService {
         flight.setInitialPrice(calculateInitialFlightPriceByDate(daysBetween, minPrice));
     }
 
+    @Override
+    public Map<String, Object> getFlightsByPage(int pageId, int flightsByPage) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int flights = flightDAO.countFlights();
+        int pagesNum;
+        if (flights % flightsByPage != 0) {
+            pagesNum = (flights / flightsByPage + 1);
+        } else {
+            pagesNum = (flights / flightsByPage);
+        }
+        if (pageId >= pagesNum) {
+            pageId = pagesNum;
+        }
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("flights", flightDAO.getFlightsByPage(pageId, flightsByPage));
+        pageInfo.put("pagesNum", pagesNum);
+        pageInfo.put("pageId", pageId);
+
+        return pageInfo;
+    }
+
+    @Override
+    public int countFlights() {
+        return flightDAO.countFlights();
+    }
 }

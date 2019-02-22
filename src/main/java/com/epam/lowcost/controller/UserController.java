@@ -21,7 +21,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
 
     @GetMapping(value = ALL + "/{pageId}")
@@ -150,7 +150,6 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
         if (sessionUser.getId() == id) {
-            System.out.println(sessionUser.getId() + "" + id);
             model.addAttribute("message", "You cant delete yourself!");
             return "redirect:" + USER + ALL + FIRST_PAGE;
         }
