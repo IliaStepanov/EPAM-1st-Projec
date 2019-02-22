@@ -23,6 +23,7 @@
 
     <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper" c:flightRowMapper-ref="flightrowMapper"
           c:userRowMapper-ref="userowMapper"/>
+    <bean id="airportRowMapper" class="com.epam.lowcost.util.AirportRowMapper" />
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
@@ -66,6 +67,14 @@
         <property name="flightService" ref="flightService"/>
     </bean>
 
+   <bean id="airportDAO" class="com.epam.lowcost.DAO.implementations.AirportDAOImpl">
+       <constructor-arg ref="dataSource"/>
+       <constructor-arg ref="airportRowMapper"/>
+   </bean>
+
+    <bean id="airportService" class="com.epam.lowcost.service.implementations.AirportServiceImpl">
+        <constructor-arg ref="airportDAO"/>
+    </bean>
 
     <bean id="dataSource" class="com.epam.lowcost.db.DBinitialize" init-method="initiateDB">
         <property name="driverClassName" value="org.h2.Driver"/>

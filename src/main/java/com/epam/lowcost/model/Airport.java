@@ -3,10 +3,10 @@ package com.epam.lowcost.model;
 
 import lombok.*;
 
+@Data
 @AllArgsConstructor
 @Setter
 @Builder
-@Getter
 public class Airport {
     private String code;
     private String cityEng;

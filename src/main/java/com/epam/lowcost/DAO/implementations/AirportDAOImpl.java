@@ -13,6 +13,11 @@ public class AirportDAOImpl implements AirportDAO {
     private DataSource dataSource;
     private RowMapper<Airport> airportRowMapper;
 
+    public AirportDAOImpl(DataSource dataSource, RowMapper<Airport> airportRowMapper) {
+        this.dataSource = dataSource;
+        this.airportRowMapper = airportRowMapper;
+    }
+
     @Override
     public List<Airport> getAllAirports() {
         List<Airport> airports = null;
@@ -44,6 +49,7 @@ public class AirportDAOImpl implements AirportDAO {
 
     @Override
     public Airport addNewAirport(Airport airport) {
+        int lines=0;
         String iataCode = airport.getCode();
         String nameRus = airport.getNameRus();
         String cityEng = airport.getCityEng();
@@ -52,16 +58,19 @@ public class AirportDAOImpl implements AirportDAO {
         String countryEng = airport.getCountryEng();
         String countryRus = airport.getCountryRus();
 
+
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
             String query = "INSERT  INTO AIRPORTS (iataCode,nameRus, cityEng, cityRus, nameEng,countryEng,countryRus) " +
                     "VALUES (?,?,?,?,?,?,?)";
-            airport = jdbcTemplate.queryForObject(query, airportRowMapper, iataCode,
+             lines = jdbcTemplate.update(query, iataCode,
                     nameRus, cityEng, cityRus, nameEng, countryEng, countryRus);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
+        if (lines!=1)
+            airport=null;
         return airport;
     }
 

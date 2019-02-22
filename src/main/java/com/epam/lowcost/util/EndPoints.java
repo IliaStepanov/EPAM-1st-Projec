@@ -44,6 +44,9 @@ public final class EndPoints {
     public static final String SETTINGS = "/settings";
     public static final String CHANGE_PASSWORD = "/change-password";
 
+//  Airport Controller endpoints
+    public static final String AIRPORT = "/airport";
+
 
 }
 
