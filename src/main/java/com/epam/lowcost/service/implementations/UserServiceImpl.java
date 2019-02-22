@@ -45,7 +45,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User verifyUser(String email, String password) {
         User user = userDAO.findByEmail(email);
-        if (user != null && BCrypt.checkpw(password, user.getPassword())) return user;
+        if (user != null && BCrypt.checkpw(password, user.getPassword()) && !user.isDeleted()) {
+            return user;
+        }
         return null;
     }
 }
