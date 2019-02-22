@@ -19,6 +19,7 @@
 
     <bean id="userowMapper" class="com.epam.lowcost.util.UserRowMapper"/>
 
+
     <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper">
         <constructor-arg ref="planerowMapper"/>
         <constructor-arg ref="airportRowMapper"/>
@@ -43,6 +44,7 @@
         <constructor-arg ref="userDAO"/>
         <property name="ticketService" ref="ticketService"/>
     </bean>
+
 
 
     <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
@@ -70,6 +72,7 @@
 
     <bean id="ticketService" class="com.epam.lowcost.service.implementations.TicketServiceImpl">
         <constructor-arg ref="ticketDAO"/>
+
         <property name="userService" ref="userService"/>
         <property name="flightService" ref="flightService"/>
     </bean>

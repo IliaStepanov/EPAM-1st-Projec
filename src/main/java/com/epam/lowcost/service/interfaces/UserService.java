@@ -3,6 +3,7 @@ package com.epam.lowcost.service.interfaces;
 import com.epam.lowcost.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     List<User> getAllUsers();
@@ -16,4 +17,8 @@ public interface UserService {
     String deleteUser(long userId);
 
     User verifyUser(String log, String pass);
+
+    Map<String,Object> getUsersByPage(int pageId, int total);
+
+    int countUsers();
 }

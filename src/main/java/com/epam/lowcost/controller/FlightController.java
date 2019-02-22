@@ -3,6 +3,7 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
+import com.epam.lowcost.service.implementations.FlightServiceImpl;
 import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class FlightController {
 
     @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
-        model.addAttribute("flight", flightService.getById(id));
+        model.addAttribute("flight", ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(id));
         return "buy";
     }
 
@@ -62,13 +63,13 @@ public class FlightController {
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
         return "search";
     }
 
     @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
-        model.addAttribute("flights", flightService.getByFromToDate
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));

@@ -5,37 +5,56 @@ import com.epam.lowcost.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = USER)
-@SessionAttributes(value = "sessionUser")
+@SessionAttributes({"sessionUser", "number"})
 public class UserController {
 
     @Autowired
     UserService userService;
 
 
-    @GetMapping(value = ALL)
-    public String getAllUsers(@ModelAttribute(value = "sessionUser") User sessionUser, Model model) {
+    @GetMapping(value = ALL + "/{pageId}")
+    public String getAllUsers(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, ModelMap model) {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        model.addAttribute("users", userService.getAllUsers());
+
+        int usersByPage = (int) model.getOrDefault("number", 5);
+
+        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("users", pageRepresentation.get("users"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         return "users";
     }
+
+    @GetMapping(value = SET_USERS_BY_PAGE)
+    public String setUsersByPage(@RequestParam String number, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:" + USER + ALL + FIRST_PAGE;
+    }
+
 
     @GetMapping
     public String getById(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        model.addAttribute("user", userService.getById(id));
+        List<User> user = new ArrayList<>();
+        user.add(userService.getById(id));
+        model.addAttribute("users", user);
         model.addAttribute("message", "Here is your User!");
         return "users";
     }
@@ -125,12 +144,17 @@ public class UserController {
     }
 
     @PostMapping(value = DELETE)
-    public String deleteUser(@ModelAttribute(value = "sessionUser") User sessionUser, @RequestParam long id, Model model) {
+    public String deleteUser(@RequestParam long id, ModelMap model) {
+        User sessionUser = (User) model.get("sessionUser");
         if (!sessionUser.isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
+        if (sessionUser.getId() == id) {            
+            model.addAttribute("message", "You cant delete yourself!");
+            return "redirect:" + USER + ALL + FIRST_PAGE;
+        }
         model.addAttribute("message", userService.deleteUser(id));
-        return "users";
+        return "redirect:" + USER + ALL + FIRST_PAGE;
     }
 
 }

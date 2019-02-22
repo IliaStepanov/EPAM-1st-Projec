@@ -1,18 +1,29 @@
 package com.epam.lowcost.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Plane {
-    private long id;
+@Setter
+@Getter
+@ToString
+public class Plane extends AbstractJdbcModel {
     private String model;
     private int businessPlacesNumber;
     private int economPlacesNumber;
     private boolean isDeleted;
+
+    @Builder
+    public Plane(Long id,
+                 String model,
+                 int businessPlacesNumber,
+                 int economPlacesNumber,
+                 boolean isDeleted) {
+        super(id);
+        this.model = model;
+        this.businessPlacesNumber = businessPlacesNumber;
+        this.economPlacesNumber = economPlacesNumber;
+        this.isDeleted = isDeleted;
+    }
 }

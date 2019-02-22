@@ -19,5 +19,7 @@ public interface TicketDAO {
 
     boolean deleteTicketsByUserId(long id);
 
-    Ticket deleteTicket(long id);
+    String deleteTicket(long id);
+
+
 }

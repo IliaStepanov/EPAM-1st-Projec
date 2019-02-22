@@ -20,12 +20,19 @@ public class TicketServiceImpl implements TicketService {
         this.ticketDAO = ticketDAO;
     }
 
-    public void setUserService(UserService userService) {
+
+  public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    public void setFlightService(FlightService flightService) {
+   
+    public void setFlightService(FlightService flightService){
+
         this.flightService = flightService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -40,11 +47,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket addTicket(Ticket ticket) {
-        Flight flight = flightService.getById(ticket.getFlight().getId());
+        Flight flight = ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(ticket.getFlight().getId());
         User user = userService.getById(ticket.getUser().getId());
         ticket.setFlight(flight);
         ticket.setUser(user);
-        ticket.setPrice(ticket.getFlight().getInitialPrice());
+        ticket.setPrice(flight.getInitialPrice());
+        ticket.setPrice(countPrice(ticket));
         return ticketDAO.addTicket(ticket);
     }
 
@@ -56,21 +64,44 @@ public class TicketServiceImpl implements TicketService {
         Flight flight = flightService.getById(beforeUpdateTicket.getFlight().getId());
         User user = userService.getById(beforeUpdateTicket.getUser().getId());
         ticket.setFlight(flight);
+        ticket.setPrice(flight.getInitialPrice());
         ticket.setUser(user);
-        ticket.setPrice(ticket.getFlight().getInitialPrice());
+        ticket.setPrice(countPrice(ticket));
         return ticketDAO.updateTicket(ticket);
     }
 
     @Override
-    public Ticket deleteTicket(long id) {
+    public String deleteTicket(long id) {
         return ticketDAO.deleteTicket(id);
     }
 
-    @Override
-    public  boolean deleteTicketsByFlightId(long id) { return ticketDAO.deleteTicketsByFlightId(id);}
 
     @Override
-    public boolean deleteTicketsByUserId(long id) { return  ticketDAO.deleteTicketsByUserId(id);}
+    public boolean deleteTicketsByFlightId(long id) {
+        return ticketDAO.deleteTicketsByFlightId(id);
+    }
+
+    @Override
+    public boolean deleteTicketsByUserId(long id) {
+        return ticketDAO.deleteTicketsByUserId(id);
+    }
+
+    private long countPrice(Ticket ticket) {
+        long price = ticket.getPrice();
+        Flight flight = ticket.getFlight();
+        if (ticket.isHasLuggage()) {
+            price += flight.getLuggagePrice();
+        }
+        if (ticket.isPlacePriority()) {
+            price += flight.getPlacePriorityPrice();
+        }
+        if (ticket.isBusiness()) {
+            price += flight.getBusinessPrice();
+        }
+        return price;
+
+    }
+
 
 
 }
