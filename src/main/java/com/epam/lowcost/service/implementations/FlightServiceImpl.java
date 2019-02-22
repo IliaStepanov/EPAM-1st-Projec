@@ -6,7 +6,6 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
