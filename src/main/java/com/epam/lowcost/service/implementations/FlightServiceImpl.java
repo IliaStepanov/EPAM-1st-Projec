@@ -6,6 +6,7 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import java.util.List;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
-@AllArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
@@ -72,7 +72,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
 
-    public Flight deleteFlight(Long id) {
+    public String deleteFlight(Long id) {
         if (ticketService.deleteTicketsByFlightId(id)) {
             return flightDAO.deleteFlight(id);
         }

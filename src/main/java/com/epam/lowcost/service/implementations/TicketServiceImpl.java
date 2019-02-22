@@ -77,6 +77,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public boolean deleteTicketsByUserId(long id) {
         return ticketDAO.deleteTicketsByUserId(id);
+    }
 
     private long countPrice(Ticket ticket) {
         long price = ticket.getPrice();
