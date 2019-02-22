@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
+
 
 import static com.epam.lowcost.util.EndPoints.*;
 
@@ -62,7 +63,9 @@ public class FlightController {
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+        List<Flight> flights = ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice();
+        model.addAttribute("flights", flights);
+
         return "search";
     }
 
@@ -87,13 +90,14 @@ public class FlightController {
                         .plane(Plane.builder()
                                 .id(Long.valueOf(params.get("planeId")))
                                 .build())
-                        .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                        .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
+                        .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
                         .departureAirport(params.get("departureAirport"))
                         .arrivalAirport(params.get("arrivalAirport"))
                         .businessPrice(Long.valueOf(params.get("businessPrice")))
                         .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                         .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
-                        .arrivalDate(LocalDateTime.parse(params.get("arrivalDate"))).build()));
+                        .build()));
         return "redirect:" + FLIGHTS + ALL;
     }
 
@@ -108,8 +112,8 @@ public class FlightController {
                                         .id(Long.valueOf(params.get("planeId")))
                                         .build()
                                 )
-                                .departureDate(LocalDateTime.parse(params.get("departureDate")))
-                                .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
+                                .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
+                                .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
                                 .departureAirport(params.get("departureAirport"))
                                 .businessPrice(Long.valueOf(params.get("businessPrice")))
                                 .luggagePrice(Long.valueOf(params.get("luggagePrice")))

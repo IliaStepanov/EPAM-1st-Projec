@@ -1,5 +1,6 @@
 package com.epam.lowcost.service.implementations;
 
+import com.epam.lowcost.DAO.implementations.TicketDAOImpl;
 import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
@@ -20,7 +21,7 @@ public class TicketServiceImpl implements TicketService {
         this.ticketDAO = ticketDAO;
     }
 
-    public void setFlightService(FlightService flightService){
+    public void setFlightService(FlightService flightService) {
         this.flightService = flightService;
     }
 
@@ -68,6 +69,9 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.deleteTicket(id);
     }
 
+    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
+        return ((TicketDAOImpl) ticketDAO).numberBoughtPlaces(flightId, isBusiness);
+    }
 
     @Override
     public boolean deleteTicketsByFlightId(long id) {

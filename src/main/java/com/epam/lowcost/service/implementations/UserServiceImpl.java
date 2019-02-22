@@ -1,6 +1,5 @@
 package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.DAO.interfaces.UserDAO;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.TicketService;
@@ -15,6 +14,7 @@ public class UserServiceImpl implements UserService {
 
     private UserDAO userDAO;
     private TicketService ticketService;
+
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }

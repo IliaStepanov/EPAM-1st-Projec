@@ -69,7 +69,7 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 : "Ticket was not deleted";
     }
 
-     public boolean deleteTicketsByFlightId(long id) {
+    public boolean deleteTicketsByFlightId(long id) {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 

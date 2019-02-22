@@ -31,7 +31,7 @@
     <br/>
     <input type="text" name="documentInfo" value="${sessionUser.documentInfo}"/> <spring:message
         code="lang.newDocument"/> <br/>
-    <input type="datetime-local" name="birthday" value="${sessionUser.birthday}"/> <spring:message
+    <input type="date" name="birthday" value="${sessionUser.birthday}"/> <spring:message
         code="lang.newDateBirth"/><br/>
     <input type="hidden" name="userUpdate" value="fromUser"/>
     <input type="submit" value="ОК"/>

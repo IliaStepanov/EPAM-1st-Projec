@@ -18,8 +18,8 @@
     <input type="text" required name="initialPrice"/> <spring:message code="lang.price"/><br/>
 
     <input type="text" required name="planeId"/> <spring:message code="lang.planeId"/><br/>
-    <input type="datetime-local" required name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
-    <input type="datetime-local" required name="arrivalDate"/> <spring:message code="lang.arriveAt"/><br/>
+    <input type="date" required name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
+    <input type="date" required name="arrivalDate"/> <spring:message code="lang.arriveAt"/><br/>
     <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/><br/>
     <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/><br/> <br/>
     <input type="text" required name="placePriorityPrice"/> <spring:message code="lang.placePriorityPrice"/>.<br/>

@@ -39,7 +39,8 @@
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
         <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
         <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
-
+        <spring:message code="lang.price"/> <c:out value="${flight.plane.economPlacesNumber}"/><br/>
+        <spring:message code="lang.price"/> <c:out value="${flight.plane.businessPlacesNumber}"/><br/>
 
     </h3>
     <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">

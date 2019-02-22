@@ -42,8 +42,6 @@
     </bean>
 
 
-
-
     <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
           c:planeRowMapper-ref="planerowMapper"/>
 
