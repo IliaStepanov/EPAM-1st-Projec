@@ -16,10 +16,16 @@ public class TicketServiceImpl implements TicketService {
     private FlightService flightService;
 
 
-    public TicketServiceImpl(TicketDAO ticketDAO, UserService userService, FlightService flightService) {
+    public TicketServiceImpl(TicketDAO ticketDAO) {
         this.ticketDAO = ticketDAO;
-        this.userService = userService;
+    }
+
+    public void setFlightService(FlightService flightService){
         this.flightService = flightService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -62,6 +68,16 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.deleteTicket(id);
     }
 
+
+    @Override
+    public boolean deleteTicketsByFlightId(long id) {
+        return ticketDAO.deleteTicketsByFlightId(id);
+    }
+
+    @Override
+    public boolean deleteTicketsByUserId(long id) {
+        return ticketDAO.deleteTicketsByUserId(id);
+
     private long countPrice(Ticket ticket) {
         long price = ticket.getPrice();
         Flight flight = ticket.getFlight();
@@ -75,6 +91,7 @@ public class TicketServiceImpl implements TicketService {
             price += flight.getBusinessPrice();
         }
         return price;
+
     }
 
 

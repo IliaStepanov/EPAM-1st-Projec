@@ -4,10 +4,11 @@ import com.epam.lowcost.DAO.interfaces.FlightDAO;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
-import lombok.AllArgsConstructor;
+import com.epam.lowcost.service.interfaces.TicketService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -16,6 +17,16 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
+    private TicketService ticketService;
+
+    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService) {
+        this.flightDAO = flightDAO;
+        this.planeService = planeService;
+    }
+
+    public void setTicketService (TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     public List<Flight> getAllFlightsWithUpdatedPrice() {
         List<Flight> flights = getAllFlights();
@@ -60,8 +71,13 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public String deleteFlight(Long id) {
-        return flightDAO.deleteFlight(id);
+
+    public Flight deleteFlight(Long id) {
+        if (ticketService.deleteTicketsByFlightId(id)) {
+            return flightDAO.deleteFlight(id);
+        }
+        return null;
+
     }
 
     @Override

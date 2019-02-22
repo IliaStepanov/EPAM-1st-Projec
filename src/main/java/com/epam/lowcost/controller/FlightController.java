@@ -22,8 +22,13 @@ import static com.epam.lowcost.util.EndPoints.*;
 @Controller
 @RequestMapping(value = FLIGHTS)
 public class FlightController {
-    @Autowired
+
     FlightService flightService;
+
+    @Autowired
+    public FlightController(FlightService flightService) {
+        this.flightService = flightService;
+    }
 
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {

@@ -9,9 +9,15 @@ public interface TicketService {
 
     List<Ticket> getAllTickets();
 
+    boolean deleteTicketsByFlightId(long id);
+
+    boolean deleteTicketsByUserId(long id);
+
     Ticket addTicket(Ticket ticket);
 
     Ticket updateTicket(Ticket ticket);
 
-    String deleteTicket(long id);
+
+    Ticket deleteTicket(long id);
+
 }

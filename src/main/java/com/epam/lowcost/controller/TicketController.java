@@ -77,8 +77,15 @@ public class TicketController {
     @PostMapping(value = DELETE)
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + TICKETS + ALL;
     }
+
+    @PostMapping(value = CANCEL)
+    public String cancelTicket(@RequestParam long id, Model model) {
+        model.addAttribute("message", ticketService.deleteTicket(id));
+        return "redirect:" + TICKETS + SELF;
+    }
+
 
 
     @GetMapping(value = SELF)

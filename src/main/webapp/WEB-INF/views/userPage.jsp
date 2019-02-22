@@ -25,6 +25,11 @@
            onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')"
            value="<spring:message code="lang.details"/>"/>
     <br/>
+    <form action="<%=EndPoints.TICKETS + EndPoints.CANCEL%>" method="post">
+        <input type="hidden" name="id" value="${ticket.id}"/>
+        <input type="submit" value="<spring:message code="lang.cancel"/>"/>
+
+    </form>
 
 </c:forEach>
 
