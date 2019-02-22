@@ -153,6 +153,8 @@ public class TicketDAOImpl implements TicketDAO {
             String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
                     "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
                     "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                    "JOIN AIRPORTS AS a " +
+                    "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code " +
                     "WHERE TICKETS.isDeleted=false AND TICKETS.FLIGHTID = ?";
             List<Ticket> tickets = jdbcTemplate.query(query, ticketRowMapper, id);
             required = tickets.size();
@@ -163,6 +165,7 @@ public class TicketDAOImpl implements TicketDAO {
         }
         return required == updated;
     }
+
     public boolean deleteTicketsByUserId(long id) {
         int required, updated;
         try {
@@ -170,6 +173,8 @@ public class TicketDAOImpl implements TicketDAO {
             String query = "Select * FROM Tickets JOIN  USERS ON TICKETS.userId=USERS.id " +
                     "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
                     "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                    "JOIN AIRPORTS AS a " +
+                    "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code " +
                     "WHERE TICKETS.isDeleted=false AND userId = ?";
             List<Ticket> tickets = jdbcTemplate.query(query, ticketRowMapper, id);
             required = tickets.size();
@@ -179,7 +184,7 @@ public class TicketDAOImpl implements TicketDAO {
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
-        return required==updated;
+        return required == updated;
     }
 
     public int countBusinessPlaces(long id) {
@@ -214,6 +219,9 @@ public class TicketDAOImpl implements TicketDAO {
                 "JOIN  USERS ON TICKETS.userId=USERS.id " +
                 "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
                 "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                "JOIN AIRPORTS AS a " +
+                "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b " +
+                "ON FLIGHTS.ARRIVALAIRPORT=b.code " +
                 "WHERE TICKETS.isDeleted=false ";
     }
 

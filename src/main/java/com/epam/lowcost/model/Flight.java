@@ -14,8 +14,8 @@ public class Flight {
     private Plane plane;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
-    private String departureAirport;
-    private String arrivalAirport;
+    private Airport departureAirport;
+    private Airport arrivalAirport;
     private boolean isDeleted;
     private long placePriorityPrice;
     private long businessPrice;

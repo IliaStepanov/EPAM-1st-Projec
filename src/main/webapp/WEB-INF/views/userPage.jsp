@@ -17,11 +17,11 @@
 
     <spring:message code="lang.ticket"/># <c:out value="${ticket.id}"/><br/>
     <spring:message code="lang.passanger"/> <c:out value="${ticket.user.firstName}"/><br/>
-    <spring:message code="lang.departureAirport"/> <c:out value="${ticket.flight.departureAirport}"/><br/>
-    <spring:message code="lang.destination"/> <c:out value="${ticket.flight.arrivalAirport}"/><br/>
+    <spring:message code="lang.departureAirport"/> <c:out value="${ticket.flight.departureAirport.cityEng}"/><br/>
+    <spring:message code="lang.destination"/> <c:out value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
     <spring:message code="lang.date"/> <c:out value="${ticket.flight.departureDate}"/><br/>
     <input type="button"
-           onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')"
+           onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport.cityEng} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport.cityEng} At ${ticket.flight.arrivalDate}')"
            value="<spring:message code="lang.details"/>"/>
     <br/>
     <form action="<%=EndPoints.TICKETS + EndPoints.CANCEL%>" method="post">

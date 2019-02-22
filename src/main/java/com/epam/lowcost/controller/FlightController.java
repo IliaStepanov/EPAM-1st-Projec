@@ -1,5 +1,6 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.interfaces.FlightService;
@@ -87,8 +88,12 @@ public class FlightController {
                                 .id(Long.valueOf(params.get("planeId")))
                                 .build())
                         .departureDate(LocalDateTime.parse(params.get("departureDate")))
-                        .departureAirport(params.get("departureAirport"))
-                        .arrivalAirport(params.get("arrivalAirport"))
+                        .departureAirport(Airport.builder()
+                                .code(params.get("departureAirport"))
+                                .build())
+                        .arrivalAirport(Airport.builder()
+                                .code(params.get("arrivalAirport"))
+                                .build())
                         .businessPrice(Long.valueOf(params.get("businessPrice")))
                         .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                         .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
@@ -109,11 +114,15 @@ public class FlightController {
                                 )
                                 .departureDate(LocalDateTime.parse(params.get("departureDate")))
                                 .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
-                                .departureAirport(params.get("departureAirport"))
+                                .departureAirport(Airport.builder()
+                                        .code(params.get("departureAirport"))
+                                        .build())
+                                .arrivalAirport(Airport.builder()
+                                        .code(params.get("arrivalAirport"))
+                                        .build())
                                 .businessPrice(Long.valueOf(params.get("businessPrice")))
                                 .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                                 .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
-                                .arrivalAirport(params.get("arrivalAirport"))
                                 .build()));
         return "redirect:" + FLIGHTS + ALL;
     }

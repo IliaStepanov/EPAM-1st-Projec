@@ -7,7 +7,7 @@ import java.util.List;
 public interface AirportDAO {
     List<Airport> getAllAirports();
 
-    Airport getAirportByCode(String iataCode);
+    Airport getAirportByCode(String code);
 
     Airport addNewAirport(Airport airport);
 

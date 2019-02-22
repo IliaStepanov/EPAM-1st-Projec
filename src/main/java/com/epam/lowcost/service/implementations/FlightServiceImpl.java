@@ -3,6 +3,7 @@ package com.epam.lowcost.service.implementations;
 import com.epam.lowcost.DAO.interfaces.FlightDAO;
 import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.service.interfaces.AirportService;
 import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
@@ -14,10 +15,12 @@ public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
     private TicketService ticketService;
+    public AirportService airportService;
 
-    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService) {
+    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService,AirportService airportService) {
         this.flightDAO = flightDAO;
         this.planeService = planeService;
+        this.airportService = airportService;
     }
 
     public void setTicketService(TicketService ticketService){
@@ -32,6 +35,8 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public Flight addNewFlight(Flight flight) {
         flight.setPlane(planeService.getById(flight.getPlane().getId()));
+        flight.setArrivalAirport(airportService.getAirportByCode(flight.getArrivalAirport().getCode()));
+        flight.setDepartureAirport(airportService.getAirportByCode(flight.getDepartureAirport().getCode()));
         return flightDAO.addNewFlight(flight);
     }
 

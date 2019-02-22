@@ -34,13 +34,13 @@ public class AirportDAOImpl implements AirportDAO {
     }
 
     @Override
-    public Airport getAirportByCode(String iataCode) {
+    public Airport getAirportByCode(String code) {
         Airport airport = null;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-            String query = "SELECT * FROM AIRPORTS WHERE iataCode = ?";
-            airport = jdbcTemplate.queryForObject(query, airportRowMapper, iataCode);
+            String query = "SELECT * FROM AIRPORTS WHERE code = ?";
+            airport = jdbcTemplate.queryForObject(query, airportRowMapper, code);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class AirportDAOImpl implements AirportDAO {
     @Override
     public Airport addNewAirport(Airport airport) {
         int lines=0;
-        String iataCode = airport.getCode();
+        String code = airport.getCode();
         String nameRus = airport.getNameRus();
         String cityEng = airport.getCityEng();
         String cityRus = airport.getCityRus();
@@ -62,9 +62,9 @@ public class AirportDAOImpl implements AirportDAO {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-            String query = "INSERT  INTO AIRPORTS (iataCode,nameRus, cityEng, cityRus, nameEng,countryEng,countryRus) " +
+            String query = "INSERT  INTO AIRPORTS (code,nameRus, cityEng, cityRus, nameEng,countryEng,countryRus) " +
                     "VALUES (?,?,?,?,?,?,?)";
-             lines = jdbcTemplate.update(query, iataCode,
+             lines = jdbcTemplate.update(query, code,
                     nameRus, cityEng, cityRus, nameEng, countryEng, countryRus);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
@@ -81,7 +81,7 @@ public class AirportDAOImpl implements AirportDAO {
 
     @Override
     public Airport updateAirport(Airport airport) {
-        String iataCode = airport.getCode();
+        String code = airport.getCode();
         String nameRus = airport.getNameRus();
         String cityEng = airport.getCityEng();
         String cityRus = airport.getCityRus();
@@ -89,10 +89,10 @@ public class AirportDAOImpl implements AirportDAO {
         String countryEng = airport.getCountryEng();
         String countryRus = airport.getCountryRus();
         String query = "UPDATE AIRPORTS SET nameRus = ?, cityEng = ?, cityRus = ?, nameEng = ?," +
-                " countryEng = ?, countryRus = ? WHERE iataCode = ?";
+                " countryEng = ?, countryRus = ? WHERE code = ?";
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            int lines = jdbcTemplate.update(query, nameRus, cityEng, cityRus, nameEng, countryEng, countryRus,iataCode);
+            int lines = jdbcTemplate.update(query, nameRus, cityEng, cityRus, nameEng, countryEng, countryRus,code);
             if (lines==1) return  airport;
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
