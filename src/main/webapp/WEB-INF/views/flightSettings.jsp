@@ -24,9 +24,9 @@
         code="lang.departureAt"/><br/>
     <input type="text" required name="arrivalDate" value="${flight.arrivalDate}"/> <spring:message
         code="lang.arriveAt"/>. <br/>
-    <input type="text" required name="departureAirport" value="${flight.departureAirport}"/> <spring:message
+    <input type="text" required name="departureAirport" value="${flight.departureAirport.code}"/> <spring:message
         code="lang.departureAirport"/> <br/>
-    <input type="text" required name="arrivalAirport" value="${flight.arrivalAirport}"/> <spring:message
+    <input type="text" required name="arrivalAirport" value="${flight.arrivalAirport.code}"/> <spring:message
         code="lang.arrivalAirport"/> <br/>
     <input type="text" required name="placePriorityPrice" value="${flight.placePriorityPrice}"/> <spring:message
         code="lang.placePriorityPrice"/><br/>
