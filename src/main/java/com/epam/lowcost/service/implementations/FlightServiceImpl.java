@@ -5,6 +5,7 @@ import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -72,7 +73,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
 
-    public Flight deleteFlight(Long id) {
+    public String deleteFlight(Long id) {
         if (ticketService.deleteTicketsByFlightId(id)) {
             return flightDAO.deleteFlight(id);
         }
