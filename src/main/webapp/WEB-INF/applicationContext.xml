@@ -19,10 +19,14 @@
 
     <bean id="userowMapper" class="com.epam.lowcost.util.UserRowMapper"/>
 
-    <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper" c:planeRowMapper-ref="planerowMapper"/>
+    <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper"
+          c:planeRowMapper-ref="planerowMapper"
+    />
 
-    <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper" c:flightRowMapper-ref="flightrowMapper"
-          c:userRowMapper-ref="userowMapper"/>
+    <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper"
+          c:flightRowMapper-ref="flightrowMapper"
+          c:userRowMapper-ref="userowMapper"
+    />
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
