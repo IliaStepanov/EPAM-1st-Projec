@@ -24,6 +24,13 @@ public class FlightServiceImpl implements FlightService {
         return flights;
     }
 
+    public List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
+        List<Flight> flights = getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
+        flights.forEach(f -> updateFlightPrice(f));
+
+        return flights;
+    }
+
     public Flight getFlightByIdWithUpdatedPrice(Long id) {
         Flight flight = getById(id);
         updateFlightPrice(flight);
