@@ -70,26 +70,17 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
     }
 
 
-    public int countBusinessPlaces(long id) {
-        int n;
+    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
+        Integer n;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
-                    rowMapper, id, true);
-            n = tickets.size();
-        } catch (EmptyResultDataAccessException e) {
-            return 0;
-        }
-        return n;
-    }
 
-    public int countEconomPlaces(long id) {
-        int n;
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
-                    rowMapper, id, false);
-            n = tickets.size();
+            n = jdbcTemplate.queryForObject("SELECT COUNT (*) FROM TICKETS " +
+                            "JOIN  USERS ON TICKETS.userId=USERS.id " +
+                            "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                            "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                            "WHERE TICKETS.isDeleted=false and flightId=? and isBusiness=?", Integer.class,
+                    flightId, isBusiness);
         } catch (EmptyResultDataAccessException e) {
             return 0;
         }

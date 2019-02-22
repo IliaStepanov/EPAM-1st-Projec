@@ -35,7 +35,7 @@ public class TicketController {
         return "tickets";
     }
 
-    @PostMapping
+    @PostMapping(value = ADD)
     public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
                             @RequestParam Map<String, String> params, Model model) {
         Flight flight = Flight.builder()
