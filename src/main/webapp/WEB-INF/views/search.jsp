@@ -25,29 +25,48 @@
 
         #content {
             left: 500px; /* Расстояние от левого края */
-            top: 100px;
+            top: 500px;
         }
     </style>
 </head>
 <body>
-<c:forEach items="${flights}" var="flight">
-    <h3>
 
+<h1>All Flights</h1>
+<table border="12" width="70%" cellpadding="2">
+    <tr>
+        <th>Departure airport</th>
+        <th>Arrival airport</th>
+        <th>Departure date</th>
+        <th>Arrival date</th>
+        <th>Initial price</th>
+        <th>Actions</th>
+    </tr>
+    <c:forEach var="flight" items="${flights}">
+        <tr>
+            <td>${flight.departureAirport}</td>
+            <td>${flight.arrivalAirport}</td>
+            <td>${flight.departureDate}</td>
+            <td>${flight.arrivalDate}</td>
+            <td>${flight.initialPrice}</td>
+            <td><form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
+                <input type="hidden" name="id" value="${flight.id}"/>
+                <input type="submit" value="<spring:message code="lang.buy"/>"/>
+            </form></td>
+        </tr>
+    </c:forEach>
 
-        <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
-        <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport}"/><br/>
-        <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
-        <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
-        <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
+</table>
 
-
-    </h3>
-    <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
-        <input type="hidden" name="id" value="${flight.id}"/>
-        <input type="submit" value="<spring:message code="lang.buy"/>"/>
-
-    </form>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId-1}">Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${page}">${page}</a>
 </c:forEach>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId+1}">Next</a>
+<div>
+
+</div>
+
+
 
 <div id="content">
 

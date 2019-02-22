@@ -29,11 +29,12 @@ public class FlightServiceImpl implements FlightService {
         this.ticketService = ticketService;
     }
 
-    public List<Flight> getAllFlightsWithUpdatedPrice() {
-        List<Flight> flights = getAllFlights();
-        flights.forEach(f -> updateFlightPrice(f));
-
-        return flights;
+    public  Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int flightsByPage) {
+        Map<String, Object> pageInfo = getFlightsByPage(pageId,flightsByPage);
+        List<Flight> flights = (List<Flight>) pageInfo.get("flights");
+        flights.forEach(this::updateFlightPrice);
+        pageInfo.put("flights",flights);
+        return pageInfo;
     }
 
     public List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {

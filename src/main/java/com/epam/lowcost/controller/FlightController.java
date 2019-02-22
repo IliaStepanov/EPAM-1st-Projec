@@ -32,8 +32,6 @@ public class FlightController {
     @GetMapping(value = ALL + "/{pageId}")
     public String getAllFlights(@PathVariable int pageId, ModelMap model) {
 
-//        model.addAttribute("flights", flightService.getAllFlights());
-//        return "flights";
         int flightsByPage = (int) model.getOrDefault("number", 2);
 
         Map<String, Object> pageRepresentation = flightService.getFlightsByPage(pageId, flightsByPage);
@@ -75,9 +73,20 @@ public class FlightController {
         return "addFlight";
     }
 
-    @GetMapping(value = FLIGHT)
-    public String searchForFlight(Model model) {
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+    @GetMapping(value = FLIGHT+ "/{pageId}")
+    public String searchForFlight(@PathVariable int pageId, ModelMap model) {
+        //model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+
+        int flightsByPage = (int) model.getOrDefault("number", 2);
+
+        Map<String, Object> pageRepresentation = flightService.getAllFlightsWithUpdatedPrice(pageId, flightsByPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("flights", pageRepresentation.get("flights"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
+
+
+        System.out.println("/flight");
         return "search";
     }
 
