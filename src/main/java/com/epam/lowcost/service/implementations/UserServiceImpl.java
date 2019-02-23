@@ -1,12 +1,10 @@
 package com.epam.lowcost.service.implementations;
 
-import com.epam.lowcost.DAO.interfaces.TicketDAO;
 import com.epam.lowcost.DAO.interfaces.UserDAO;
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.TicketService;
 import com.epam.lowcost.service.interfaces.UserService;
 import org.mindrot.jbcrypt.BCrypt;
-
 
 import java.util.HashMap;
 import java.util.List;

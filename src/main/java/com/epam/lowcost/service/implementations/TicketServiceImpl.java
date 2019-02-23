@@ -21,12 +21,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
 
-  public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-   
-    public void setFlightService(FlightService flightService){
+    public void setFlightService(FlightService flightService) {
 
         this.flightService = flightService;
     }
@@ -101,7 +96,6 @@ public class TicketServiceImpl implements TicketService {
         return price;
 
     }
-
 
 
 }

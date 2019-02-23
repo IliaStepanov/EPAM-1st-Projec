@@ -3,17 +3,10 @@ package com.epam.lowcost.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Flight {
-    private long id;
 @Getter
 @Setter
 @ToString
@@ -30,7 +23,6 @@ public class Flight extends AbstractJdbcModel {
     private long placePriorityPrice;
     private long businessPrice;
     private long luggagePrice;
-    private boolean isDeleted;
 
     @Builder
     public Flight(Long id,
@@ -38,8 +30,8 @@ public class Flight extends AbstractJdbcModel {
                   Plane plane,
                   LocalDateTime departureDate,
                   LocalDateTime arrivalDate,
-                  String departureAirport,
-                  String arrivalAirport,
+                  Airport departureAirport,
+                  Airport arrivalAirport,
                   long placePriorityPrice,
                   long businessPrice,
                   long luggagePrice,
