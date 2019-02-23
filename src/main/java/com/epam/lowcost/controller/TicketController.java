@@ -7,6 +7,7 @@ import com.epam.lowcost.service.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -16,17 +17,29 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = TICKETS)
-@SessionAttributes(value = "sessionUser")
+@SessionAttributes({"sessionUser", "number"})
 public class TicketController {
 
     @Autowired
     TicketService ticketService;
 
 
-    @GetMapping(value = ALL)
-    public String getAllTickets(Model model) {
-        model.addAttribute("tickets", ticketService.getAllTickets());
+    @GetMapping(value = ALL + "/{pageId}")
+    public String getAllTickets(@PathVariable int pageId,  ModelMap model) {
+       int ticketsByPage = (int) model.getOrDefault("number", 5);
+
+        Map<String, Object> pageRepresentation = ticketService.getTicketsByPage(pageId, ticketsByPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("tickets", pageRepresentation.get("tickets"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         return "tickets";
+    }
+
+    @GetMapping(value = SET_TICKETS_BY_PAGE)
+    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:" + fromPage + FIRST_PAGE;
     }
 
     @GetMapping

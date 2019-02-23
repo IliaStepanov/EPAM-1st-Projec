@@ -11,11 +11,57 @@
 <h2><spring:message code="lang.planes"/></h2><br/><br/>
 
 <br/><br/>
-<a href="<%=EndPoints.PLANE + EndPoints.ALL%>"><spring:message code="lang.allPlanes"/></a><br/><br/>
+<a href="<%=EndPoints.PLANE + EndPoints.ALL+ EndPoints.FIRST_PAGE%>"><spring:message code="lang.allPlanes"/></a><br/><br/>
+<div>
+    <form action="<%=EndPoints.PLANE + EndPoints.SET_PLANES_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="1"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Planes by 1"/>
+    </form>
+    <form action="<%=EndPoints.PLANE + EndPoints.SET_PLANES_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="3"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Planes by 3"/>
+    </form>
+    <form action="<%=EndPoints.PLANE + EndPoints.SET_PLANES_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="5"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Planes by 5"/>
+    </form>
+    <form action="<%=EndPoints.PLANE + EndPoints.SET_PLANES_BY_PAGE%>" method="get">
+        <input type="hidden" name="number" value="20"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Planes by 20"/>
+    </form>
+</div>
+<h1>All Planes</h1>
+<table border="12" width="70%" cellpadding="2">
+    <tr>
+        <th>Id</th>
+        <th>Model</th>
+        <th>Business Places</th>
+        <th>Econom Places</th>
+        <th>Service</th>
+    </tr>
+    <c:forEach var="plane" items="${planes}">
+        <tr>
+            <td>${plane.id}</td>
+            <td>${plane.model} </td>
+            <td>${plane.businessPlacesNumber}</td>
+            <td>${plane.economPlacesNumber}</td>
+            <td><form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
+                <input type="hidden" name="id" value="${plane.id}"/>
+                <input type="submit" value="<spring:message code="lang.deletePlane"/>"/>
+            </form></td>
+        </tr>
+    </c:forEach>
 
-<c:forEach items="${planes}" var="plane">
-    <c:out value="${plane.toString()}"/><br/>
+</table>
+<a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId-1}">Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${page}">${page}</a>
 </c:forEach>
+<a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId+1}">Next</a>
 
 
 <br/>

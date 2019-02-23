@@ -19,7 +19,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = FLIGHTS)
-@SessionAttributes(value = "number")
+@SessionAttributes({"sessionUser", "number"})
 public class FlightController {
 
     private FlightService flightService;
@@ -86,8 +86,6 @@ public class FlightController {
         model.addAttribute("flights", pageRepresentation.get("flights"));
         model.addAttribute("pageId", pageRepresentation.get("pageId"));
 
-
-        System.out.println("/flight");
         return "search";
     }
 

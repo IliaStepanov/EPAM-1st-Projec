@@ -8,7 +8,9 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.TicketService;
 import com.epam.lowcost.service.interfaces.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TicketServiceImpl implements TicketService {
     private TicketDAO ticketDAO;
@@ -95,5 +97,32 @@ public class TicketServiceImpl implements TicketService {
 
     }
 
+    @Override
+    public Map<String, Object> getTicketsByPage(int pageId, int ticketsByPage) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int users = ticketDAO.countTickets();
+        int pagesNum;
+        if (users % ticketsByPage != 0) {
+            pagesNum = (users / ticketsByPage + 1);
+        } else {
+            pagesNum = (users / ticketsByPage);
+        }
+        if (pageId >= pagesNum) {
+            pageId = pagesNum;
+        }
 
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("tickets", ticketDAO.getTicketsByPage(pageId, ticketsByPage));
+        pageInfo.put("pagesNum", pagesNum);
+        pageInfo.put("pageId", pageId);
+
+        return pageInfo;
+    }
+
+    @Override
+    public int countTickets() {
+        return ticketDAO.countTickets();
+    }
 }

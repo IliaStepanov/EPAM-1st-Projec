@@ -31,12 +31,14 @@ public final class EndPoints {
 //  Plane Controller endpoints
 
     public static final String PLANE = "/plane";
+    public static final String SET_PLANES_BY_PAGE = "/setPlanesByPage";
 
 //  Tickets Controller endpoints
 
     public static final String TICKETS = "/tickets";
     public static final String SELF = "/self";
     public static final String CANCEL = "/cancel";
+    public static final String SET_TICKETS_BY_PAGE = "/setTicketsByPage";
 
 //  User Controller endpoints
 

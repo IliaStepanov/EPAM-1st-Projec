@@ -15,11 +15,14 @@ public interface TicketDAO {
 
     Ticket updateTicket(Ticket ticket);
 
-
     boolean deleteTicketsByFlightId(long id);
 
     boolean deleteTicketsByUserId(long id);
 
     String deleteTicket(long id);
+
+    List<Ticket> getTicketsByPage(int pageId, int ticketsByPage);
+
+    int countTickets();
 
 }
