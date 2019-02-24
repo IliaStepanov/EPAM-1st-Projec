@@ -20,8 +20,10 @@
         <th><spring:message code="lang.destination"/></th>
         <th><spring:message code="lang.hasLuggage"/></th>
         <th><spring:message code="lang.placePriority"/></th>
-        <th><spring:message code="lang.date"/></th>
+        <th><spring:message code="lang.departureDateFrom"/></th>
         <th><spring:message code="lang.price"/></th>
+        <th>Purchase date</th>
+
         <th>Actions</th>
     </tr>
     <c:forEach var="ticket" items="${currentUserTickets}">
@@ -34,6 +36,7 @@
             <td>${ticket.placePriority}</td>
             <td>${ticket.flight.departureDate}</td>
             <td>${ticket.price}</td>
+            <td>${ticket.purchaseDate}</td>
             <td><input type="button"
                        onclick="alert('Ticket# ${ticket.id} Flight# ${ticket.flight.id} From ${ticket.flight.departureAirport} At ${ticket.flight.departureDate} To ${ticket.flight.arrivalAirport} At ${ticket.flight.arrivalDate}')"
                        value="<spring:message code="lang.details"/>"/>
