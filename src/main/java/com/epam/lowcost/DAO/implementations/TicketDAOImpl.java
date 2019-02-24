@@ -76,13 +76,14 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.flightId = ?";
             jdbcTemplate.update(sql, id);
             return true;
+
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
     }
 
     public boolean deleteTicketsByUserId(long id) {
-        try {
+      try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
             jdbcTemplate.update(sql, id);
@@ -90,8 +91,8 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+       
     }
-
 
     public int countBusinessPlaces(long id) {
         int n;
@@ -125,6 +126,9 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 "JOIN  USERS ON TICKETS.userId=USERS.id " +
                 "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
                 "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                "JOIN AIRPORTS AS a " +
+                "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b " +
+                "ON FLIGHTS.ARRIVALAIRPORT=b.code " +
                 "WHERE TICKETS.isDeleted=false ";
     }
 

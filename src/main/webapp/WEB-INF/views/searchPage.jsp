@@ -1,4 +1,5 @@
 <%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@page import="java.time.LocalDateTime" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -34,11 +35,13 @@
     <h3>
 
 
-        <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport}"/><br/>
-        <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport}"/><br/>
+
+        <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport.cityEng}"/><br/>
+        <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport.cityEng}"/><br/>
         <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
         <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
         <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
+
 
 
     </h3>
@@ -56,15 +59,21 @@
         <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
 
             <input type="date" required name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
-            <input type="date" required name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
-            <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
-            <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
+            <input type="date"  name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
+            <input type="text" required list="airport" name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
+            <input type="text" required list="airport" name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
             <input type="text" hidden name="adminPage" value="false"/>
             <input type="submit" value="<spring:message code="lang.search"/>"/>
 
         </form>
     </h3>
 </div>
+
+<datalist id="airport">
+    <c:forEach items="${airports}" var="airport">
+        <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+    </c:forEach>
+</datalist>
 
 </body>
 </html>
