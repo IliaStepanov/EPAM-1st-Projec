@@ -40,7 +40,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = SET_USERS_BY_PAGE)
+    @GetMapping(value = PAGE)
     public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
         return "redirect:" + fromPage + FIRST_PAGE;

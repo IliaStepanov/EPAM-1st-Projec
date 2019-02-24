@@ -43,7 +43,7 @@ public class FlightController {
 
     }
 
-    @GetMapping(value = SET_FLIGHT_BY_PAGE)
+    @GetMapping(value = PAGE)
     public String setFlightsByPage(@RequestParam String number,@RequestParam String fromPage, ModelMap model) {
         model.addAttribute("number", Integer.parseInt(number));
 
