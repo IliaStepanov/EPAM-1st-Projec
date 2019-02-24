@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		  http://www.springframework.org/schema/context
@@ -11,6 +11,7 @@
  		  http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/webjars/**" location="/webjars/"/>
 
     <context:component-scan base-package="com.epam.lowcost.controller"/>
 
@@ -18,44 +19,71 @@
 
     <bean id="userowMapper" class="com.epam.lowcost.util.UserRowMapper"/>
 
-    <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper" c:planeRowMapper-ref="planerowMapper"/>
+
+    <bean id="flightrowMapper" class="com.epam.lowcost.util.FlightRowMapper">
+        <constructor-arg ref="planerowMapper"/>
+        <constructor-arg ref="airportRowMapper"/>
+    </bean>
+
+
+
+
+    <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper" c:flightRowMapper-ref="flightrowMapper"
+          c:userRowMapper-ref="userowMapper"/>
+    <bean id="airportRowMapper" class="com.epam.lowcost.util.AirportRowMapper" />
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
     </bean>
 
 
-    <bean id="userDAO" class="com.epam.lowcost.DAO.UserDAOImpl" c:dataSource-ref="dataSource"
+    <bean id="userDAO" class="com.epam.lowcost.DAO.implementations.UserDAOImpl" c:dataSource-ref="dataSource"
           c:rowMapper-ref="userowMapper"/>
 
-    <bean id="userService" class="com.epam.lowcost.service.UserServiceImpl" c:userDAO-ref="userDAO"/>
+    <bean id="userService" class="com.epam.lowcost.service.implementations.UserServiceImpl">
+        <constructor-arg ref="userDAO"/>
+        <property name="ticketService" ref="ticketService"/>
+    </bean>
 
 
-    <bean id="planeDAO" class="com.epam.lowcost.DAO.PlaneDAOImpl" c:dataSource-ref="dataSource"
+
+    <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
           c:planeRowMapper-ref="planerowMapper"/>
 
-    <bean id="planeService" class="com.epam.lowcost.service.PlaneServiceImpl" c:planeDAO-ref="planeDAO"/>
+    <bean id="planeService" class="com.epam.lowcost.service.implementations.PlaneServiceImpl"
+          c:planeDAO-ref="planeDAO"/>
 
-    <bean id="flightDAO" class="com.epam.lowcost.DAO.FlightDAOImpl">
+    <bean id="flightDAO" class="com.epam.lowcost.DAO.implementations.FlightDAOImpl">
         <constructor-arg ref="dataSource"/>
         <constructor-arg ref="flightrowMapper"/>
     </bean>
 
-    <bean id="flightService" class="com.epam.lowcost.service.FlightServiceImpl">
+    <bean id="flightService" class="com.epam.lowcost.service.implementations.FlightServiceImpl">
         <constructor-arg ref="flightDAO"/>
         <constructor-arg ref="planeService"/>
+        <constructor-arg ref="airportService"/>
+        <property name="ticketService" ref="ticketService"/>
     </bean>
 
-    <bean id="ticketDAO" class="com.epam.lowcost.DAO.TicketDAOImpl">
+    <bean id="ticketDAO" class="com.epam.lowcost.DAO.implementations.TicketDAOImpl">
         <constructor-arg ref="dataSource"/>
-        <constructor-arg ref="userowMapper"/>
-        <constructor-arg ref="flightrowMapper"/>
+        <constructor-arg ref="ticketRowMapper"/>
     </bean>
 
-    <bean id="ticketService" class="com.epam.lowcost.service.TicketServiceImpl">
-        <constructor-arg ref="userService"/>
-        <constructor-arg ref="flightService"/>
+    <bean id="ticketService" class="com.epam.lowcost.service.implementations.TicketServiceImpl">
         <constructor-arg ref="ticketDAO"/>
+
+        <property name="userService" ref="userService"/>
+        <property name="flightService" ref="flightService"/>
+    </bean>
+
+   <bean id="airportDAO" class="com.epam.lowcost.DAO.implementations.AirportDAOImpl">
+       <constructor-arg ref="dataSource"/>
+       <constructor-arg ref="airportRowMapper"/>
+   </bean>
+
+    <bean id="airportService" class="com.epam.lowcost.service.implementations.AirportServiceImpl">
+        <constructor-arg ref="airportDAO"/>
     </bean>
 
 
@@ -66,8 +94,40 @@
         <property name="password" value=""/>
     </bean>
 
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:lang"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="ru"/>
+    </bean>
+
+    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start"
+          destroy-method="stop">
+        <constructor-arg>
+            <list>
+                <value>-web</value>
+                <value>-webAllowOthers</value>
+                <value>-webDaemon</value>
+                <value>-webPort</value>
+                <value>8082</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/views/"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

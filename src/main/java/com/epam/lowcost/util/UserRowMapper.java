@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public   class UserRowMapper implements RowMapper<User> {
+public class UserRowMapper implements RowMapper<User> {
 
 
     private UserRowMapper() {
     }
 
     @Override
-    public  User mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         return User.builder()
                 .id(rs.getLong("USERS.id"))

@@ -1,7 +1,7 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.PlaneService;
+import com.epam.lowcost.service.interfaces.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,28 +12,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.EndPoints.*;
+
 @Controller
-@RequestMapping(value = "/plane")
+@RequestMapping(value = PLANE)
 public class PlaneController {
 
     @Autowired
     PlaneService planeService;
 
-    @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    @GetMapping(value = ALL)
+    public String getAllPlanes(Model model) {
         model.addAttribute("planes", planeService.getAllPlanes());
-        return "planes";
+        return PLANESPAGE;
     }
 
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
         model.addAttribute("message", "Here is your Plane!");
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping
-    public String addUser(@RequestParam Map<String, String> params, Model model) {
+    public String addPlane(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("plane", planeService.addPlane(
                 Plane.builder()
                         .model(params.get("model"))
@@ -43,10 +45,10 @@ public class PlaneController {
                         .build()));
 
         model.addAttribute("message", "Plane successfully added");
-        return "planes";
+        return PLANESPAGE;
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updatePlane(@RequestParam Map<String, String> params, Model model) {
         Plane plane = planeService.updatePlane(
                 Plane.builder()
@@ -61,12 +63,12 @@ public class PlaneController {
             model.addAttribute("plane", plane);
             model.addAttribute("message", "Plane seccessfully updated");
         }
-        return "planes";
+        return PLANESPAGE;
     }
 
-    @PostMapping(value = "/delete")
-    public String deleteUser(@RequestParam long id, Model model) {
+    @PostMapping(value = DELETE)
+    public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
-        return "planes";
+        return PLANESPAGE;
     }
 }

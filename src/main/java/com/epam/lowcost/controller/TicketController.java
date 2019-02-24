@@ -3,49 +3,48 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Ticket;
 import com.epam.lowcost.model.User;
-import com.epam.lowcost.service.TicketService;
+import com.epam.lowcost.service.interfaces.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import static com.epam.lowcost.util.EndPoints.*;
 
 
 @Controller
-@RequestMapping(value = "/tickets")
+@RequestMapping(value = TICKETS)
+@SessionAttributes(value = "sessionUser")
 public class TicketController {
 
     @Autowired
     TicketService ticketService;
 
 
-    @GetMapping(value = "/all")
-    public String getAllUsers(Model model) {
+    @GetMapping(value = ALL)
+    public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
-        return "tickets";
+        return TICKETSPAGE;
     }
 
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("tickets", ticketService.getAllUserTickets(id));
-        return "tickets";
+        return TICKETSPAGE;
     }
 
-    @PostMapping
-    public String addTicket(@RequestParam Map<String, String> params, Model model) {
-        User user = new User();
-        user.setId(Long.parseLong(params.get("userId")));
-        Flight flight = new Flight();
-        flight.setId(Long.parseLong(params.get("flightId")));
+    @PostMapping(value = ADD)
+    public String addTicket(@ModelAttribute("sessionUser") User sessionUser,
+                            @RequestParam Map<String, String> params, Model model) {
+        Flight flight = Flight.builder()
+                .id(Long.parseLong(params.get("flightId")))
+                .build();
 
         model.addAttribute("ticket", ticketService.addTicket(
                 Ticket.builder()
-                        .user(user)
+                        .user(sessionUser)
                         .flight(flight)
                         .hasLuggage(Boolean.parseBoolean(params.get("hasLuggage")))
                         .placePriority(Boolean.parseBoolean(params.get("placePriority")))
@@ -53,10 +52,10 @@ public class TicketController {
                         .build()));
 
         model.addAttribute("message", "Ticket successfully added");
-        return "tickets";
+        return "redirect:" + TICKETS + SELF;
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = UPDATE)
     public String updateTicket(@RequestParam Map<String, String> params, Model model) {
         Ticket ticket = ticketService.updateTicket(
                 Ticket.builder()
@@ -72,22 +71,28 @@ public class TicketController {
             model.addAttribute("ticket", ticket);
             model.addAttribute("message", "Ticket successfully updated");
         }
-        return "tickets";
+        return "redirect:" + TICKETS + SELF;
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping(value = DELETE)
     public String deleteTicket(@RequestParam long id, Model model) {
         model.addAttribute("message", ticketService.deleteTicket(id));
-        return "tickets";
+        return "redirect:" + TICKETS + ALL;
     }
 
-    @GetMapping(value = "/buy")
-    private String buyTicket(@RequestParam long id, Model model) {
-        Map<String, String> params = new HashMap<>();
-        params.put("flightId", String.valueOf(id));
-        params.put("userId", "1");
-        addTicket(params, model);
-        return "buy";
+    @PostMapping(value = CANCEL)
+    public String cancelTicket(@RequestParam long id, Model model) {
+        model.addAttribute("message", ticketService.deleteTicket(id));
+        return "redirect:" + TICKETS + SELF;
     }
+
+
+
+    @GetMapping(value = SELF)
+    public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
+        model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
+        return USERPAGE;
+    }
+
 
 }
