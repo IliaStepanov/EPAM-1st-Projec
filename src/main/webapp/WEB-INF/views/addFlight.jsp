@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="lang.addNewFlight"/> </title>
 </head>
 <body>
 <jsp:include page="navigationPanel.jsp"/>

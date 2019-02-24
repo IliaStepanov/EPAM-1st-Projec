@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="lang.buy" </title>
     <jsp:include page="navigationPanel.jsp"/>
 </head>
 
