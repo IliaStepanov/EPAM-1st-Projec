@@ -27,20 +27,20 @@ public class AirportController {
     @GetMapping(value = ALL)
     public String getAllAirports(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
-        return "airports";
+        return AIRPORTSPAGE;
     }
 
     @GetMapping
     public String getAirportByCode(@RequestParam String code, Model model) {
         model.addAttribute("airport", airportService.getAirportByCode(code.toUpperCase()));
-        return "airports";
+        return AIRPORTSPAGE;
     }
 
     @PostMapping(value = ADD)
     public String addAirport(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("airport", airportService.addNewAirport(params));
         model.addAttribute("message", "Airport successfully added");
-        return "airports";
+        return AIRPORTSPAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -52,7 +52,7 @@ public class AirportController {
             model.addAttribute("airport", airport);
             model.addAttribute("message", "Airport successfully added");
         }
-        return "airports";
+        return AIRPORTSPAGE;
     }
 
 

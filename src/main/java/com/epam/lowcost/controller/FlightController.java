@@ -38,16 +38,15 @@ public class FlightController {
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
-        return FLIGHTSPAGE;
         model.addAttribute("airports", airportService.getAllAirports());
-        return "flights";
+        return FLIGHTSPAGE;
+
     }
 
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
         model.addAttribute("airports", airportService.getAllAirports());
-        return "flightSettings";
         return FLIGHTSETTINGS;
     }
 
@@ -64,19 +63,15 @@ public class FlightController {
     }
 
 
-    @GetMapping(value = ADD)
-    public String addNewFlight() {
-        return ADDFLIGHT;
     public String addNewFlight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
-        return "addFlight";
+            return ADDFLIGHT;
     }
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
         model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
         model.addAttribute("airports", airportService.getAllAirports());
-        return "search";
         return SEARCHPAGE;
     }
 
