@@ -18,6 +18,8 @@
         <th><spring:message code="lang.passanger"/></th>
         <th><spring:message code="lang.departureAirport"/></th>
         <th><spring:message code="lang.destination"/></th>
+        <th><spring:message code="lang.hasLuggage"/></th>
+        <th><spring:message code="lang.placePriority"/></th>
         <th><spring:message code="lang.date"/></th>
         <th><spring:message code="lang.price"/></th>
         <th>Actions</th>
@@ -28,6 +30,8 @@
             <td>${ticket.user.firstName}</td>
             <td>${ticket.flight.departureAirport}</td>
             <td>${ticket.flight.arrivalAirport}</td>
+            <td>${ticket.hasLuggage}</td>
+            <td>${ticket.placePriority}</td>
             <td>${ticket.flight.departureDate}</td>
             <td>${ticket.price}</td>
             <td><input type="button"
