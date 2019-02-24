@@ -46,6 +46,21 @@ public final class EndPoints {
     public static final String SET_USERS_BY_PAGE = "/setUsersByPage";
     public static final String FIRST_PAGE = "/1";
 
+    // View endpoints
+    public static final String ADDFLIGHT="addFlight";
+    public static final String ADMIN="admin";
+    public static final String BUY="buy";
+    public static final String FLIGHTSPAGE="flightsPage";
+    public static final String FLIGHTSETTINGS="flightSettings";
+    public static final String LOGIN="login";
+    public static final String PLANESPAGE="planesPage";
+    public static final String REGISTRATIONPAGE="registrationPage";
+    public static final String SEARCHPAGE="searchPage";
+    public static final String SETTINGSPAGE="settingsPage";
+    public static final String TICKETSPAGE="ticketsPage";
+    public static final String USERPAGE="userPage";
+    public static final String USERSPAGE="usersPage";
+
 
 }
 

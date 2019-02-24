@@ -33,20 +33,20 @@ public class FlightController {
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
-        return "flights";
+        return FLIGHTSPAGE;
     }
 
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
-        return "flightSettings";
+        return FLIGHTSETTINGS;
     }
 
 
     @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
         model.addAttribute("flight", ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(id));
-        return "buy";
+        return BUY;
     }
 
     @GetMapping(value = RETURN)
@@ -57,13 +57,13 @@ public class FlightController {
 
     @GetMapping(value = ADD)
     public String addNewFlight() {
-        return "addFlight";
+        return ADDFLIGHT;
     }
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
         model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
-        return "search";
+        return SEARCHPAGE;
     }
 
     @GetMapping(value = SEARCH)
@@ -73,9 +73,9 @@ public class FlightController {
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
         if (params.get("adminPage").equals("true")) {
-            return "flights";
+            return FLIGHTSPAGE;
         }
-        return "search";
+        return SEARCHPAGE;
 
     }
 
