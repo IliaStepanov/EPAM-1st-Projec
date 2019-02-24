@@ -74,9 +74,8 @@ public class FlightController {
         return "addFlight";
     }
 
-    @GetMapping(value = FLIGHT+ "/{pageId}")
+    @GetMapping(value = FLIGHT + "/{pageId}")
     public String searchForFlight(@PathVariable int pageId, ModelMap model) {
-        //model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
 
         int flightsByPage = (int) model.getOrDefault("number", 2);
 
@@ -142,7 +141,7 @@ public class FlightController {
                                 .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
                                 .arrivalAirport(params.get("arrivalAirport"))
                                 .build()));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
     }
 
     @PostMapping(value = DELETE)
