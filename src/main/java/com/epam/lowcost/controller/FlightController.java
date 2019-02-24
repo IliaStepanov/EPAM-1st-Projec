@@ -62,10 +62,14 @@ public class FlightController {
         return "redirect:" + FLIGHTS + FLIGHT;
     }
 
-
+    @GetMapping (value = ADD)
     public String addNewFlight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
             return ADDFLIGHT;
+    }
+    @GetMapping(value = "/goto")
+    public String goTO(){
+        return "search";
     }
 
     @GetMapping(value = FLIGHT)

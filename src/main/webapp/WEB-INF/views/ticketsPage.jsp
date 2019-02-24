@@ -6,6 +6,8 @@
 <head>
     <title>Ticket DAO page </title>
     <jsp:include page="navigationPanel.jsp"/>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 <spring:message code="lang.adminPage"/>

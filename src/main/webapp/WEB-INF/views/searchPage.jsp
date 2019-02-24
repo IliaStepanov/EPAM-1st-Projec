@@ -15,22 +15,42 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.findFlight"/></title>
-    <style type="text/css">
-        body {
-            margin: 0;
-        }
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 
-        #content {
-            position: absolute;
-        }
-
-        #content {
-            left: 500px; /* Расстояние от левого края */
-            top: 100px;
-        }
-    </style>
 </head>
 <body>
+<div class="container">
+    <div class="row BlockBachground">
+        <div class="col-md-8">
+
+            <p class="labelSeatchFlight"><spring:message code="lang.findFlight"/></p>
+
+                <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
+                    <div class="leftBlockSerch">
+                        <label for="inpSerc"><spring:message code="lang.departureDateFrom"/>:</label>
+                        <input type="date" id="inpSerc" required name="departureDateFrom" class="form-control searchInput"/> <br/>
+                        <label for="inpSerc2"><spring:message code="lang.departureDateTo"/>: </label>
+                        <input type="date" id="inpSerc2" name="departureDateTo" class="form-control searchInput"/><br/>
+                    </div>
+                    <div class="leftBlockSerchRight">
+                    <label for="inpSerc3"><spring:message code="lang.departureAirport"/>: </label>
+                    <input type="text" id="inpSerc3" required list="airport" name="departureAirport" class="form-control searchInput"/> <br/>
+                    <label for="inpSerc4"><spring:message code="lang.arrivalAirport"/>: </label>
+                    <input type="text" id="inpSerc4" required list="airport" name="arrivalAirport" class="form-control searchInput"/>  <br/>
+                    <input type="text" hidden name="adminPage" value="false"/>
+                    </div>
+
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="<spring:message code="lang.search"/>" class="btn btn-outline-warning btnSeach"/>
+
+            </form>
+        </div>
+    </div>
+</div>
 <c:forEach items="${flights}" var="flight">
     <h3>
 
@@ -54,19 +74,6 @@
 
 <div id="content">
 
-    <h4><spring:message code="lang.findFlight"/></h4>
-    <h3>
-        <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
-
-            <input type="date" required name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
-            <input type="date"  name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
-            <input type="text" required list="airport" name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
-            <input type="text" required list="airport" name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
-            <input type="text" hidden name="adminPage" value="false"/>
-            <input type="submit" value="<spring:message code="lang.search"/>"/>
-
-        </form>
-    </h3>
 </div>
 
 <datalist id="airport">

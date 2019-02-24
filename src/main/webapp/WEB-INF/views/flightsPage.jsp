@@ -14,6 +14,8 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.findFlight"/></title>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
     <style type="text/css">
         body {
             margin: 0;

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class UserController {
                         .firstName(params.get("firstName"))
                         .lastName(params.get("lastName"))
                         .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDateTime.parse(params.get("birthday")))
+                        .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");

@@ -13,6 +13,8 @@
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.userSettings"/></title>
     <link href="webjars/bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 
@@ -31,7 +33,7 @@
     <br/>
     <input type="text" name="documentInfo" value="${sessionUser.documentInfo}"/> <spring:message
         code="lang.newDocument"/> <br/>
-    <input type="datetime-local" name="birthday" value="${sessionUser.birthday}"/> <spring:message
+    <input type="date" name="birthday" value="${sessionUser.birthday}"/> <spring:message
         code="lang.newDateBirth"/><br/>
     <input type="hidden" name="userUpdate" value="fromUser"/>
     <input type="submit" value="ОК"/>

@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 .header_links {
     margin-top: 2rem;
     /* margin-bottom: 100px; */
 }
-
+body{
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
 .header_btn {
     margin-right: 10px;
 }
@@ -68,4 +73,129 @@
 
 .btn_fly {
     width: 10%;
+}
+/* -------------- header navbar --------------------*/
+.languageAndAccaunt {
+    background-image: url(../img/canada-lake-feb.jpg);
+    background-repeat: no-repeat;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    padding: 5px 5%;
+
+}
+.language a{
+    color: white;
+    text-decoration: none;
+}
+.language a:hover{
+    color: white;
+    text-decoration: underline;
+}
+.navbarLink{
+    color: white;
+    font-size: 20px;
+    margin:0 1%;
+    text-decoration: none;
+
+}
+
+.navbarLink:hover {
+    border-bottom: 1px solid white;
+    color: white;
+    text-decoration: none;
+
+}
+.topnav{
+    margin-top: 10px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+/*----------------UserPage----------------*/
+
+.OneTicket{
+    margin-top: 10px;
+
+
+}
+.backgroundTicket{
+    padding: 1rem;
+    background-color: #f7f7f9;
+    border: 1px solid #68b1ff ;
+    border-radius: 5px;
+    -webkit-box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
+    -moz-box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
+    box-shadow: 6px 6px 3px -1px rgba(224,224,224,1);
+}
+.buttonFloatLeft{
+    float: left;
+    margin-right: 10px;
+}
+.GroupSearch{
+    color: #68b1ff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.GroupSearch a{
+    border-bottom: 1px solid #68b1ff;
+    color: #68b1ff;
+    font-size: 18px;
+    padding-bottom: 3px;
+}
+
+.GroupSearch a:hover{
+    text-decoration: none;
+    border-bottom: 1px solid #68b1ff;
+    color: #68b1ff;
+
+}
+.buttonGroupCard{
+    margin-top: 10px;
+
+}
+/*--------------SeatchPage--------------------------*/
+.SeachTicketSearch{
+    font-size: 24px;
+}
+.searchInput{
+    max-width:80%;
+}
+.searchInputSecond{
+    max-width: 80%;
+}
+.leftBlockSerch{
+    padding-left: 10%;
+    padding-top: 10px;
+    width: 50%;
+    float: left;
+}
+.leftBlockSerchRight{
+    padding-top: 10px;
+    padding-left: 10%;
+
+    float: right;
+    width: 50%;
+}
+.labelSeatchFlight{
+    margin-top: 5px;
+    font-size: 24px;
+    margin-bottom: 0px;
+    padding-left: 10%;
+}
+.BlockBachground{
+    color: white;
+    width: 100%;
+    background-color: #1967d2;
+    margin-top: 30px;
+    padding: 20px 0px;
+    border-radius: 10px;
+    opacity:0.9;
+    /*padding-left: 5%;*/
+}
+.serchButton{
+
+}
+.btnSeach{
+    margin-top: 20%;
 }

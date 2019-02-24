@@ -12,6 +12,8 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.adminPage"/></title>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 

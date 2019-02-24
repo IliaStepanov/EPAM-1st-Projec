@@ -11,6 +11,8 @@
 <html>
 <head>
     <title><spring:message code="lang.addNewFlight"/> </title>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="navigationPanel.jsp"/>

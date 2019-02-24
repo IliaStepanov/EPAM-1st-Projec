@@ -13,6 +13,8 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.airportDAO"/></title>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 <h2><spring:message code="lang.airports"/></h2><br/><br/>

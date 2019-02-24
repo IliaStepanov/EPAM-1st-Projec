@@ -11,8 +11,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="lang.buy" </title>
+    <title><spring:message code="lang.buy"></spring:message> </title>
     <jsp:include page="navigationPanel.jsp"/>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link href="${main_css}" rel="stylesheet">
 </head>
 
 <script>
