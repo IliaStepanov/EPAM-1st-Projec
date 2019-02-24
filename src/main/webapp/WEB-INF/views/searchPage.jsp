@@ -1,5 +1,4 @@
 <%@ page import="com.epam.lowcost.util.EndPoints" %>
-<%@page import="java.time.LocalDateTime" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -51,30 +50,50 @@
         </div>
     </div>
 </div>
+<div class="container mainSerchPage">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><spring:message code="lang.from"/></th>
+                    <th scope="col"><spring:message code="lang.to"/></th>
+                    <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
+                    <th scope="col"> <spring:message code="lang.arriveAt"/></th>
+                    <th scope="col">  <spring:message code="lang.price"/></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
 <c:forEach items="${flights}" var="flight">
-    <h3>
+
+<tr>
 
 
-
-        <spring:message code="lang.from"/>: <c:out value="${flight.departureAirport.cityEng}"/><br/>
-        <spring:message code="lang.to"/>: <c:out value="${flight.arrivalAirport.cityEng}"/><br/>
-        <spring:message code="lang.departureDateFrom"/>: <c:out value="${flight.departureDate}"/><br/>
-        <spring:message code="lang.arriveAt"/>: <c:out value="${flight.arrivalDate}"/><br/>
-        <spring:message code="lang.price"/> <c:out value="${flight.initialPrice}"/><br/>
-
+    <td><c:out value="${flight.departureAirport.cityEng}"/></td>
+    <td> <c:out value="${flight.arrivalAirport.cityEng}"/></td>
+    <td>   <c:out value="${flight.departureDate}"/></td>
+    <td>  <c:out value="${flight.arrivalDate}"/></td>
+    <td>  <c:out value="${flight.initialPrice}"/></td>
 
 
-    </h3>
+<td>
     <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
         <input type="hidden" name="id" value="${flight.id}"/>
-        <input type="submit" value="<spring:message code="lang.buy"/>"/>
+        <input type="submit" value="<spring:message code="lang.buy"/>" class="btn btn-outline-primary"/>
 
     </form>
+</td>
+</tr>
+
 </c:forEach>
-
-<div id="content">
-
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 
 <datalist id="airport">
     <c:forEach items="${airports}" var="airport">

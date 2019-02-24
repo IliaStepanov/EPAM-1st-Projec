@@ -10,22 +10,32 @@
 <html>
 <head>
     <title><spring:message code="lang.registrationPage"/></title>
-    <div align="right"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></div>
+    <spring:url value="/resources/css/login.css" var="login_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="${login_css}" rel="stylesheet">
+
 </head>
 <body>
-<h5><spring:message code="lang.fillForm"/></h5>
+<div class="wraper">
+    <p align="right" class="language"><a href="?lang=en">Eng</a>|<a href="?lang=ru">Rus</a></p>
+    <div class="main_block">
+    <h5><spring:message code="lang.fillForm"/></h5>
 
-<form action="<%=EndPoints.USER + EndPoints.ENROLL%>" method="post">
-    <input type="email" name="email"/> <spring:message code="lang.email"/><br/>
-    <input type="password" name="password"/> <spring:message code="lang.password"/><br/>
-    <input type="hidden" name="isAdmin" value="false"/>
-    <input type="text" name="firstName"/> <spring:message code="lang.firstName"/> <br/>
-    <input type="text" name="lastName"/> <spring:message code="lang.lastName"/> <br/>
-    <input type="text" name="documentInfo"/> <spring:message code="lang.document"/> <br/>
-    <input type="datetime-local" name="birthday"/> <spring:message code="lang.birthday"/> <br/>
-    <input type="submit" value="<spring:message code="lang.signIn"/>"/>
-</form>
+    <form action="<%=EndPoints.USER + EndPoints.ENROLL%>" method="post">
+        <spring:message code="lang.email"/><input type="email" name="email" class="form-control input"/>
+        <spring:message code="lang.password"/><input type="password" name="password" class="form-control input"/>
+        <input type="hidden" name="isAdmin"  value="false"/>
+        <spring:message code="lang.firstName"/> <input type="text" name="firstName" class="form-control input"/>
+        <spring:message code="lang.lastName"/> <input type="text" name="lastName" class="form-control input"/>
+        <spring:message code="lang.document"/><input type="text" name="documentInfo" class="form-control input"/>
+        <spring:message code="lang.birthday"/><input type="datetime-local" name="birthday" class="form-control input"/>
+        <input type="submit" value="<spring:message code="lang.signIn"/>" class="btn btn-outline-primary btnSignUp"/>
+    </form>
+    </div>
 
+</div>
 
 </body>
 </html>

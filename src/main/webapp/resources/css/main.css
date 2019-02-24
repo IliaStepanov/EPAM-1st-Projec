@@ -197,5 +197,38 @@ body{
 
 }
 .btnSeach{
-    margin-top: 20%;
+    margin-top:24%;
+    width: 70%;
+}
+.mainSerchPage{
+    margin-top: 20px;
+}
+
+/*---------------------buyPage*-----------------------/
+ */
+.mainContentBuy{
+    margin-top: 20px;
+}
+.buyButtonBuyPage{
+    margin-top: 16px;
+    float: left;
+    margin-right: 16px;
+
+}
+.cancellButtonBuyPage2{
+    margin: 0;
+
+}
+/*------------flights page-------------------*/
+
+.flightAddBtn{
+    margin-top: 17%;
+    width: 70%;
+}
+.deleteFlight{
+    width:70%;
+}
+
+.updateFlight{
+    width: 70%;
 }

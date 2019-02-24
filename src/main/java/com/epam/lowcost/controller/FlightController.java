@@ -67,10 +67,6 @@ public class FlightController {
         model.addAttribute("airports", airportService.getAllAirports());
             return ADDFLIGHT;
     }
-    @GetMapping(value = "/goto")
-    public String goTO(){
-        return "search";
-    }
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {

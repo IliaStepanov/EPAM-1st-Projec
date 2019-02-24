@@ -51,7 +51,7 @@
         <a class=" navbarLink " href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.ticket"/></a>
 
         <c:if test="${sessionUser.isAdmin()}"> |<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.userDAO"/></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL%>" class="navbarLink"> <spring:message code="lang.planeDAO" /></a></c:if>
+        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL%>" class="navbarLink"> <spring:message code="lang.planeDAO" /></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>" class="navbarLink"> <spring:message code="lang.flightDAO"/></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL%>" class="navbarLink"> <spring:message code="lang.ticketDAO"/></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.AIRPORT + EndPoints.ALL%>" class="navbarLink"> <spring:message code="lang.airportDAO"/></a>|</c:if>
