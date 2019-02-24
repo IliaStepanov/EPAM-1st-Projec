@@ -23,18 +23,18 @@ public class LoginController {
 
     @GetMapping
     public String auth(@ModelAttribute("sessionUser") User sessionUser) {
-        return "search";
+        return SEARCH;
     }
 
     @GetMapping(value = ADMIN_PANEL)
     public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
-        return "admin";
+        return ADMIN;
     }
 
 
     @GetMapping(value = REGISTRATION)
     public String toRegistrationPage() {
-        return "registration";
+        return REGISTRATIONPAGE;
     }
 
     @PostMapping
@@ -50,7 +50,7 @@ public class LoginController {
             model.addAttribute("sessionUser", user);
             return "redirect:" + TICKETS + SELF;
         }
-        return "login";
+        return LOGIN;
     }
 
     @GetMapping(value = LOG_OUT)
