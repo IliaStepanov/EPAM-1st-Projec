@@ -17,16 +17,21 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
     }
 
     @Override
+
     public List<Flight> getAllFlights() throws DatabaseErrorException {
-        String sql = "SELECT * FROM FLIGHTS JOIN PLANES " +
-                "ON FLIGHTS.PLANEID = PLANES.ID WHERE  FLIGHTS.ISDELETED = false";
+        String sql = "SELECT * FROM FLIGHTS JOIN  PLANES ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS a " +
+                "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code " +
+                "WHERE  FLIGHTS.ISDELETED = false";
         return executeSqlSelect(sql);
+
     }
 
     @Override
     public Flight getById(long id) throws DatabaseErrorException {
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
-                " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE", id);
+                " ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS a " +
+                "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON " +
+        "FLIGHTS.ARRIVALAIRPORT=b.code WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE ", id);
         return executeSqlSelect(sql).get(0);
     }
 
@@ -36,8 +41,8 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         LocalDateTime depatureDate = flight.getDepartureDate();
         LocalDateTime arrivalDate = flight.getArrivalDate();
         Long planeId = flight.getPlane().getId();
-        String departureAirport = flight.getDepartureAirport().toUpperCase();
-        String arrivalAirport = flight.getArrivalAirport().toUpperCase();
+        String departureAirport = flight.getDepartureAirport().getCode().toUpperCase();
+        String arrivalAirport = flight.getArrivalAirport().getCode().toUpperCase();
         Long businessPrice = flight.getBusinessPrice();
         Long placePriorityPrice = flight.getPlacePriorityPrice();
         Long luggagePrice = flight.getLuggagePrice();
@@ -49,13 +54,14 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
                 DateFormatter.format(arrivalDate),
                 "FALSE", departureAirport, arrivalAirport, businessPrice, placePriorityPrice, luggagePrice);
         return executeSqlInsert(flight, sql);
+
     }
 
     @Override
     public String deleteFlight(long id) throws DatabaseErrorException {
         String sql = String.format("UPDATE Flights SET isDeleted = TRUE WHERE id = '%d'", id);
-        return executeSqlUpdate(sql) == 1 ? String.format("User %d successfully deleted", id)
-                : "User was not deleted";
+        return executeSqlUpdate(sql) == 1 ? String.format("Flight %d successfully deleted", id)
+                : "Flight was not deleted";
     }
 
     @Override
@@ -63,14 +69,14 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         if (getById(flight.getId()) == null)
             return null;
         String sql = String.format("UPDATE Flights SET initialPrice='%d',departureDate='%s'," +
-                        "arrivalDate='%s', planeId='%d',departureAirport = '%s', arrivalAirport = '%s'," +
+                        "arrivalDate='%s', planeId='%d', departureAirport = '%s', arrivalAirport = '%s'," +
                         "luggagePrice=%d, placePriorityPrice=%d, businessPrice=%d WHERE id = %d",
                 flight.getInitialPrice(),
                 DateFormatter.format(flight.getDepartureDate()),
                 DateFormatter.format(flight.getArrivalDate()),
                 flight.getPlane().getId(),
-                flight.getDepartureAirport().toUpperCase(),
-                flight.getArrivalAirport().toUpperCase(),
+                flight.getDepartureAirport().getCode(),
+                flight.getArrivalAirport().getCode(),
                 flight.getLuggagePrice(),
                 flight.getPlacePriorityPrice(),
                 flight.getBusinessPrice(),
@@ -83,7 +89,8 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
                                         LocalDateTime departureDateFrom, LocalDateTime departureDateTo)
             throws DatabaseErrorException {
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
-                        " ON FLIGHTS.planeId = PLANES.id  WHERE FLIGHTS.departureAirport = '%s' " +
+                        " ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS a " +
+                        "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code  WHERE FLIGHTS.departureAirport = '%s' " +
                         "AND FLIGHTS.arrivalAirport = '%s' AND" +
                         " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
                         "AND FLIGHTS.isDeleted=FALSE",

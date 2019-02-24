@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="lang.buy" </title>
     <jsp:include page="navigationPanel.jsp"/>
 </head>
 
@@ -53,10 +53,10 @@
         <output name="Birthdate">${sessionUser.birthday}</output>
         <br/>
         <spring:message code="lang.from"/>
-        <output name="from">${flight.departureAirport}</output>
+        <output name="from">${flight.departureAirport.cityEng}</output>
         <br/>
         <spring:message code="lang.to"/>
-        <output name="arrivaAirport">${flight.arrivalAirport}</output>
+        <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
         <br/>
         <spring:message code="lang.departureAt"/>
         <output name="departureDate">${flight.departureDate}</output>

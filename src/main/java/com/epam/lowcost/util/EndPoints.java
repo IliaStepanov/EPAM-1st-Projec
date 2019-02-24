@@ -46,6 +46,9 @@ public final class EndPoints {
     public static final String SET_USERS_BY_PAGE = "/setUsersByPage";
     public static final String FIRST_PAGE = "/1";
 
+//  Airport Controller endpoints
+    public static final String AIRPORT = "/airport";
+
 
 }
 
