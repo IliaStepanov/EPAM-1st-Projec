@@ -16,12 +16,12 @@ public class AirportRowMapper implements RowMapper<Airport> {
         if (column!=1) column+=table;
         return Airport.builder()
                 .code(rs.getString(column))
-                .cityRus(rs.getString(column+1))
-                .cityEng(rs.getString(column+2))
-                .countryRus(rs.getString(column+3))
-                .countryEng(rs.getString(column+4))
-                .nameEng(rs.getString(column+5))
-                .nameRus(rs.getString(column+6))
+                .nameEng(rs.getString(column+1))
+                .nameRus(rs.getString(column+2))
+                .cityEng(rs.getString(column+3))
+                .cityRus(rs.getString(column+4))
+                .countryEng(rs.getString(column+5))
+                .countryRus(rs.getString(column+6))
                 .build();
     }
 }
