@@ -232,3 +232,12 @@ body{
 .updateFlight{
     width: 70%;
 }
+
+/*-----------------flights settings page----------------------------*/
+.mainContentUpdate {
+    margin-top: 20px;
+}
+
+.updateBtn{
+    margin-top: 16px;
+}
