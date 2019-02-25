@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
@@ -136,6 +137,7 @@ public class UserController {
 
     @PostMapping(value = ENROLL)
     public String createUser(@RequestParam Map<String, String> params, Model model) {
+        ResourceBundle bundle = ResourceBundle.getBundle("lang");
         userService.addUser(
                 User.builder()
                         .email(params.get("email"))
@@ -147,7 +149,7 @@ public class UserController {
                         .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
                         .isDeleted(false)
                         .build());
-        model.addAttribute("message", "Successfully registered. Please Log in. ");
+        model.addAttribute("message", bundle.getString("lang.successfullRegistration"));
         return LOGIN;
 
     }
