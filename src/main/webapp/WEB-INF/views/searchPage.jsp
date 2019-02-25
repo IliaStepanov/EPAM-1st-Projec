@@ -79,6 +79,24 @@
     <td>  <c:out value="${flight.initialPrice}"/></td>
 
 
+<a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId-1}">Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${page}">${page}</a>
+</c:forEach>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId+1}">Next</a>
+<div>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="3"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"/>
+        <input type="submit" value="Show Flights by 3"/>
+    </form>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="5"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"/>
+        <input type="submit" value="Show Flights by 5"/>
+    </form>
+
+
 <td>
     <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
         <input type="hidden" name="id" value="${flight.id}"/>
@@ -93,6 +111,7 @@
             </table>
         </div>
     </div>
+
 </div>
 
 
