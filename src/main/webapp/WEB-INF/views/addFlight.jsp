@@ -11,27 +11,35 @@
 <html>
 <head>
     <title><spring:message code="lang.addNewFlight"/></title>
+
+    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="navigationPanel.jsp"/>
-<h4><spring:message code="lang.addNewFlight"/><br/></h4>
-<form action="<%=EndPoints.FLIGHTS%>" method="post">
-    <input type="text" required name="initialPrice"/> <spring:message code="lang.price"/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mainContentAdd">
+            <h4><spring:message code="lang.addNewFlight"/><br/></h4>
+            <form action="<%=EndPoints.FLIGHTS%>" method="post">
+                <spring:message code="lang.price"/><br/><input type="text" class="form-control input" required name="initialPrice"/>
+                <spring:message code="lang.planeId"/><br/><input type="text"  class="form-control input" required name="planeId"/>
+                <spring:message code="lang.departureDateFrom"/><br/><input type="datetime-local"  class="form-control input" required name="departureDate"/>
+                <spring:message code="lang.arriveAt"/><br/><input type="datetime-local"  class="form-control input" required name="arrivalDate"/>
+                <spring:message code="lang.departureAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="departureAirport"/>
+                <spring:message code="lang.arrivalAirport"/><br/><input type="text"  class="form-control input" required list="airport" name="arrivalAirport"/>
+                <spring:message code="lang.placePriorityPrice"/>.<br/><input type="text"  class="form-control input" required name="placePriorityPrice"/>
+                <spring:message code="lang.businessPrice"/><br/><input type="text"  class="form-control input" required name="businessPrice"/>
+                <spring:message code="lang.luggagePrice"/><br/><input type="text"  class="form-control input" required name="luggagePrice"/>
 
-    <input type="text" required name="planeId"/> <spring:message code="lang.planeId"/><br/>
-    <input type="date" required name="departureDate"/> <spring:message code="lang.departureDateFrom"/><br/>
-    <input type="date" required name="arrivalDate"/> <spring:message code="lang.arriveAt"/><br/>
-    <input type="text" required list="airport" name="departureAirport"/> <spring:message
-        code="lang.departureAirport"/><br/>
-    <input type="text" required list="airport" name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/><br/>
-    <br/>
-    <input type="text" required name="placePriorityPrice"/> <spring:message code="lang.placePriorityPrice"/>.<br/>
-    <input type="text" required name="businessPrice"/> <spring:message code="lang.businessPrice"/><br/>
-    <input type="text" required name="luggagePrice"/> <spring:message code="lang.luggagePrice"/><br/>
-
-    <input type="submit" value="OK"/>
-</form>
-
+                <input type="submit" class="btn btn-outline-success addFlightBtn" value="OK"/>
+            </form>
+        </div>
+    </div>
+</div>
 <datalist id="airport">
     <c:forEach items="${airports}" var="airport">
         <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>

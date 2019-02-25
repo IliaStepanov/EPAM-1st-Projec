@@ -6,53 +6,67 @@
 <head>
     <title>Ticket DAO page </title>
     <jsp:include page="navigationPanel.jsp"/>
+    <spring:url value="/resources/css/main.css" var="main_css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
-<spring:message code="lang.adminPage"/>
-<h2><spring:message code="lang.tickets"/></h2><br/><br/>
-
-<a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"><spring:message code="lang.allTickets"/></a><br/><br/>
-
-
-<c:forEach items="${tickets}" var="ticket">
-    <c:out value="${ticket.toString()}"/><br/>
-</c:forEach>
+<div class="container">
+<div class="row">
+    <div class="col-md-12 ticketsTable">
 
 
-<br/>
-${ticket}<br/> <h4>${message}</h4>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"><spring:message code="lang.firstName"/></th>
+                <th scope="col"><spring:message code="lang.email"/></th>
+                <th scope="col"><spring:message code="lang.departureAirport"/></th>
+                <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
+                <th scope="col"><spring:message code="lang.departureAt"/></th>
+                <th scope="col"><spring:message code="lang.arriveAt"/></th>
+                <th scope="col"><spring:message code="lang.price"/></th>
+                <th></th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <c:forEach items="${tickets}" var="ticket">
+                <tr>
+                    <td><c:out value="${ticket.user.firstName}"/></td>
+                    <td><c:out value="${ticket.user.email}"/></td>
+                    <td><c:out value="${ticket.flight.departureAirport.cityEng}"/></td>
+                    <td><c:out value="${ticket.flight.arrivalAirport.cityEng}"/></td>
+                    <td><c:out value="${ticket.flight.departureDate}"/></td>
+                    <td><c:out value="${ticket.flight.arrivalDate}"/></td>
+                    <td><c:out value="${ticket.price}"/></td>
+                    <%--<td>--%>
+                        <%--<c:if test="${sessionUser.isAdmin()}">--%>
+                            <%--<form action="<%=EndPoints.TICKETS%>" method="get">--%>
+                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
+                                <%--<input type="submit" value="<spring:message code="lang.updateTicket"/>" class="btn btn-outline-primary updateTicket"/>--%>
+                            <%--</form>--%>
+                            <%--<form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">--%>
+                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
+                                <%--<input type="submit" value="<spring:message code="lang.deleteTicket"/>" class="btn btn-outline-danger deleteTicket"/>--%>
+                            <%--</form>--%>
 
 
-<h4><spring:message code="lang.findTicketById"/></h4>
-<form action="<%=EndPoints.TICKETS%>" method="get">
-    <input type="number" name="id"/>
-    <input type="submit" name="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.addNewTicket"/></h4>
-<form action="<%=EndPoints.TICKETS%>" method="post">
-    <input type="number" name="userId"/> <spring:message code="lang.userID"/><br/>
-    <input type="number" name="flightId"/> <spring:message code="lang.flightId"/><br/>
-    <input type="text" name="hasLuggage"/> <spring:message code="lang.hasLuggage"/><br/>
-    <input type="text" name="placePriority"/> <spring:message code="lang.placePriority"/> <br/>
-    <input type="text" name="isBusiness"/> <spring:message code="lang.isBusiness"/> <br/>
-    <input type="submit" value="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.updateTicket"/></h4>
-<form action="<%=EndPoints.TICKETS + EndPoints.UPDATE%>" method="post">
-    <input type="number" name="ticketId"/> <spring:message code="lang.ticketId"/><br/>
-    <input type="text" name="hasLuggage"/> <spring:message code="lang.hasLuggage"/><br/>
-    <input type="text" name="placePriority"/> <spring:message code="lang.placePriority"/> <br/>
-    <input type="text" name="isBusiness"/> <spring:message code="lang.isBusiness"/> <br/>
-    <input type="submit" value="OK"/>
-</form>
 
-<h4><spring:message code="lang.deleteTicket"/></h4>
-<form action="<%=EndPoints.TICKETS + EndPoints.DELETE%>" method="post">
-    <input type="number" name="id"/><spring:message code="lang.ticketId"/><br/>
-    <input type="submit" name="OK"/>
-</form>
+                        <%--</c:if>--%>
 
+                    <%--</td>--%>
+
+
+                </tr>
+            </c:forEach>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+</div>
 </body>
 </html>
