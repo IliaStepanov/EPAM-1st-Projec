@@ -9,24 +9,24 @@ import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_FLIGHTS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 
 @Controller
 @RequestMapping(value = FLIGHTS)
+@SessionAttributes(value = "number")
 public class FlightController {
 
-    FlightService flightService;
-    AirportService airportService;
+   private FlightService flightService;
+   private AirportService airportService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService) {
@@ -35,12 +35,26 @@ public class FlightController {
         this.airportService = airportService;
     }
 
-    @GetMapping(value = ALL)
-    public String getAllFlights(Model model) {
-        model.addAttribute("flights", flightService.getAllFlights());
+    @GetMapping(value = ALL + "/{pageId}")
+    public String getAllFlights(@PathVariable int pageId, ModelMap model) {
+
+        int numberOfFlightsOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_FLIGHTS_ON_PAGE);
+
+        Map<String, Object> pageRepresentation = flightService.getFlightsByPage(pageId, numberOfFlightsOnPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("flights", pageRepresentation.get("flights"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         model.addAttribute("airports", airportService.getAllAirports());
         return FLIGHTSPAGE;
 
+    }
+
+    @GetMapping(value = PAGE)
+    public String setFlightsByPage(@RequestParam String number,@RequestParam String fromPage, ModelMap model) {
+        model.addAttribute("number", Integer.parseInt(number));
+
+        return "redirect:" + fromPage + FIRST_PAGE;
     }
 
     @GetMapping
@@ -68,9 +82,16 @@ public class FlightController {
             return ADDFLIGHT;
     }
 
-    @GetMapping(value = FLIGHT)
-    public String searchForFlight(Model model) {
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+    @GetMapping(value = FLIGHT + "/{pageId}")
+    public String searchForFlight(@PathVariable int pageId, ModelMap model) {
+
+        int numberOfFlightsOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_FLIGHTS_ON_PAGE);
+
+        Map<String, Object> pageRepresentation = flightService.getAllFlightsWithUpdatedPrice(pageId, numberOfFlightsOnPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("flights", pageRepresentation.get("flights"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         model.addAttribute("airports", airportService.getAllAirports());
         return SEARCHPAGE;
     }

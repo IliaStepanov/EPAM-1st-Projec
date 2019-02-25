@@ -8,7 +8,9 @@ import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -30,11 +32,12 @@ public class FlightServiceImpl implements FlightService {
         this.ticketService = ticketService;
     }
 
-    public List<Flight> getAllFlightsWithUpdatedPrice() {
-        List<Flight> flights = getAllFlights();
-        flights.forEach(f -> updateFlightPrice(f));
-
-        return flights;
+    public  Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage) {
+        Map<String, Object> pageInfo = getFlightsByPage(pageId,numberOfFlightsOnPage);
+        List<Flight> flights = (List<Flight>) pageInfo.get("flights");
+        flights.forEach(this::updateFlightPrice);
+        pageInfo.put("flights",flights);
+        return pageInfo;
     }
 
     public List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
@@ -110,4 +113,32 @@ public class FlightServiceImpl implements FlightService {
             flight.setInitialPrice(calculateInitialFlightPriceByDate(daysBetween, minPrice));
         }
 
+    @Override
+    public Map<String, Object> getFlightsByPage(int pageId, int numberOfFlightsOnPage) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int flights = flightDAO.countFlights();
+        int pagesNum;
+        if (flights % numberOfFlightsOnPage != 0) {
+            pagesNum = (flights / numberOfFlightsOnPage + 1);
+        } else {
+            pagesNum = (flights / numberOfFlightsOnPage);
+        }
+        if (pageId >= pagesNum) {
+            pageId = pagesNum;
+        }
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("flights", flightDAO.getFlightsByPage(pageId, numberOfFlightsOnPage));
+        pageInfo.put("pagesNum", pagesNum);
+        pageInfo.put("pageId", pageId);
+
+        return pageInfo;
     }
+
+    @Override
+    public int countFlights() {
+        return flightDAO.countFlights();
+    }
+}

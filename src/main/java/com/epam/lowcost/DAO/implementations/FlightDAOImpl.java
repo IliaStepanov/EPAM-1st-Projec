@@ -4,6 +4,7 @@ import com.epam.lowcost.DAO.interfaces.FlightDAO;
 import com.epam.lowcost.exceptions.DatabaseErrorException;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.util.DateFormatter;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
@@ -99,5 +100,20 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         return executeSqlSelect(sql);
     }
 
-}
+    @Override
+    public List<Flight> getFlightsByPage(int pageId, int numberOfFlightsOnPage) {
+        pageId = pageId - 1;
+        if (pageId > 0) {
+            pageId = pageId * numberOfFlightsOnPage;
+        }
+        String sql = "SELECT * FROM FLIGHTS JOIN  PLANES ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS " +
+                "a ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code WHERE  FLIGHTS.ISDELETED = false LIMIT " + (pageId) + "," + numberOfFlightsOnPage;
+            return executeSqlSelect(sql);
+    }
 
+    @Override
+    public int countFlights() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM FLIGHTS WHERE isDeleted=false", Integer.class);
+    }
+}
