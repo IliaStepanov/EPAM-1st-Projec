@@ -5,7 +5,7 @@
 <html>
 <head>
     <jsp:include page="navigationPanel.jsp"/>
-    <title><spring:message code="lang.userDAO"/></title>
+    <title><spring:message code="lang.users"/></title>
     <spring:url value="/resources/css/main.css" var="main_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 usersTitle">
-            <spring:message code="lang.usersInDB"/>
+            <spring:message code="lang.users"/>
         </div>
     </div>
     <div class="row">
@@ -87,12 +87,12 @@
                             <c:if test="${sessionUser.isAdmin()}">
                                 <form action="<%=EndPoints.PLANE%>" method="get">
                                     <input type="hidden" name="id" value="${user.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.updateUser"/>"
+                                    <input type="submit" value="<spring:message code="lang.update"/>"
                                            class="btn btn-outline-primary updatePlaneBtn"/>
                                 </form>
                                 <form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${plane.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.deleteUser"/>"
+                                    <input type="submit" value="<spring:message code="lang.delete"/>"
                                            class="btn btn-outline-danger deletePlaneBtn"/>
                                 </form>
 

@@ -17,17 +17,17 @@
 
 </div>
     <div align="right" class="language" >
-    <a href="<%=EndPoints.USER + EndPoints.SETTINGS%>"><spring:message code="lang.loginPageEntry"/>  ${sessionUser.firstName} |</a>
+    <a href="<%=EndPoints.USER + EndPoints.SETTINGS%>"><spring:message code="lang.userSettings"/>  ${sessionUser.firstName} |</a>
     <a href="<%=EndPoints.ENTRY + EndPoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>
     </div>
     <div class="topnav">
         <a class=" navbarLink " href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
 
-        <c:if test="${sessionUser.isAdmin()}"> |<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.userDAO"/></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.planeDAO" /></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.flightDAO"/></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.ticketDAO"/></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.AIRPORT + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.airportDAO"/></a>|</c:if>
+        <c:if test="${sessionUser.isAdmin()}"> |<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</c:if>
+        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</c:if>
+        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</c:if>
+        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.tickets"/></a>|</c:if>
+        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.AIRPORT + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</c:if>
 
     </div>
 </header>

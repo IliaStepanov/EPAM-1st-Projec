@@ -58,10 +58,10 @@
                 <spring:message code="lang.birthday"/>
                 <output name="Birthdate">${sessionUser.birthday}</output>
                 <br/>
-                <spring:message code="lang.from"/>
+                <spring:message code="lang.departureAirport"/>
                 <output name="from">${flight.departureAirport.cityEng}</output>
                 <br/>
-                <spring:message code="lang.to"/>
+                <spring:message code="lang.arrivalAirport"/>
                 <output name="arrivaAirport">${flight.arrivalAirport.cityEng}</output>
                 <br/>
                 <spring:message code="lang.departureAt"/>
