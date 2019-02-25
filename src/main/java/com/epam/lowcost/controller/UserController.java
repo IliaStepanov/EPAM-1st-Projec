@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
@@ -30,9 +31,9 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
 
-        int usersByPage = (int) model.getOrDefault("number", 5);
+        int numberOfUsersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
-        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
+        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, numberOfUsersOnPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("users", pageRepresentation.get("users"));

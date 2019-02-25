@@ -64,23 +64,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> getUsersByPage(int pageId, int usersByPage) {
+    public Map<String, Object> getUsersByPage(int pageId, int numberOfUsersOnPage) {
         if (pageId <= 0) {
             pageId = 1;
         }
         int users = userDAO.countUsers();
         int pagesNum;
-        if (users % usersByPage != 0) {
-            pagesNum = (users / usersByPage + 1);
+        if (users % numberOfUsersOnPage != 0) {
+            pagesNum = (users / numberOfUsersOnPage + 1);
         } else {
-            pagesNum = (users / usersByPage);
+            pagesNum = (users / numberOfUsersOnPage);
         }
         if (pageId >= pagesNum) {
             pageId = pagesNum;
         }
 
         Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("users", userDAO.getUsersByPage(pageId, usersByPage));
+        pageInfo.put("users", userDAO.getUsersByPage(pageId, numberOfUsersOnPage));
         pageInfo.put("pagesNum", pagesNum);
         pageInfo.put("pageId", pageId);
 

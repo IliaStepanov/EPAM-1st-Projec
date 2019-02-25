@@ -32,8 +32,8 @@ public class FlightServiceImpl implements FlightService {
         this.ticketService = ticketService;
     }
 
-    public  Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int flightsByPage) {
-        Map<String, Object> pageInfo = getFlightsByPage(pageId,flightsByPage);
+    public  Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage) {
+        Map<String, Object> pageInfo = getFlightsByPage(pageId,numberOfFlightsOnPage);
         List<Flight> flights = (List<Flight>) pageInfo.get("flights");
         flights.forEach(this::updateFlightPrice);
         pageInfo.put("flights",flights);
@@ -114,23 +114,23 @@ public class FlightServiceImpl implements FlightService {
         }
 
     @Override
-    public Map<String, Object> getFlightsByPage(int pageId, int flightsByPage) {
+    public Map<String, Object> getFlightsByPage(int pageId, int numberOfFlightsOnPage) {
         if (pageId <= 0) {
             pageId = 1;
         }
         int flights = flightDAO.countFlights();
         int pagesNum;
-        if (flights % flightsByPage != 0) {
-            pagesNum = (flights / flightsByPage + 1);
+        if (flights % numberOfFlightsOnPage != 0) {
+            pagesNum = (flights / numberOfFlightsOnPage + 1);
         } else {
-            pagesNum = (flights / flightsByPage);
+            pagesNum = (flights / numberOfFlightsOnPage);
         }
         if (pageId >= pagesNum) {
             pageId = pagesNum;
         }
 
         Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("flights", flightDAO.getFlightsByPage(pageId, flightsByPage));
+        pageInfo.put("flights", flightDAO.getFlightsByPage(pageId, numberOfFlightsOnPage));
         pageInfo.put("pagesNum", pagesNum);
         pageInfo.put("pageId", pageId);
 

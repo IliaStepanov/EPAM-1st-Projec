@@ -21,7 +21,7 @@ public interface FlightService {
 
     Map<String,Object> getFlightsByPage(int pageId, int flightsByPage);
 
-    Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int flightsByPage);
+    Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage);
 
     int countFlights();
 }

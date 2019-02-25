@@ -101,12 +101,12 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
     }
 
     @Override
-    public List<Flight> getFlightsByPage(int pageId, int flightsOnPage) {
+    public List<Flight> getFlightsByPage(int pageId, int numberOfFlightsOnPage) {
         pageId = pageId - 1;
         if (pageId > 0) {
-            pageId = pageId * flightsOnPage;
+            pageId = pageId * numberOfFlightsOnPage;
         }
-        String sql = "SELECT * FROM FLIGHTS JOIN PLANES ON FLIGHTS.PLANEID = PLANES.ID WHERE  FLIGHTS.ISDELETED = false LIMIT " + (pageId) + "," + flightsOnPage;
+        String sql = "SELECT * FROM FLIGHTS JOIN PLANES ON FLIGHTS.PLANEID = PLANES.ID WHERE  FLIGHTS.ISDELETED = false LIMIT " + (pageId) + "," + numberOfFlightsOnPage;
             return executeSqlSelect(sql);
     }
 
