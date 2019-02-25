@@ -2,6 +2,7 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,40 +81,23 @@ public class UserController {
 
     @PostMapping(value = UPDATE)
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
-        User user = userService.updateUser(
-                User.builder()
-                        .id(Long.valueOf(params.get("id")))
-                        .email(params.get("email"))
-                        .password(params.get("password"))
-                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
-                        .firstName(params.get("firstName"))
-                        .lastName(params.get("lastName"))
-                        .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
-                        .build());
-        if (user == null) {
+
+        User userToUpdate = userService.verifyUser(params.get("email"), params.get("password"));
+        //s=Сделай верифай бай айди
+        if (userToUpdate == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
         } else {
-            model.addAttribute("user", user);
+            userToUpdate.setEmail(params.get("email"));
+            userToUpdate.setFirstName(params.get("firstName"));
+            userToUpdate.setLastName(params.get("lastName"));
+            userToUpdate.setDocumentInfo(params.get("documentInfo"));
+            userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+            userToUpdate.setPassword(params.get("password"));
+            System.out.println(userToUpdate);
+            userService.updateUser(userToUpdate);
+            model.addAttribute("user", userToUpdate);
             model.addAttribute("message", "User successfully updated");
         }
-        return USERSPAGE;
-    }
-
-    @PostMapping(value = CHANGE_PERSONAL_DATA)
-    public String changePersonalData(@RequestParam Map<String, String> params, ModelMap model) {
-        User user = userService.getById(Long.parseLong(params.get("id")));
-        User userToUpdate = userService.verifyUser(user.getEmail(),params.get("password"));
-        System.out.println("BABAB");
-        userToUpdate.setEmail(params.get("email"));
-        userToUpdate.setFirstName(params.get("firstName"));
-        userToUpdate.setLastName(params.get("lastName"));
-        userToUpdate.setDocumentInfo(params.get("documentInfo"));
-        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-        System.out.println("BABAB");
-        //model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
-
-
         return USERSPAGE;
     }
 
@@ -158,7 +142,6 @@ public class UserController {
         modelMap.addAttribute("sessionUser", sessionUser);
         return SETTINGSPAGE;
     }
-
 
 
     @PostMapping(value = DELETE)
