@@ -9,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,14 +93,25 @@ public class UserController {
                         .build());
         if (user == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
-        }
-        if (params.get("userUpdate").equals("fromUser")) {
-            model.addAttribute("sessionUser", user);
-            return "redirect:" + TICKETS + SELF;
         } else {
             model.addAttribute("user", user);
             model.addAttribute("message", "User successfully updated");
         }
+        return USERSPAGE;
+    }
+
+    @PostMapping(value = CHANGE_PERSONAL_DATA)
+    public String changePersonalData(@RequestParam Map<String, String> params, ModelMap model) {
+        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+        userToUpdate.setEmail(params.get("email"));
+        userToUpdate.setFirstName(params.get("firstName"));
+        userToUpdate.setLastName(params.get("lastName"));
+        userToUpdate.setDocumentInfo(params.get("documentInfo"));
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+
+        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
+
+
         return USERSPAGE;
     }
 
@@ -124,9 +134,12 @@ public class UserController {
     }
 
     @GetMapping(value = SETTINGS)
-    public String settings(@ModelAttribute("sessionUser") User sessionUser) {
+    public String settings(ModelMap modelMap) {
+        User sessionUser = (User) modelMap.get("sessionUser");
+        modelMap.addAttribute("sessionUser", sessionUser);
         return SETTINGSPAGE;
     }
+
 
     @PostMapping(value = CHANGE_PASSWORD)
     public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model) {

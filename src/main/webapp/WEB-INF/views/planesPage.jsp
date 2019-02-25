@@ -74,48 +74,10 @@
         </div>
     </div>
     <br/>
-    ${plane}<br/> <h4>${message}</h4>
-
-
-<c:forEach items="${planes}" var="plane">
-    <c:out value="${plane.toString()}"/>
-</c:forEach>
-    <%--<div class="row">--%>
-        <%--<div class="col-md-3">--%>
 
 
 
 
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<br/><br/>--%>
-
-    <%--<div class="row">--%>
-        <%--<div class="col-md-3">--%>
-
-
-            <%--<h4><spring:message code="lang.update"/></h4>--%>
-            <%--<form action="<%=EndPoints.PLANE + EndPoints.UPDATE%>" method="post">--%>
-                <%--<spring:message code="lang.planeId"/><br/><input type="text" class="form-control input" name="id"/>--%>
-                <%--<spring:message code="lang.model"/><br/><input type="text" class="form-control input" name="model"/>--%>
-                <%--<spring:message code="lang.numBusiness"/><br/> <input type="number" class="form-control input"--%>
-                                                                      <%--name="businessPlacesNumber"/>--%>
-                <%--<spring:message code="lang.numEconom"/><br/> <input type="number" class="form-control input"--%>
-                                                                    <%--name="economPlacesNumber"/>--%>
-                <%--<input type="submit" class="btn btn-outline-primary updatePlaneBtn" value="OK"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
-    <%--<div class="row">--%>
-        <%--<div class="col-md-3">--%>
-            <%--<h4><spring:message code="lang.deletePlane"/></h4>--%>
-            <%--<form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">--%>
-                <%--<spring:message code="lang.planeId"/><br/><input type="number" class="form-control input" name="id"/>--%>
-                <%--<input type="submit" class="btn btn-outline-primary deletePlaneBtn" value="OK"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
-    <%--</div>--%>
 </div>
 
 </body>
