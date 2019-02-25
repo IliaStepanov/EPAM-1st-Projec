@@ -102,17 +102,36 @@ public class UserController {
 
     @PostMapping(value = CHANGE_PERSONAL_DATA)
     public String changePersonalData(@RequestParam Map<String, String> params, ModelMap model) {
-        User userToUpdate = userService.getById(Long.parseLong(params.get("id")));
+        User user = userService.getById(Long.parseLong(params.get("id")));
+        User userToUpdate = userService.verifyUser(user.getEmail(),params.get("password"));
+        System.out.println("BABAB");
         userToUpdate.setEmail(params.get("email"));
         userToUpdate.setFirstName(params.get("firstName"));
         userToUpdate.setLastName(params.get("lastName"));
         userToUpdate.setDocumentInfo(params.get("documentInfo"));
         userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-
-        model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
+        System.out.println("BABAB");
+        //model.addAttribute("sessionUser", userService.updateUser(userToUpdate));
 
 
         return USERSPAGE;
+    }
+
+    @PostMapping(value = CHANGE_PASSWORD)
+    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model) {
+        User user = userService.verifyUser(sessionUser.getEmail(), params.get("oldPassword"));
+        if (user == null) {
+            model.addAttribute("message", "Wrong password");
+            return SETTINGSPAGE;
+        }
+        if (!params.get("newPassword").equals(params.get("newPassword2"))) {
+            model.addAttribute("message", "Passwords did not match!");
+            return SETTINGSPAGE;
+        }
+        sessionUser.setPassword(params.get("newPassword"));
+        userService.updateUser(sessionUser);
+        model.addAttribute("message", "Passwords changed successfully!");
+        return SETTINGSPAGE;
     }
 
     @PostMapping(value = ENROLL)
@@ -141,22 +160,6 @@ public class UserController {
     }
 
 
-    @PostMapping(value = CHANGE_PASSWORD)
-    public String changePassword(@ModelAttribute("sessionUser") User sessionUser, @RequestParam Map<String, String> params, Model model) {
-        User user = userService.verifyUser(sessionUser.getEmail(), params.get("oldPassword"));
-        if (user == null) {
-            model.addAttribute("message", "Wrong password");
-            return SETTINGSPAGE;
-        }
-        if (!params.get("newPassword").equals(params.get("newPassword2"))) {
-            model.addAttribute("message", "Passwords did not match!");
-            return SETTINGSPAGE;
-        }
-        sessionUser.setPassword(params.get("newPassword"));
-        userService.updateUser(sessionUser);
-        model.addAttribute("message", "Passwords changed successfully!");
-        return SETTINGSPAGE;
-    }
 
     @PostMapping(value = DELETE)
     public String deleteUser(@RequestParam long id, ModelMap model) {
