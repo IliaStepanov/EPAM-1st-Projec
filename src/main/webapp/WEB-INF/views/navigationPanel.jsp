@@ -39,9 +39,11 @@
     <%--</style>--%>
 </head>
 <body>
+
 <header class="languageAndAccaunt">
 <div align="right" class="language" >
     <a href="?lang=en">Eng |</a><a href="?lang=ru">Rus</a>
+
 </div>
     <div align="right" class="language" >
     <a href="<%=EndPoints.USER + EndPoints.SETTINGS%>"><spring:message code="lang.loginPageEntry"/>  ${sessionUser.firstName} |</a>

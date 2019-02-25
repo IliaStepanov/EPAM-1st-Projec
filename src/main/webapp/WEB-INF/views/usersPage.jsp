@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
 <div class="container">
     <div class="row">
         <div class="col-md-3 usersTitle">
@@ -90,8 +89,6 @@
                                     <input type="hidden" name="id" value="${plane.id}"/>
                                     <input type="submit" value="<spring:message code="lang.deleteUser"/>" class="btn btn-outline-danger deletePlaneBtn"/>
                                 </form>
-
-
 
                             </c:if>
 

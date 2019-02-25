@@ -97,6 +97,7 @@
 
 
 
+
                             </c:if>
 
                         </td>
@@ -111,14 +112,33 @@
 </div>
 
 
+<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId-1}">Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${page}">${page}</a>
+</c:forEach>
+<a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId+1}">Next</a>
+<div>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="3"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Flights by 3"/>
+    </form>
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="5"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Flights by 5"/>
+    </form>
 
-<datalist id="airport">
-    <c:forEach items="${airports}" var="airport">
-        <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
-    </c:forEach>
-</datalist>
+
+    <datalist id="airport">
+        <c:forEach items="${airports}" var="airport">
+            <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+        </c:forEach>
+    </datalist>
+</div>
 
 <div id="content">
+
 
 </div>
 

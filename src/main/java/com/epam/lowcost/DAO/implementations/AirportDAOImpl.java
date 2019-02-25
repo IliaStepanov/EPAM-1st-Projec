@@ -49,7 +49,7 @@ public class AirportDAOImpl implements AirportDAO {
 
     @Override
     public Airport addNewAirport(Airport airport) {
-        int lines=0;
+        int lines = 0;
         String code = airport.getCode();
         String nameRus = airport.getNameRus();
         String cityEng = airport.getCityEng();
@@ -64,13 +64,13 @@ public class AirportDAOImpl implements AirportDAO {
 
             String query = "INSERT  INTO AIRPORTS (code,nameRus, cityEng, cityRus, nameEng,countryEng,countryRus) " +
                     "VALUES (?,?,?,?,?,?,?)";
-             lines = jdbcTemplate.update(query, code,
+            lines = jdbcTemplate.update(query, code,
                     nameRus, cityEng, cityRus, nameEng, countryEng, countryRus);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }
-        if (lines!=1)
-            airport=null;
+        if (lines != 1)
+            airport = null;
         return airport;
     }
 
@@ -92,8 +92,8 @@ public class AirportDAOImpl implements AirportDAO {
                 " countryEng = ?, countryRus = ? WHERE code = ?";
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            int lines = jdbcTemplate.update(query, nameRus, cityEng, cityRus, nameEng, countryEng, countryRus,code);
-            if (lines==1) return  airport;
+            int lines = jdbcTemplate.update(query, nameRus, cityEng, cityRus, nameEng, countryEng, countryRus, code);
+            if (lines == 1) return airport;
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
         }

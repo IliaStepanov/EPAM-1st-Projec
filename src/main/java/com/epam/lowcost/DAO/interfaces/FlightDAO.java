@@ -19,4 +19,8 @@ public interface FlightDAO {
 
     List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo);
 
+    List<Flight> getFlightsByPage(int pageId, int numberOfFlightsOnPage);
+
+    int countFlights();
+
 }

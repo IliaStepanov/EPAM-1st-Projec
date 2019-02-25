@@ -69,10 +69,10 @@
                     </tr>
                 </c:forEach>
                 </tbody>
-
             </table>
         </div>
     </div>
+
 
     <br/>
     ${airport}<br/> <h4>${message}</h4>

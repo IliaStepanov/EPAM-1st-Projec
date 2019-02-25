@@ -34,7 +34,6 @@
         <input type="submit" value="<spring:message code="lang.signIn"/>" class="btn btn-outline-primary btnSignUp"/>
     </form>
     </div>
-
 </div>
 
 </body>

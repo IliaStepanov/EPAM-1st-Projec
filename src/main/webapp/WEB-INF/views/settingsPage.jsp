@@ -60,6 +60,7 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
+
             <form action="<%=EndPoints.USER + EndPoints.CHANGE_PASSWORD%>" method="post">
                 <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"
                                                                       type="password" name="oldPassword">
