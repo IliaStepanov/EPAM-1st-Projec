@@ -22,41 +22,53 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-
-
-            <spring:message code="lang.changePersonalData"/><br/>
-
+        <div class="col-md-3 changeDataTitle">
+            <spring:message code="lang.changePersonalData"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 changeData">
             <form action="<%=EndPoints.USER + EndPoints.UPDATE%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
-                <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input" value="${sessionUser.email}"
+                <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
+                                                                   value="${sessionUser.email}"
                                                                    name="email"/>
                 <input type="hidden" name="password" value="${sessionUser.password}"/>
                 <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
-                <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input" name="firstName"
+                <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
+                                                                       name="firstName"
                                                                        value="${sessionUser.firstName}"/>
-                <spring:message code="lang.newLastName"/><br/><input type="text" class="form-control input" name="lastName"
+                <spring:message code="lang.newLastName"/><br/><input type="text" class="form-control input"
+                                                                     name="lastName"
                                                                      value="${sessionUser.lastName}"/>
-                <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input" name="documentInfo" value="${sessionUser.documentInfo}"/>
-                <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input" name="birthday" value="${sessionUser.birthday}"/>
+                <spring:message code="lang.newDocument"/> <br/><input type="text" class="form-control input"
+                                                                      name="documentInfo"
+                                                                      value="${sessionUser.documentInfo}"/>
+                <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
+                                                                      name="birthday" value="${sessionUser.birthday}"/>
                 <input type="hidden" name="userUpdate" value="fromUser"/>
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3 changePassTitle">
+            <spring:message code="lang.changePassword"/>
+        </div>
+    </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 changePass">
 
-
-
-    <spring:message code="lang.changePassword"/>
-    <form action="<%=EndPoints.USER + EndPoints.CHANGE_PASSWORD%>" method="post">
-        <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input" type="password" name="oldPassword">
-        <spring:message code="lang.newPassword"/><br/><input required  class="form-control input" type="password" name="newPassword">
-        <spring:message code="lang.repeatPassword"/><br/> <input required  class="form-control input"  type="password" name="newPassword2">
-        <input type="submit" class="btn btn-outline-primary changePassBtn" value="OK">
-    </form>
+            <form action="<%=EndPoints.USER + EndPoints.CHANGE_PASSWORD%>" method="post">
+                <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"
+                                                                      type="password" name="oldPassword">
+                <spring:message code="lang.newPassword"/><br/><input required class="form-control input" type="password"
+                                                                     name="newPassword">
+                <spring:message code="lang.repeatPassword"/><br/> <input required class="form-control input"
+                                                                         type="password" name="newPassword2">
+                <input type="submit" class="btn btn-outline-primary changePassBtn" value="OK">
+            </form>
         </div>
     </div>
 </div>

@@ -269,6 +269,14 @@ body{
     margin-right: 15px;
     float: left;
 }
+
+.airportTitle {
+    margin-top: 20px;
+}
+
+.findAirportBtn {
+    margin-top: 20px;
+}
 /*-----------------------------------planes Page-------------------------*/
 .findPlaneBtn {
     margin-top: 10px;
@@ -303,7 +311,20 @@ body{
     width: 70%;
 
 }
+.changeData {
+    margin-top: 20px;
+}
+.changePass{
+    margin-top: 20px;
 
+}
+.changeDataTitle {
+    margin-top: 20px;
+}
+.changePassTitle{
+    margin-top: 20px;
+
+}
 /*----------------------------------------------tickets page----------------------------------*/
 .ticketsTable {
     margin-top: 20px;
@@ -313,4 +334,31 @@ body{
 }
 .deleteTicket{
     width: 100%;
+}
+
+/*---------------------------------------------------------users Page-------------------------------*/
+.usersTitle {
+    margin-top:20px;
+}
+
+.findUserForm{
+    margin-top: 20px;
+}
+.findUserBtn {
+    margin-top: 20px;
+}
+
+.numOfUsersBtn {
+    float: left;
+    margin-right: 0px;
+
+}
+
+.paginationBtn{
+    float: left;
+    margin-right: 0px;
+
+}
+.numOfUsers{
+    align: right;
 }
