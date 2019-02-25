@@ -133,12 +133,12 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
     }
 
     @Override
-    public List<Ticket> getTicketsByPage(int pageId, int ticketsByPage) {
+    public List<Ticket> getTicketsByPage(int pageId, int numberOfTicketsOnPage) {
         pageId = pageId - 1;
         if (pageId > 0) {
-            pageId = pageId * ticketsByPage;
+            pageId = pageId * numberOfTicketsOnPage;
         }
-        return executeSqlSelect(joinQuery() + "LIMIT " + (pageId) + "," + ticketsByPage);
+        return executeSqlSelect(joinQuery() + "LIMIT " + (pageId) + "," + numberOfTicketsOnPage);
     }
 
     @Override

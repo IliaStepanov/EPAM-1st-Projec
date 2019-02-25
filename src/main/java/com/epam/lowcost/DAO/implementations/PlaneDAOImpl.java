@@ -52,12 +52,12 @@ public class PlaneDAOImpl extends AbstractDAOImpl<Plane> implements PlaneDAO {
     }
 
     @Override
-    public List<Plane> getPlanesByPage(int pageId, int planesByPage) {
+    public List<Plane> getPlanesByPage(int pageId, int numberOfPlanesOnPage) {
         pageId = pageId - 1;
         if (pageId > 0) {
-            pageId = pageId * planesByPage;
+            pageId = pageId * numberOfPlanesOnPage;
         }
-        return executeSqlSelect("SELECT * FROM PLANES WHERE isDeleted=false LIMIT " + (pageId) + "," + planesByPage);
+        return executeSqlSelect("SELECT * FROM PLANES WHERE isDeleted=false LIMIT " + (pageId) + "," + numberOfPlanesOnPage);
     }
 
     @Override

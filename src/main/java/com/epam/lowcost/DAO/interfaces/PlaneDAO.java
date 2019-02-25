@@ -16,7 +16,7 @@ public interface PlaneDAO {
 
     String deletePlane(long planeId);
 
-    List<Plane> getPlanesByPage(int pageId, int planesByPage);
+    List<Plane> getPlanesByPage(int pageId, int numberOfPlanesOnPage);
 
     int countPlanes();
 

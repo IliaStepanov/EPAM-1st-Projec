@@ -21,7 +21,7 @@ public interface TicketDAO {
 
     String deleteTicket(long id);
 
-    List<Ticket> getTicketsByPage(int pageId, int ticketsByPage);
+    List<Ticket> getTicketsByPage(int pageId, int numberOfTicketsOnPage);
 
     int countTickets();
 

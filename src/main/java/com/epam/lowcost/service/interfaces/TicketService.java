@@ -21,7 +21,7 @@ public interface TicketService {
     String deleteTicket(long id);
 
 
-    Map<String,Object> getTicketsByPage(int pageId, int ticketsByPage);
+    Map<String,Object> getTicketsByPage(int pageId, int numberOfTicketsOnPage);
 
     int countTickets();
 

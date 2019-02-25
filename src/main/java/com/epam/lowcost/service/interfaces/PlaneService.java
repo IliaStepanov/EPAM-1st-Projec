@@ -17,7 +17,7 @@ public interface PlaneService {
 
     String deletePlane(long planeId);
 
-    Map<String,Object> getPlanesByPage(int pageId, int usersByPage);
+    Map<String,Object> getPlanesByPage(int pageId, int numberOfPlanesByPage);
 
     int countPlanes();
 }

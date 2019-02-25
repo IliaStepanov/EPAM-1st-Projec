@@ -100,23 +100,23 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Map<String, Object> getTicketsByPage(int pageId, int ticketsByPage) {
+    public Map<String, Object> getTicketsByPage(int pageId, int numberOfTicketsOnPage) {
         if (pageId <= 0) {
             pageId = 1;
         }
         int users = ticketDAO.countTickets();
         int pagesNum;
-        if (users % ticketsByPage != 0) {
-            pagesNum = (users / ticketsByPage + 1);
+        if (users % numberOfTicketsOnPage != 0) {
+            pagesNum = (users / numberOfTicketsOnPage + 1);
         } else {
-            pagesNum = (users / ticketsByPage);
+            pagesNum = (users / numberOfTicketsOnPage);
         }
         if (pageId >= pagesNum) {
             pageId = pagesNum;
         }
 
         Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("tickets", ticketDAO.getTicketsByPage(pageId, ticketsByPage));
+        pageInfo.put("tickets", ticketDAO.getTicketsByPage(pageId, numberOfTicketsOnPage));
         pageInfo.put("pagesNum", pagesNum);
         pageInfo.put("pageId", pageId);
 

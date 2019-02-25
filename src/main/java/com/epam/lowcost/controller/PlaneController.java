@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_PALNES_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
@@ -26,8 +27,8 @@ public class PlaneController {
         if (!((User) model.get("sessionUser")).isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
-        int planesByPage = (int) model.getOrDefault("number", 1);
-        Map<String, Object> pageRepresentation = planeService.getPlanesByPage(pageId, planesByPage);
+        int numberOFPlanesOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_PALNES_ON_PAGE);
+        Map<String, Object> pageRepresentation = planeService.getPlanesByPage(pageId, numberOFPlanesOnPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("planes", pageRepresentation.get("planes"));

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_TICKETS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 
@@ -26,9 +27,9 @@ public class TicketController {
 
     @GetMapping(value = ALL + "/{pageId}")
     public String getAllTickets(@PathVariable int pageId,  ModelMap model) {
-       int ticketsByPage = (int) model.getOrDefault("number", 5);
+       int numberOfTicketsOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_TICKETS_ON_PAGE);
 
-        Map<String, Object> pageRepresentation = ticketService.getTicketsByPage(pageId, ticketsByPage);
+        Map<String, Object> pageRepresentation = ticketService.getTicketsByPage(pageId, numberOfTicketsOnPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("tickets", pageRepresentation.get("tickets"));

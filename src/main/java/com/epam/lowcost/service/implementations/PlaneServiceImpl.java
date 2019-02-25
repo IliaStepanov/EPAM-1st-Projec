@@ -42,23 +42,23 @@ public class PlaneServiceImpl implements PlaneService {
     }
 
     @Override
-    public Map<String, Object> getPlanesByPage(int pageId, int usersByPage) {
+    public Map<String, Object> getPlanesByPage(int pageId, int numberOfPlanesOnPage) {
         if (pageId <= 0) {
             pageId = 1;
         }
         int users = planeDAO.countPlanes();
         int pagesNum;
-        if (users % usersByPage != 0) {
-            pagesNum = (users / usersByPage + 1);
+        if (users % numberOfPlanesOnPage != 0) {
+            pagesNum = (users / numberOfPlanesOnPage + 1);
         } else {
-            pagesNum = (users / usersByPage);
+            pagesNum = (users / numberOfPlanesOnPage);
         }
         if (pageId >= pagesNum) {
             pageId = pagesNum;
         }
 
         Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("planes", planeDAO.getPlanesByPage(pageId, usersByPage));
+        pageInfo.put("planes", planeDAO.getPlanesByPage(pageId, numberOfPlanesOnPage));
         pageInfo.put("pagesNum", pagesNum);
         pageInfo.put("pageId", pageId);
 
