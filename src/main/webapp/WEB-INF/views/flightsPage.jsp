@@ -40,7 +40,7 @@
         <th>Arrival date</th>
         <th>Initial price</th>
         <th>Actions</th>
-            </tr>
+    </tr>
     <c:forEach var="flight" items="${flights}">
         <tr>
             <td>${flight.departureAirport}</td>
@@ -71,9 +71,9 @@
 </c:forEach>
 <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId+1}">Next</a>
 <div>
-        <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+    <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
         <input type="hidden" name="number" value="3"/>
-            <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
         <input type="submit" value="Show Flights by 3"/>
     </form>
     <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
@@ -82,11 +82,11 @@
         <input type="submit" value="Show Flights by 5"/>
     </form>
 
-<datalist id="airport">
-    <c:forEach items="${airports}" var="airport">
-        <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
-    </c:forEach>
-</datalist>
+    <datalist id="airport">
+        <c:forEach items="${airports}" var="airport">
+            <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+        </c:forEach>
+    </datalist>
 </div>
 
 <div id="content">
@@ -97,8 +97,10 @@
 
             <input type="date" required name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
             <input type="date" name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
-            <input type="text" required list="airport" name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
-            <input type="text" required list="airport"name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
+            <input type="text" required list="airport" name="departureAirport"/> <spring:message
+                code="lang.departureAirport"/>. <br/>
+            <input type="text" required list="airport" name="arrivalAirport"/> <spring:message
+                code="lang.arrivalAirport"/>. <br/>
             <input type="text" hidden name="adminPage" value="true"/>
             <input type="submit" value="<spring:message code="lang.search"/>"/>
 

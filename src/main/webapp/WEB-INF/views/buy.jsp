@@ -1,4 +1,4 @@
-    <%@ page import="com.epam.lowcost.util.EndPoints" %>
+<%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title><spring:message code="lang.buy" </title>
+    <title><spring:message code="lang.buy"/></title>
     <jsp:include page="navigationPanel.jsp"/>
 </head>
 

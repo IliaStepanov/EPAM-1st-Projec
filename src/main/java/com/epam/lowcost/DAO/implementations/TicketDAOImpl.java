@@ -69,21 +69,22 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 : "Ticket was not deleted";
     }
 
-     public boolean deleteTicketsByFlightId(long id) {
+    @Override
+    public boolean deleteTicketsByFlightId(long id) {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.flightId = ?";
             jdbcTemplate.update(sql, id);
             return true;
-
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
     }
 
+    @Override
     public boolean deleteTicketsByUserId(long id) {
-      try {
+        try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
             jdbcTemplate.update(sql, id);
@@ -91,29 +92,24 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
-       
+
     }
 
-    public int countBusinessPlaces(long id) {
-        int n;
+    @Override
+    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
+        Integer n;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
-                    rowMapper, id, true);
-            n = tickets.size();
-        } catch (EmptyResultDataAccessException e) {
-            return 0;
-        }
-        return n;
-    }
 
-    public int countEconomPlaces(long id) {
-        int n;
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            List<Ticket> tickets = jdbcTemplate.query(joinQuery() + "and flightId=? and isBusiness=?",
-                    rowMapper, id, false);
-            n = tickets.size();
+            n = jdbcTemplate.queryForObject("SELECT COUNT (*) FROM TICKETS " +
+                            "JOIN  USERS ON TICKETS.userId=USERS.id " +
+                            "JOIN  FLIGHTS ON TICKETS.flightId=FLIGHTS.id " +
+                            "JOIN  PLANES ON FLIGHTS.planeId = PLANES.id " +
+                            "JOIN AIRPORTS AS a " +
+                            "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b " +
+                            "ON FLIGHTS.ARRIVALAIRPORT=b.code " +
+                            "WHERE TICKETS.isDeleted=false and flightId=? and isBusiness=?", Integer.class,
+                    flightId, isBusiness);
         } catch (EmptyResultDataAccessException e) {
             return 0;
         }

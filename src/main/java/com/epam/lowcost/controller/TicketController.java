@@ -87,7 +87,6 @@ public class TicketController {
     }
 
 
-
     @GetMapping(value = SELF)
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));

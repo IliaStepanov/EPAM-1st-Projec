@@ -9,6 +9,8 @@ public interface TicketService {
 
     List<Ticket> getAllTickets();
 
+    int numberBoughtPlaces(long flightId, boolean isBusiness);
+
     boolean deleteTicketsByFlightId(long id);
 
     boolean deleteTicketsByUserId(long id);
