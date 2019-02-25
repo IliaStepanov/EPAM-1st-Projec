@@ -9,7 +9,7 @@ CREATE TABLE PLANES(id LONG AUTO_INCREMENT NOT NULL, model VARCHAR(255), busines
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Airbus A380',25,500,false);
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeing 777x',30,370,false);
 INSERT INTO PLANES (model, businessPlacesNumber, economPlacesNumber, isDeleted) VALUES ('Boeinig 747-8',100,900,false);
-CREATE TABLE AIRPORTS(code VARCHAR(255), nameEng VARCHAR(255), nameRus VARCHAR(255), cityEng VARCHAR(255), cityRus VARCHAR(255), countryEng VARCHAR(255), countryRus VARCHAR(255), PRIMARY KEY(code))
+CREATE TABLE AIRPORTS(code VARCHAR(255), nameEng VARCHAR(255), nameRus VARCHAR(255), cityEng VARCHAR(255), cityRus VARCHAR(255), countryEng VARCHAR(255), countryRus VARCHAR(255), PRIMARY KEY(code));
 INSERT INTO AIRPORTS (code, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAA','Anaa','Анаа','Anaa','Анаа','French Polynesia','Французская Полинезия');
 INSERT INTO AIRPORTS (code, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAK','Aranuka','Аранука','Aranuka','Аранука','Kiribati','Кирибати');
 INSERT INTO AIRPORTS (code, nameEng, nameRus, cityEng, cityRus, countryEng, countryRus) VALUES ('AAL','Aalborg','Аальборг','Aalborg','Аальбург','Denmark','Дания');

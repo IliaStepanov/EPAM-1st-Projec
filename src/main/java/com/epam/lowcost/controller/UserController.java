@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
@@ -21,7 +22,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
 
     @GetMapping(value = ALL + "/{pageId}")
@@ -30,9 +31,9 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
 
-        int usersByPage = (int) model.getOrDefault("number", 5);
+        int numberOfUsersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
-        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
+        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, numberOfUsersOnPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("users", pageRepresentation.get("users"));
@@ -40,10 +41,10 @@ public class UserController {
         return USERSPAGE;
     }
 
-    @GetMapping(value = SET_USERS_BY_PAGE)
-    public String setUsersByPage(@RequestParam String number, Model model) {
+    @GetMapping(value = PAGE)
+    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
-        return "redirect:" + USER + ALL + FIRST_PAGE;
+        return "redirect:" + fromPage + FIRST_PAGE;
     }
 
 

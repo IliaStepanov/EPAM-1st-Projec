@@ -1,4 +1,4 @@
-<%@ page import="com.epam.lowcost.util.EndPoints" %>
+    <%@ page import="com.epam.lowcost.util.EndPoints" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core_1_1" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--

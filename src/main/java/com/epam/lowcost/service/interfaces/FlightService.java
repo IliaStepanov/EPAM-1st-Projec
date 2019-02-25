@@ -4,6 +4,7 @@ import com.epam.lowcost.model.Flight;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface FlightService {
     List<Flight> getAllFlightsWithUpdatedPrice();
@@ -23,4 +24,10 @@ public interface FlightService {
     String deleteFlight(Long id);
 
     List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
+
+    Map<String,Object> getFlightsByPage(int pageId, int flightsByPage);
+
+    Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage);
+
+    int countFlights();
 }

@@ -19,6 +19,7 @@ public final class EndPoints {
     public static final String NEW_TICKET = "/new-ticket";
     public static final String RETURN = "/return";
     public static final String FLIGHT = "/flight";
+    public static final String PAGE = "/page";
 
 //  Login Controller endpoints
 
@@ -43,7 +44,6 @@ public final class EndPoints {
     public static final String ENROLL = "/enroll";
     public static final String SETTINGS = "/settings";
     public static final String CHANGE_PASSWORD = "/change-password";
-    public static final String SET_USERS_BY_PAGE = "/setUsersByPage";
     public static final String FIRST_PAGE = "/1";
 
 // View endpoints
