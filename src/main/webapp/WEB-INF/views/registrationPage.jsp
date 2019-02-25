@@ -30,7 +30,7 @@
         <spring:message code="lang.firstName"/> <input type="text" name="firstName" class="form-control input"/>
         <spring:message code="lang.lastName"/> <input type="text" name="lastName" class="form-control input"/>
         <spring:message code="lang.document"/><input type="text" name="documentInfo" class="form-control input"/>
-        <spring:message code="lang.birthday"/><input type="datetime-local" name="birthday" class="form-control input"/>
+        <spring:message code="lang.birthday"/><input type="date" name="birthday" class="form-control input"/>
         <input type="submit" value="<spring:message code="lang.signIn"/>" class="btn btn-outline-primary btnSignUp"/>
     </form>
     </div>

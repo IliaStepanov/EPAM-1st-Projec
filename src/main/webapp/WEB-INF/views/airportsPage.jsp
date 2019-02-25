@@ -62,8 +62,6 @@
                         <td><c:out value="${airport.nameRus}"/></td>
                         <td><c:out value="${airport.countryEng}"/></td>
                         <td><c:out value="${airport.countryRus}"/></td>
-
-
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -74,48 +72,6 @@
 
     <br/>
     ${airport}<br/> <h4>${message}</h4>
-
-    <%--<br/><br/>--%>
-    <%--<div class="row">--%>
-        <%--<div class="col-md-3 addAirport">--%>
-            <%--<h4><spring:message code="lang.addNewAirport"/></h4><br/>--%>
-            <%--<form action="<%=EndPoints.AIRPORT + EndPoints.ADD%>" method="post">--%>
-                <%--<spring:message code="lang.airportCode"/><br/> <input type="text" class="form-control input" required--%>
-                                                                      <%--name="code"/>--%>
-                <%--<spring:message code="lang.cityEng"/><br/><input type="text" class="form-control input" required--%>
-                                                                 <%--name="cityEng"/>--%>
-                <%--<spring:message code="lang.cityRus"/><br/><input type="text" class="form-control input" required--%>
-                                                                 <%--name="cityRus"/>--%>
-                <%--<spring:message code="lang.nameEng"/><br/><input type="text" class="form-control input" required--%>
-                                                                 <%--name="nameEng"/>--%>
-                <%--<spring:message code="lang.nameRus"/><br/><input type="text" class="form-control input" required--%>
-                                                                 <%--name="nameRus"/>--%>
-                <%--<spring:message code="lang.countryEng"/><br/><input type="text" class="form-control input" required--%>
-                                                                    <%--name="countryEng"/>--%>
-                <%--<spring:message code="lang.countryRus"/><br/><input type="text" class="form-control input" required--%>
-                                                                    <%--name="countryRus"/>--%>
-
-                <%--<input type="submit" class="btn btn-outline-success addAirportBtn" value="OK"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<br/><br/>--%>
-    <%--<div class="row">--%>
-        <%--<div class="col-md-3 updateAirportBtn">--%>
-            <%--<h4><spring:message code="lang.updateAirport"/></h4>--%>
-            <%--<form action="<%=EndPoints.AIRPORT + EndPoints.UPDATE%>" method="post">--%>
-                <%--<spring:message code="lang.airportCode"/><br/><input type="text" class="form-control input" name="code" value="${airport.code}"/>--%>
-                <%--<spring:message code="lang.cityEng"/><br/><input type="text" class="form-control input" required name="cityEng" value="${airport.cityEng}"/>--%>
-                <%--<spring:message code="lang.cityRus"/><br/> <input type="text" class="form-control input" required name="cityRus" value="${airport.cityRus}"/>--%>
-                <%--<spring:message code="lang.nameEng"/><br/><input type="text" class="form-control input" required name="nameEng" value="${airport.nameEng}"/>--%>
-                <%--<spring:message code="lang.nameRus"/><br/><input type="text" class="form-control input" required name="nameRus" value="${airport.nameRus}"/>--%>
-                <%--<spring:message code="lang.countryEng"/><br/><input type="text" class="form-control input" required name="countryEng" value="${airport.countryEng}"/>--%>
-                <%--<spring:message code="lang.countryRus"/><br/><input type="text" class="form-control input" required name="countryRus" value="${airport.countryRus}"/>--%>
-                <%--<input type="submit" class="btn btn-outline-primary updateAirportBtn" value="OK"/>--%>
-            <%--</form>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
 
 </div>
 </body>

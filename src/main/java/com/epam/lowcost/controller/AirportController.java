@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_AIRPORTS_ON_PAGE;
@@ -49,7 +51,9 @@ public class AirportController {
 
     @GetMapping
     public String getAirportByCode(@RequestParam String code, Model model) {
-        model.addAttribute("airport", airportService.getAirportByCode(code.toUpperCase()));
+        List<Airport> airport = new ArrayList<>();
+        airport.add(airportService.getAirportByCode(code.toUpperCase()));
+        model.addAttribute("airports", airport);
         return AIRPORTSPAGE;
     }
 

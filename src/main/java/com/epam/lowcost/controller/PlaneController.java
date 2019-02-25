@@ -84,6 +84,6 @@ public class PlaneController {
     @PostMapping(value = DELETE)
     public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
-        return PLANESPAGE;
+        return "redirect:" + PLANE + ALL + FIRST_PAGE;
     }
 }

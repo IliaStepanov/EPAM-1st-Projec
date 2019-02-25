@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 GroupSearch">
-            <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>"><spring:message code="lang.buyMoreTickets"/></a>
+            <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT + EndPoints.FIRST_PAGE%>"><spring:message code="lang.buyMoreTickets"/></a>
         </div>
     </div>
 <div class="row OneRow">
