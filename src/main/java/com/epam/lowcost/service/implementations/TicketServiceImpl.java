@@ -22,9 +22,7 @@ public class TicketServiceImpl implements TicketService {
         this.ticketDAO = ticketDAO;
     }
 
-
     public void setFlightService(FlightService flightService) {
-
         this.flightService = flightService;
     }
 
@@ -72,6 +70,10 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.deleteTicket(id);
     }
 
+    @Override
+    public int numberBoughtPlaces(long flightId, boolean isBusiness) {
+        return ticketDAO.numberBoughtPlaces(flightId, isBusiness);
+    }
 
     @Override
     public boolean deleteTicketsByFlightId(long id) {

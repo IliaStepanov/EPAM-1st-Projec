@@ -3,7 +3,7 @@ package com.epam.lowcost.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.*;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 

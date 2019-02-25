@@ -32,7 +32,7 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         String sql = String.format("SELECT * FROM FLIGHTS JOIN  PLANES" +
                 " ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS a " +
                 "ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON " +
-        "FLIGHTS.ARRIVALAIRPORT=b.code WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE ", id);
+                "FLIGHTS.ARRIVALAIRPORT=b.code WHERE FLIGHTS.id = '%d' AND FLIGHTS.isDeleted=FALSE ", id);
         return executeSqlSelect(sql).get(0);
     }
 

@@ -1,7 +1,6 @@
 package com.epam.lowcost.service.interfaces;
 
 import com.epam.lowcost.model.Airport;
-import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Map;
