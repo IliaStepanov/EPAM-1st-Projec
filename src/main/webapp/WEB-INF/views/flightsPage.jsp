@@ -82,6 +82,11 @@
         <input type="submit" value="Show Flights by 5"/>
     </form>
 
+<datalist id="airport">
+    <c:forEach items="${airports}" var="airport">
+        <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
+    </c:forEach>
+</datalist>
 </div>
 
 <div id="content">
@@ -91,9 +96,9 @@
         <form action="<%=EndPoints.FLIGHTS + EndPoints.SEARCH%>" method="get">
 
             <input type="date" required name="departureDateFrom"/> <spring:message code="lang.departureDateFrom"/>.<br/>
-            <input type="date" required name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
-            <input type="text" required name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
-            <input type="text" required name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
+            <input type="date" name="departureDateTo"/> <spring:message code="lang.departureDateTo"/>.<br/>
+            <input type="text" required list="airport" name="departureAirport"/> <spring:message code="lang.departureAirport"/>. <br/>
+            <input type="text" required list="airport"name="arrivalAirport"/> <spring:message code="lang.arrivalAirport"/>. <br/>
             <input type="text" hidden name="adminPage" value="true"/>
             <input type="submit" value="<spring:message code="lang.search"/>"/>
 
