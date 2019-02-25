@@ -136,18 +136,14 @@
                 </tbody>
             </table>
             <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId-1}">
-                <input type="text" hidden name="adminPage" value="true"/>
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
                 <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${page}">
-
                     <input type="submit" class="btn btn-link paginationBtn" value="${page}">
-                    <input type="text" hidden name="adminPage" value="true"/>
                 </form>
             </c:forEach>
             <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId+1}">
-                <input type="text" hidden name="adminPage" value="true"/>
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
             </form>
         </div>
@@ -161,10 +157,8 @@
         <option  hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
     </c:forEach>
 </datalist>
-
-<div id="content">
-
-</div>
+<br/>
+<br/>
 
 </body>
 </html>
