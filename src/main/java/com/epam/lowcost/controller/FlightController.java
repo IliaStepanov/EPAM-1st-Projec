@@ -1,8 +1,10 @@
 package com.epam.lowcost.controller;
 
+import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.implementations.FlightServiceImpl;
+import com.epam.lowcost.service.interfaces.AirportService;
 import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Map;
-
 
 import static com.epam.lowcost.util.EndPoints.*;
 
@@ -25,29 +26,35 @@ import static com.epam.lowcost.util.EndPoints.*;
 public class FlightController {
 
     FlightService flightService;
+    AirportService airportService;
 
     @Autowired
-    public FlightController(FlightService flightService) {
+    public FlightController(FlightService flightService, AirportService airportService) {
+
         this.flightService = flightService;
+        this.airportService = airportService;
     }
 
     @GetMapping(value = ALL)
     public String getAllFlights(Model model) {
         model.addAttribute("flights", flightService.getAllFlights());
-        return "flights";
+        model.addAttribute("airports", airportService.getAllAirports());
+        return FLIGHTSPAGE;
+
     }
 
     @GetMapping
     public String findFlightById(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.getById(id));
-        return "flightSettings";
+        model.addAttribute("airports", airportService.getAllAirports());
+        return FLIGHTSETTINGS;
     }
 
 
     @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
         model.addAttribute("flight", ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(id));
-        return "buy";
+        return BUY;
     }
 
     @GetMapping(value = RETURN)
@@ -56,29 +63,31 @@ public class FlightController {
     }
 
 
-    @GetMapping(value = ADD)
-    public String addNewFlight() {
-        return "addFlight";
+    public String addNewFlight(Model model) {
+        model.addAttribute("airports", airportService.getAllAirports());
+            return ADDFLIGHT;
     }
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
-        List<Flight> flights = ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice();
-        model.addAttribute("flights", flights);
-
-        return "search";
+        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+        model.addAttribute("airports", airportService.getAllAirports());
+        return SEARCHPAGE;
     }
 
     @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
+        if (params.get("departureDateTo").equals(""))
+            params.put(("departureDateTo"),params.get("departureDateFrom"));
         model.addAttribute("flights", ((FlightServiceImpl) flightService).getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));
+        model.addAttribute("airports", airportService.getAllAirports());
         if (params.get("adminPage").equals("true")) {
-            return "flights";
+            return FLIGHTSPAGE;
         }
-        return "search";
+        return SEARCHPAGE;
 
     }
 
@@ -92,8 +101,12 @@ public class FlightController {
                                 .build())
                         .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
                         .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
-                        .departureAirport(params.get("departureAirport"))
-                        .arrivalAirport(params.get("arrivalAirport"))
+                        .departureAirport(Airport.builder()
+                                .code(params.get("departureAirport"))
+                                .build())
+                        .arrivalAirport(Airport.builder()
+                                .code(params.get("arrivalAirport"))
+                                .build())
                         .businessPrice(Long.valueOf(params.get("businessPrice")))
                         .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                         .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
@@ -114,11 +127,15 @@ public class FlightController {
                                 )
                                 .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
                                 .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
-                                .departureAirport(params.get("departureAirport"))
+                                .departureAirport(Airport.builder()
+                                        .code(params.get("departureAirport"))
+                                        .build())
+                                .arrivalAirport(Airport.builder()
+                                        .code(params.get("arrivalAirport"))
+                                        .build())
                                 .businessPrice(Long.valueOf(params.get("businessPrice")))
                                 .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                                 .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
-                                .arrivalAirport(params.get("arrivalAirport"))
                                 .build()));
         return "redirect:" + FLIGHTS + ALL;
     }

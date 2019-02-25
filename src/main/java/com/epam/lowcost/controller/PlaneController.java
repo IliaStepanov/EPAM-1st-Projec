@@ -24,14 +24,14 @@ public class PlaneController {
     @GetMapping(value = ALL)
     public String getAllPlanes(Model model) {
         model.addAttribute("planes", planeService.getAllPlanes());
-        return "planes";
+        return PLANESPAGE;
     }
 
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
         model.addAttribute("message", "Here is your Plane!");
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping
@@ -45,7 +45,7 @@ public class PlaneController {
                         .build()));
 
         model.addAttribute("message", "Plane successfully added");
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -63,12 +63,12 @@ public class PlaneController {
             model.addAttribute("plane", plane);
             model.addAttribute("message", "Plane seccessfully updated");
         }
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping(value = DELETE)
     public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
-        return "planes";
+        return PLANESPAGE;
     }
 }

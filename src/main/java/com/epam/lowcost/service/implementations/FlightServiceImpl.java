@@ -2,12 +2,14 @@ package com.epam.lowcost.service.implementations;
 
 import com.epam.lowcost.DAO.interfaces.FlightDAO;
 import com.epam.lowcost.model.Flight;
+import com.epam.lowcost.service.interfaces.AirportService;
 import com.epam.lowcost.service.interfaces.FlightService;
 import com.epam.lowcost.service.interfaces.PlaneService;
 import com.epam.lowcost.service.interfaces.TicketService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -16,10 +18,12 @@ public class FlightServiceImpl implements FlightService {
     private FlightDAO flightDAO;
     private PlaneService planeService;
     private TicketService ticketService;
+    public AirportService airportService;
 
-    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService) {
+    public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService, AirportService airportService) {
         this.flightDAO = flightDAO;
         this.planeService = planeService;
+        this.airportService = airportService;
     }
 
     public void setTicketService(TicketService ticketService) {
@@ -50,27 +54,28 @@ public class FlightServiceImpl implements FlightService {
         return flight;
     }
 
-
     @Override
     public List<Flight> getAllFlights() {
         return flightDAO.getAllFlights();
     }
 
     @Override
-    public Flight getById(Long id) {
-        return flightDAO.getById(id);
-    }
-
-    @Override
     public Flight addNewFlight(Flight flight) {
         flight.setPlane(planeService.getById(flight.getPlane().getId()));
+        flight.setArrivalAirport(airportService.getAirportByCode(flight.getArrivalAirport().getCode()));
+        flight.setDepartureAirport(airportService.getAirportByCode(flight.getDepartureAirport().getCode()));
         return flightDAO.addNewFlight(flight);
     }
+        public Flight getById (Long id){
+            return flightDAO.getById(id);
 
-    @Override
-    public Flight updateFlight(Flight flight) {
-        return flightDAO.updateFlight(flight);
-    }
+        }
+
+
+        @Override
+        public Flight updateFlight (Flight flight){
+            return flightDAO.updateFlight(flight);
+        }
 
 
     @Override
@@ -82,10 +87,11 @@ public class FlightServiceImpl implements FlightService {
 
     }
 
-    @Override
-    public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
-        return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
-    }
+        @Override
+        public List<Flight> getByFromToDate (String departureAirport, String arrivalAirport, LocalDateTime
+        departureDateFrom, LocalDateTime departureDateTo){
+            return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
+        }
 
     private long calculateInitialFlightPriceByDate(long daysBetween, long minPrice) {
         long daysNumber = 60;//min number of days for price rising

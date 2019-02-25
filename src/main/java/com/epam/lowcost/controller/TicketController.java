@@ -26,13 +26,13 @@ public class TicketController {
     @GetMapping(value = ALL)
     public String getAllTickets(Model model) {
         model.addAttribute("tickets", ticketService.getAllTickets());
-        return "tickets";
+        return TICKETSPAGE;
     }
 
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("tickets", ticketService.getAllUserTickets(id));
-        return "tickets";
+        return TICKETSPAGE;
     }
 
     @PostMapping(value = ADD)
@@ -90,7 +90,7 @@ public class TicketController {
     @GetMapping(value = SELF)
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
-        return "userPage";
+        return USERPAGE;
     }
 
 
