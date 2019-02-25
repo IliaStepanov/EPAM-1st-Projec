@@ -74,12 +74,12 @@ public class UserDAOImpl extends AbstractDAOImpl<User> implements UserDAO {
 
 
     @Override
-    public List<User> getUsersByPage(int pageId, int usersByPage) {
+    public List<User> getUsersByPage(int pageId, int usersOnPage) {
         pageId = pageId - 1;
         if (pageId > 0) {
-            pageId = pageId * usersByPage;
+            pageId = pageId * usersOnPage;
         }
-        return executeSqlSelect("SELECT * FROM USERS WHERE isDeleted=false LIMIT " + (pageId) + "," + usersByPage);
+        return executeSqlSelect("SELECT * FROM USERS WHERE isDeleted=false LIMIT " + (pageId) + "," + usersOnPage);
 
     }
 
