@@ -264,6 +264,11 @@ body{
     margin-top: 10px;
     width: 70%;
 }
+
+.codeInputAirports{
+    margin-right: 15px;
+    float: left;
+}
 /*-----------------------------------planes Page-------------------------*/
 .findPlaneBtn {
     margin-top: 10px;
@@ -271,18 +276,22 @@ body{
 }
 .addPlaneBtn {
     margin-top: 10px;
-    width: 70%;
+    width: 100%;
 }
 
 .updatePlaneBtn
 {
-    margin-top: 10px;
-    width: 70%;
+
+    width:100%;
 }
 
 .deletePlaneBtn {
-    margin-top: 10px;
-    width: 70%;
+
+    width: 100%;
+}
+
+.planeTitle{
+    margin-top: 20px;
 }
 /*---------------------------------settings page------------------------------------*/
 .changeDataBtn {
@@ -295,4 +304,13 @@ body{
 
 }
 
-
+/*----------------------------------------------tickets page----------------------------------*/
+.ticketsTable {
+    margin-top: 20px;
+}
+.updateTicket{
+    width: 100%;
+}
+.deleteTicket{
+    width: 100%;
+}

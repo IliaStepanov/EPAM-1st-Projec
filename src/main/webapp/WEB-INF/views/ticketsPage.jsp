@@ -17,47 +17,55 @@
     <div class="col-md-12 ticketsTable">
 
 
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"><spring:message code="lang.firstName"/></th>
+                <th scope="col"><spring:message code="lang.email"/></th>
+                <th scope="col"><spring:message code="lang.departureAirport"/></th>
+                <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
+                <th scope="col"><spring:message code="lang.departureAt"/></th>
+                <th scope="col"><spring:message code="lang.arriveAt"/></th>
+                <th scope="col"><spring:message code="lang.price"/></th>
+                <th></th>
+            </tr>
 
-<c:forEach items="${tickets}" var="ticket">
-    <c:out value="${ticket.toString()}"/><br/>
-</c:forEach>
+            </thead>
+            <tbody>
+            <c:forEach items="${tickets}" var="ticket">
+                <tr>
+                    <td><c:out value="${ticket.user.firstName}"/></td>
+                    <td><c:out value="${ticket.user.email}"/></td>
+                    <td><c:out value="${ticket.flight.departureAirport.cityEng}"/></td>
+                    <td><c:out value="${ticket.flight.arrivalAirport.cityEng}"/></td>
+                    <td><c:out value="${ticket.flight.departureDate}"/></td>
+                    <td><c:out value="${ticket.flight.arrivalDate}"/></td>
+                    <td><c:out value="${ticket.price}"/></td>
+                    <%--<td>--%>
+                        <%--<c:if test="${sessionUser.isAdmin()}">--%>
+                            <%--<form action="<%=EndPoints.TICKETS%>" method="get">--%>
+                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
+                                <%--<input type="submit" value="<spring:message code="lang.updateTicket"/>" class="btn btn-outline-primary updateTicket"/>--%>
+                            <%--</form>--%>
+                            <%--<form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">--%>
+                                <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
+                                <%--<input type="submit" value="<spring:message code="lang.deleteTicket"/>" class="btn btn-outline-danger deleteTicket"/>--%>
+                            <%--</form>--%>
+
+
+
+                        <%--</c:if>--%>
+
+                    <%--</td>--%>
+
+
+                </tr>
+            </c:forEach>
+            </tbody>
+
+        </table>
     </div>
 </div>
-
-<br/>
-${ticket}<br/> <h4>${message}</h4>
-
-
-<h4><spring:message code="lang.findTicketById"/></h4>
-<form action="<%=EndPoints.TICKETS%>" method="get">
-    <input type="number" name="id"/>
-    <input type="submit" name="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.addNewTicket"/></h4>
-<form action="<%=EndPoints.TICKETS%>" method="post">
-    <input type="number" name="userId"/> <spring:message code="lang.userID"/><br/>
-    <input type="number" name="flightId"/> <spring:message code="lang.flightId"/><br/>
-    <input type="text" name="hasLuggage"/> <spring:message code="lang.hasLuggage"/><br/>
-    <input type="text" name="placePriority"/> <spring:message code="lang.placePriority"/> <br/>
-    <input type="text" name="isBusiness"/> <spring:message code="lang.isBusiness"/> <br/>
-    <input type="submit" value="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.updateTicket"/></h4>
-<form action="<%=EndPoints.TICKETS + EndPoints.UPDATE%>" method="post">
-    <input type="number" name="ticketId"/> <spring:message code="lang.ticketId"/><br/>
-    <input type="text" name="hasLuggage"/> <spring:message code="lang.hasLuggage"/><br/>
-    <input type="text" name="placePriority"/> <spring:message code="lang.placePriority"/> <br/>
-    <input type="text" name="isBusiness"/> <spring:message code="lang.isBusiness"/> <br/>
-    <input type="submit" value="OK"/>
-</form>
-
-<h4><spring:message code="lang.deleteTicket"/></h4>
-<form action="<%=EndPoints.TICKETS + EndPoints.DELETE%>" method="post">
-    <input type="number" name="id"/><spring:message code="lang.ticketId"/><br/>
-    <input type="submit" name="OK"/>
-</form>
 
 </div>
 </body>
