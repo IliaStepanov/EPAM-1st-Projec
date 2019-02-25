@@ -74,7 +74,7 @@ public class FlightController {
         return "redirect:" + FLIGHTS + FLIGHT;
     }
 
-
+    @GetMapping (value = ADD)
     public String addNewFlight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
         return ADDFLIGHT;

@@ -6,97 +6,115 @@
 <head>
     <jsp:include page="navigationPanel.jsp"/>
     <title><spring:message code="lang.planeDAO"/></title>
+    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
-<h2><spring:message code="lang.planes"/></h2><br/><br/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 planeTitle">
+            <spring:message code="lang.planes"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 addPlaneBtn">
 
-<br/><br/>
-<a href="<%=EndPoints.PLANE + EndPoints.ALL+ EndPoints.FIRST_PAGE%>"><spring:message code="lang.allPlanes"/></a><br/><br/>
-<div>
-    <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
-        <input type="hidden" name="number" value="1"/>
-        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
-        <input type="submit" value="Show Planes by 1"/>
-    </form>
-    <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
-        <input type="hidden" name="number" value="3"/>
-        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
-        <input type="submit" value="Show Planes by 3"/>
-    </form>
-    <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
-        <input type="hidden" name="number" value="5"/>
-        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
-        <input type="submit" value="Show Planes by 5"/>
-    </form>
-    <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
-        <input type="hidden" name="number" value="20"/>
-        <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
-        <input type="submit" value="Show Planes by 20"/>
-    </form>
+            <form action="<%=EndPoints.PLANE%>" method="post">
+                <input type="submit" class="btn btn-outline-primary addPlaneBtn" value="<spring:message code="lang.addNewPlane"/> "/>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"><spring:message code="lang.model"/></th>
+                    <th scope="col"><spring:message code="lang.numBusiness"/></th>
+                    <th scope="col"><spring:message code="lang.numEconom"/></th>
+                </tr>
+
+                </thead>
+                <tbody>
+                <c:forEach items="${planes}" var="plane">
+                    <tr>
+
+                        <td><c:out value="${plane.model}"/></td>
+                        <td><c:out value="${plane.businessPlacesNumber}"/></td>
+                        <td><c:out value="${plane.economPlacesNumber}"/></td>
+
+
+                    <td>
+                    <c:if test="${sessionUser.isAdmin()}">
+                    <form action="<%=EndPoints.PLANE%>" method="get">
+                    <input type="hidden" name="id" value="${plane.id}"/>
+                    <input type="submit" value="<spring:message code="lang.updatePlane"/>" class="btn btn-outline-primary updatePlaneBtn"/>
+                    </form>
+                    <form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
+                    <input type="hidden" name="id" value="${plane.id}"/>
+                    <input type="submit" value="<spring:message code="lang.deletePlane"/>" class="btn btn-outline-danger deletePlaneBtn"/>
+                    </form>
+
+
+
+                    </c:if>
+
+                    </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    <br/>
+    ${plane}<br/> <h4>${message}</h4>
+
+
+
+    <%--<div class="row">--%>
+        <%--<div class="col-md-3">--%>
+
+
+
+
+        <%--</div>--%>
+    <%--</div>--%>
+    <%--<br/><br/>--%>
+
+    <%--<div class="row">--%>
+        <%--<div class="col-md-3">--%>
+
+
+            <%--<h4><spring:message code="lang.updatePlane"/></h4>--%>
+            <%--<form action="<%=EndPoints.PLANE + EndPoints.UPDATE%>" method="post">--%>
+                <%--<spring:message code="lang.planeId"/><br/><input type="text" class="form-control input" name="id"/>--%>
+                <%--<spring:message code="lang.model"/><br/><input type="text" class="form-control input" name="model"/>--%>
+                <%--<spring:message code="lang.numBusiness"/><br/> <input type="number" class="form-control input"--%>
+                                                                      <%--name="businessPlacesNumber"/>--%>
+                <%--<spring:message code="lang.numEconom"/><br/> <input type="number" class="form-control input"--%>
+                                                                    <%--name="economPlacesNumber"/>--%>
+                <%--<input type="submit" class="btn btn-outline-primary updatePlaneBtn" value="OK"/>--%>
+            <%--</form>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+
+    <%--<div class="row">--%>
+        <%--<div class="col-md-3">--%>
+            <%--<h4><spring:message code="lang.deletePlane"/></h4>--%>
+            <%--<form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">--%>
+                <%--<spring:message code="lang.planeId"/><br/><input type="number" class="form-control input" name="id"/>--%>
+                <%--<input type="submit" class="btn btn-outline-primary deletePlaneBtn" value="OK"/>--%>
+            <%--</form>--%>
+        <%--</div>--%>
+    <%--</div>--%>
 </div>
-<h1>All Planes</h1>
-<table border="12" width="70%" cellpadding="2">
-    <tr>
-        <th>Id</th>
-        <th>Model</th>
-        <th>Business Places</th>
-        <th>Econom Places</th>
-        <th>Service</th>
-    </tr>
-    <c:forEach var="plane" items="${planes}">
-        <tr>
-            <td>${plane.id}</td>
-            <td>${plane.model} </td>
-            <td>${plane.businessPlacesNumber}</td>
-            <td>${plane.economPlacesNumber}</td>
-            <td><form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
-                <input type="hidden" name="id" value="${plane.id}"/>
-                <input type="submit" value="<spring:message code="lang.deletePlane"/>"/>
-            </form></td>
-        </tr>
-    </c:forEach>
-
-</table>
-<a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId-1}">Previous</a>
-<c:forEach var="page" begin="1" end="${pagesNum}">
-    <a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${page}">${page}</a>
-</c:forEach>
-<a href="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId+1}">Next</a>
-
-
-<br/>
-${plane}<br/> <h4>${message}</h4>
-
-
-<h4><spring:message code="lang.findPlaneById"/></h4>
-<form action="<%=EndPoints.PLANE%>" method="get">
-    <input type="number" name="id"/>
-    <input type="submit" name="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.addNewPlane"/></h4>
-<form action="<%=EndPoints.PLANE%>" method="post">
-    <input type="text" name="model"/> <spring:message code="lang.model"/><br/>
-    <input type="number" name="businessPlacesNumber"/><spring:message code="lang.numBusiness"/><br/>
-    <input type="number" name="economPlacesNumber"/> <spring:message code="lang.numEconom"/><br/>
-    <input type="submit" value="OK"/>
-</form>
-<br/><br/>
-<h4><spring:message code="lang.updatePlane"/></h4>
-<form action="<%=EndPoints.PLANE + EndPoints.UPDATE%>" method="post">
-    <input type="text" name="id"/> <spring:message code="lang.planeId"/><br/>
-    <input type="text" name="model"/> <spring:message code="lang.model"/><br/>
-    <input type="number" name="businessPlacesNumber"/> <spring:message code="lang.numBusiness"/><br/>
-    <input type="number" name="economPlacesNumber"/> <spring:message code="lang.numEconom"/><br/>
-    <input type="submit" value="OK"/>
-</form>
-
-<h4><spring:message code="lang.deletePlane"/></h4>
-<form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
-    <input type="number" name="id"/> <spring:message code="lang.planeId"/><br/>
-    <input type="submit" value="OK"/>
-</form>
-
 
 </body>
 </html>
