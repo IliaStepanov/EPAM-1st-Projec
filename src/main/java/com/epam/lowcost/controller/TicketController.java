@@ -33,7 +33,7 @@ public class TicketController {
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("tickets", pageRepresentation.get("tickets"));
         model.addAttribute("pageId", pageRepresentation.get("pageId"));
-        return "tickets";
+        return TICKETSPAGE;
     }
 
     @GetMapping(value = SET_TICKETS_BY_PAGE)
@@ -45,7 +45,7 @@ public class TicketController {
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("tickets", ticketService.getAllUserTickets(id));
-        return "tickets";
+        return TICKETSPAGE;
     }
 
     @PostMapping(value = ADD)
@@ -104,7 +104,7 @@ public class TicketController {
     @GetMapping(value = SELF)
     public String getAllUserTickets(@ModelAttribute("sessionUser") User sessionUser, Model model) {
         model.addAttribute("currentUserTickets", ticketService.getAllUserTickets(sessionUser.getId()));
-        return "userPage";
+        return USERPAGE;
     }
 
 

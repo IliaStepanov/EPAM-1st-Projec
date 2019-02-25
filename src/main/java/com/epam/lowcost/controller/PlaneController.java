@@ -33,7 +33,7 @@ public class PlaneController {
         model.addAttribute("planes", pageRepresentation.get("planes"));
         model.addAttribute("pageId", pageRepresentation.get("pageId"));
 
-        return "planes";
+        return PLANESPAGE;
     }
     @GetMapping(value = SET_PLANES_BY_PAGE)
     public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
@@ -45,7 +45,7 @@ public class PlaneController {
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
         model.addAttribute("message", "Here is your Plane!");
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping
@@ -59,7 +59,7 @@ public class PlaneController {
                         .build()));
 
         model.addAttribute("message", "Plane successfully added");
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -77,12 +77,12 @@ public class PlaneController {
             model.addAttribute("plane", plane);
             model.addAttribute("message", "Plane seccessfully updated");
         }
-        return "planes";
+        return PLANESPAGE;
     }
 
     @PostMapping(value = DELETE)
     public String deletePlane(@RequestParam long id, Model model) {
         model.addAttribute("message", planeService.deletePlane(id));
-        return "planes";
+        return PLANESPAGE;
     }
 }

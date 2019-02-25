@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
@@ -30,17 +31,17 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
 
-        int usersByPage = (int) model.getOrDefault("number", 5);
+        int numberOfUsersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_USERS_ON_PAGE);
 
-        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, usersByPage);
+        Map<String, Object> pageRepresentation = userService.getUsersByPage(pageId, numberOfUsersOnPage);
 
         model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
         model.addAttribute("users", pageRepresentation.get("users"));
         model.addAttribute("pageId", pageRepresentation.get("pageId"));
-        return "users";
+        return USERSPAGE;
     }
 
-    @GetMapping(value = SET_USERS_BY_PAGE)
+    @GetMapping(value = PAGE)
     public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
         return "redirect:" + fromPage + FIRST_PAGE;
@@ -56,7 +57,7 @@ public class UserController {
         user.add(userService.getById(id));
         model.addAttribute("users", user);
         model.addAttribute("message", "Here is your User!");
-        return "users";
+        return USERSPAGE;
     }
 
     @PostMapping
@@ -74,7 +75,7 @@ public class UserController {
                         .build());
         model.addAttribute("user", user);
         model.addAttribute("message", "User successfully added");
-        return "users";
+        return USERSPAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -100,7 +101,7 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("message", "User successfully updated");
         }
-        return "users";
+        return USERSPAGE;
     }
 
     @PostMapping(value = ENROLL)
@@ -117,13 +118,13 @@ public class UserController {
                         .isDeleted(false)
                         .build());
         model.addAttribute("message", "Successfully registered. Please Log in. ");
-        return "login";
+        return LOGIN;
 
     }
 
     @GetMapping(value = SETTINGS)
     public String settings(@ModelAttribute("sessionUser") User sessionUser) {
-        return "settings";
+        return SETTINGSPAGE;
     }
 
     @PostMapping(value = CHANGE_PASSWORD)
@@ -131,16 +132,16 @@ public class UserController {
         User user = userService.verifyUser(sessionUser.getEmail(), params.get("oldPassword"));
         if (user == null) {
             model.addAttribute("message", "Wrong password");
-            return "settings";
+            return SETTINGSPAGE;
         }
         if (!params.get("newPassword").equals(params.get("newPassword2"))) {
             model.addAttribute("message", "Passwords did not match!");
-            return "settings";
+            return SETTINGSPAGE;
         }
         sessionUser.setPassword(params.get("newPassword"));
         userService.updateUser(sessionUser);
         model.addAttribute("message", "Passwords changed successfully!");
-        return "settings";
+        return SETTINGSPAGE;
     }
 
     @PostMapping(value = DELETE)
