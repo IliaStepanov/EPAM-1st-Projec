@@ -12,16 +12,17 @@
     <link href="${main_css}" rel="stylesheet">
 </head>
 <body>
-<spring:message code="lang.adminPage"/>
-<h2><spring:message code="lang.tickets"/></h2><br/><br/>
+<div class="container">
+<div class="row">
+    <div class="col-md-12 ticketsTable">
 
-<a href="<%=EndPoints.TICKETS + EndPoints.ALL%>"><spring:message code="lang.allTickets"/></a><br/><br/>
 
 
 <c:forEach items="${tickets}" var="ticket">
     <c:out value="${ticket.toString()}"/><br/>
 </c:forEach>
-
+    </div>
+</div>
 
 <br/>
 ${ticket}<br/> <h4>${message}</h4>
@@ -58,5 +59,6 @@ ${ticket}<br/> <h4>${message}</h4>
     <input type="submit" name="OK"/>
 </form>
 
+</div>
 </body>
 </html>

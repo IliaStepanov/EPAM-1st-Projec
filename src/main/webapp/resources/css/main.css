@@ -238,11 +238,13 @@ body{
 
 .updateBtn{
     margin-top: 16px;
+    width: 70%;
 }
 
 /*----------------------------add flight page---------------------------------*/
 .addFlightBtn{
     margin-top: 16px;
+    width: 70%;
 }
 
 .mainContentAdd{
@@ -252,35 +254,44 @@ body{
 /*----------------------------------airports page--------------------------------*/
 .okBtnAirports{
     margin-top: 10px;
+    width: 70%;
 }
 .addAirportBtn {
     margin-top: 10px;
+    width: 70%;
 }
 .updateAirportBtn {
     margin-top: 10px;
+    width: 70%;
 }
 /*-----------------------------------planes Page-------------------------*/
 .findPlaneBtn {
     margin-top: 10px;
+    width: 70%;
 }
 .addPlaneBtn {
     margin-top: 10px;
+    width: 70%;
 }
 
 .updatePlaneBtn
 {
     margin-top: 10px;
+    width: 70%;
 }
 
 .deletePlaneBtn {
     margin-top: 10px;
+    width: 70%;
 }
 /*---------------------------------settings page------------------------------------*/
 .changeDataBtn {
     margin-top: 10px;
+    width: 70%;
 }
 .changePassBtn {
     margin-top: 10px;
+    width: 70%;
 
 }
 

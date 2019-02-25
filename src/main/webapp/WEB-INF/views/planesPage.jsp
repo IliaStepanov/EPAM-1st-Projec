@@ -14,9 +14,6 @@
 </head>
 <body>
 <div class="container">
-
-    <h2><spring:message code="lang.planes"/></h2><br/><br/>
-
     <br/><br/>
     <a href="<%=EndPoints.PLANE + EndPoints.ALL%>"><spring:message code="lang.allPlanes"/></a><br/><br/>
 
