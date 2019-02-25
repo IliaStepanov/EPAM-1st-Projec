@@ -6,6 +6,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface FlightService {
+    List<Flight> getAllFlightsWithUpdatedPrice();
+
+    List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo);
+
+    Flight getFlightByIdWithUpdatedPrice(Long id);
+
     List<Flight> getAllFlights();
 
     Flight getById(Long id);

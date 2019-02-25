@@ -10,15 +10,14 @@ import com.epam.lowcost.service.interfaces.TicketService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class FlightServiceImpl implements FlightService {
+    public AirportService airportService;
     private FlightDAO flightDAO;
     private PlaneService planeService;
     private TicketService ticketService;
-    public AirportService airportService;
 
     public FlightServiceImpl(FlightDAO flightDAO, PlaneService planeService, AirportService airportService) {
         this.flightDAO = flightDAO;
@@ -30,6 +29,7 @@ public class FlightServiceImpl implements FlightService {
         this.ticketService = ticketService;
     }
 
+    @Override
     public List<Flight> getAllFlightsWithUpdatedPrice() {
         List<Flight> flights = getAllFlights();
         flights.forEach(f -> updateFlightPrice(f));
@@ -38,6 +38,7 @@ public class FlightServiceImpl implements FlightService {
         return flights;
     }
 
+    @Override
     public List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo) {
         List<Flight> flights = getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
         flights.forEach(f -> updateFlightPrice(f));
@@ -46,6 +47,7 @@ public class FlightServiceImpl implements FlightService {
         return flights;
     }
 
+    @Override
     public Flight getFlightByIdWithUpdatedPrice(Long id) {
         Flight flight = getById(id);
         updateFlightPrice(flight);
@@ -66,16 +68,17 @@ public class FlightServiceImpl implements FlightService {
         flight.setDepartureAirport(airportService.getAirportByCode(flight.getDepartureAirport().getCode()));
         return flightDAO.addNewFlight(flight);
     }
-        public Flight getById (Long id){
-            return flightDAO.getById(id);
 
-        }
+    public Flight getById(Long id) {
+        return flightDAO.getById(id);
+
+    }
 
 
-        @Override
-        public Flight updateFlight (Flight flight){
-            return flightDAO.updateFlight(flight);
-        }
+    @Override
+    public Flight updateFlight(Flight flight) {
+        return flightDAO.updateFlight(flight);
+    }
 
 
     @Override
@@ -87,11 +90,11 @@ public class FlightServiceImpl implements FlightService {
 
     }
 
-        @Override
-        public List<Flight> getByFromToDate (String departureAirport, String arrivalAirport, LocalDateTime
-        departureDateFrom, LocalDateTime departureDateTo){
-            return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
-        }
+    @Override
+    public List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime
+            departureDateFrom, LocalDateTime departureDateTo) {
+        return flightDAO.getByFromToDate(departureAirport, arrivalAirport, departureDateFrom, departureDateTo);
+    }
 
     private long calculateInitialFlightPriceByDate(long daysBetween, long minPrice) {
         long daysNumber = 60;//min number of days for price rising
@@ -115,12 +118,14 @@ public class FlightServiceImpl implements FlightService {
         long decreaseDaysBetweenIncreasePrice = calculateInitialFlightPriceByDate(daysBetween, minPrice);
         // if number of free business places less than quarter of plane business places capacity
         // price rises on quarter of min price
-        if (getNumberOfFreeBusinessPlaces(flight) < flight.getPlane().getBusinessPlacesNumber() / 4.0) {
-            decreaseBusinessPlacesIncreasePrice = (long) (minPrice / 4.0);
+        double priceChangecoefficientForBusinessPlaces = 4.0;
+        double priceChangecoefficientForEconomyPlaces = 10.0;
+        if (getNumberOfFreeBusinessPlaces(flight) < flight.getPlane().getBusinessPlacesNumber() / priceChangecoefficientForBusinessPlaces) {
+            decreaseBusinessPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForBusinessPlaces);
         }
         // the same with economy places, but coefficient = 10
-        if (getNumberOfFreeEconomyPlaces(flight) < flight.getPlane().getEconomPlacesNumber() / 10.0) {
-            decreaseEconomyPlacesIncreasePrice = (long) (minPrice / 10.0);
+        if (getNumberOfFreeEconomyPlaces(flight) < flight.getPlane().getEconomPlacesNumber() / priceChangecoefficientForEconomyPlaces) {
+            decreaseEconomyPlacesIncreasePrice = (long) (minPrice / priceChangecoefficientForEconomyPlaces);
         }
 
         flight.setInitialPrice(decreaseBusinessPlacesIncreasePrice +
@@ -130,14 +135,14 @@ public class FlightServiceImpl implements FlightService {
 
     private int getNumberOfFreeBusinessPlaces(Flight flight) {
         int totalNumber = flight.getPlane().getBusinessPlacesNumber();
-        int holdPlaces = ((TicketServiceImpl) ticketService).numberBoughtPlaces(flight.getId(), true);
+        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), true);
         return totalNumber - holdPlaces;
     }
 
 
     private int getNumberOfFreeEconomyPlaces(Flight flight) {
         int totalNumber = flight.getPlane().getEconomPlacesNumber();
-        int holdPlaces = ((TicketServiceImpl) ticketService).numberBoughtPlaces(flight.getId(), false);
+        int holdPlaces = ticketService.numberBoughtPlaces(flight.getId(), false);
         return totalNumber - holdPlaces;
     }
 

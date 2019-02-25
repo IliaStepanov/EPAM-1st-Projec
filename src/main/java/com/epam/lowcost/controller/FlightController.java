@@ -3,7 +3,6 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.implementations.FlightServiceImpl;
 import com.epam.lowcost.service.interfaces.AirportService;
 import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import static com.epam.lowcost.util.EndPoints.*;
@@ -53,7 +51,7 @@ public class FlightController {
 
     @GetMapping(value = NEW_TICKET)
     public String findFlightSetPriceByDate(@RequestParam Long id, Model model) {
-        model.addAttribute("flight", ((FlightServiceImpl) flightService).getFlightByIdWithUpdatedPrice(id));
+        model.addAttribute("flight", flightService.getFlightByIdWithUpdatedPrice(id));
         return BUY;
     }
 
@@ -70,7 +68,7 @@ public class FlightController {
 
     @GetMapping(value = FLIGHT)
     public String searchForFlight(Model model) {
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getAllFlightsWithUpdatedPrice());
+        model.addAttribute("flights", flightService.getAllFlightsWithUpdatedPrice());
         model.addAttribute("airports", airportService.getAllAirports());
         return SEARCHPAGE;
     }
@@ -79,7 +77,7 @@ public class FlightController {
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         if (params.get("departureDateTo").equals(""))
             params.put(("departureDateTo"),params.get("departureDateFrom"));
-        model.addAttribute("flights", ((FlightServiceImpl) flightService).getFilteredFlightsWithUpdatedPrice
+        model.addAttribute("flights",  flightService.getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));

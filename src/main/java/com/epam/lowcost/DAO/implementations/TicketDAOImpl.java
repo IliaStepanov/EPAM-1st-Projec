@@ -69,6 +69,7 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 : "Ticket was not deleted";
     }
 
+    @Override
     public boolean deleteTicketsByFlightId(long id) {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -81,6 +82,7 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
         }
     }
 
+    @Override
     public boolean deleteTicketsByUserId(long id) {
       try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -93,6 +95,7 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
 
     }
 
+    @Override
     public int numberBoughtPlaces(long flightId, boolean isBusiness) {
         Integer n;
         try {

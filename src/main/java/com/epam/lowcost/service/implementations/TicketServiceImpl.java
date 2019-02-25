@@ -69,8 +69,9 @@ public class TicketServiceImpl implements TicketService {
         return ticketDAO.deleteTicket(id);
     }
 
+    @Override
     public int numberBoughtPlaces(long flightId, boolean isBusiness) {
-        return ((TicketDAOImpl) ticketDAO).numberBoughtPlaces(flightId, isBusiness);
+        return ticketDAO.numberBoughtPlaces(flightId, isBusiness);
     }
 
     @Override
