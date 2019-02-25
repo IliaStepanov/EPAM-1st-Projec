@@ -22,16 +22,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 findUserForm">
-            <spring:message code="lang.findUserById"/>
-            <form action="<%=EndPoints.USER%>" method="get">
-                <input type="number" class="form-control input" name="id"/>
-                <input type="submit" class="btn btn-outline-primary findUserBtn" value="Find"/>
-            </form>
-
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-10">
 
         </div>
@@ -93,8 +83,8 @@
                                     <input type="submit" value="<spring:message code="lang.updateUser"/>"
                                            class="btn btn-outline-primary updatePlaneBtn"/>
                                 </form>
-                                <form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
-                                    <input type="hidden" name="id" value="${plane.id}"/>
+                                <form action="<%=EndPoints.USER + EndPoints.DELETE%>" method="post">
+                                    <input type="hidden" name="id" value="${user.id}"/>
                                     <input type="submit" value="<spring:message code="lang.deleteUser"/>"
                                            class="btn btn-outline-danger deletePlaneBtn"/>
                                 </form>

@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-4 addPlaneBtn">
 
-            <form action="<%=EndPoints.PLANE%>" method="post">
+            <form action="<%=EndPoints.PLANE + EndPoints.ADD%>" method="get">
                 <input type="submit" class="btn btn-outline-primary addPlaneBtn" value="<spring:message code="lang.addNewPlane"/> "/>
             </form>
 
@@ -74,12 +74,9 @@
         </div>
     </div>
     <br/>
-    ${plane}<br/> <h4>${message}</h4>
+    <br/> <h4>${message}</h4>
 
 
-<c:forEach items="${planes}" var="plane">
-    <c:out value="${plane.toString()}"/>
-</c:forEach>
     <%--<div class="row">--%>
         <%--<div class="col-md-3">--%>
 

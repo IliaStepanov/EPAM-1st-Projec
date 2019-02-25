@@ -163,7 +163,7 @@ public class FlightController {
     @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
     }
 
 }
