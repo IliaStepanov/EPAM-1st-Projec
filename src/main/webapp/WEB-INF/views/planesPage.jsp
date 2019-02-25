@@ -5,7 +5,7 @@
 <html>
 <head>
     <jsp:include page="navigationPanel.jsp"/>
-    <title><spring:message code="lang.planeDAO"/></title>
+    <title><spring:message code="lang.planes"/></title>
     <spring:url value="/resources/css/main.css" var="main_css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -53,11 +53,11 @@
                     <c:if test="${sessionUser.isAdmin()}">
                     <form action="<%=EndPoints.PLANE%>" method="get">
                     <input type="hidden" name="id" value="${plane.id}"/>
-                    <input type="submit" value="<spring:message code="lang.updatePlane"/>" class="btn btn-outline-primary updatePlaneBtn"/>
+                    <input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updatePlaneBtn"/>
                     </form>
                     <form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
                     <input type="hidden" name="id" value="${plane.id}"/>
-                    <input type="submit" value="<spring:message code="lang.deletePlane"/>" class="btn btn-outline-danger deletePlaneBtn"/>
+                    <input type="submit" value="<spring:message code="lang.delete"/>" class="btn btn-outline-danger deletePlaneBtn"/>
                     </form>
 
 
@@ -94,7 +94,7 @@
         <%--<div class="col-md-3">--%>
 
 
-            <%--<h4><spring:message code="lang.updatePlane"/></h4>--%>
+            <%--<h4><spring:message code="lang.update"/></h4>--%>
             <%--<form action="<%=EndPoints.PLANE + EndPoints.UPDATE%>" method="post">--%>
                 <%--<spring:message code="lang.planeId"/><br/><input type="text" class="form-control input" name="id"/>--%>
                 <%--<spring:message code="lang.model"/><br/><input type="text" class="form-control input" name="model"/>--%>

@@ -32,7 +32,7 @@
                 <div class="backgroundTicket">
                     <spring:message code="lang.departureAirport"/> <c:out
                         value="${ticket.flight.departureAirport.cityEng}"/><br/>
-                    <spring:message code="lang.destination"/> <c:out
+                    <spring:message code="lang.arrivalAirport"/> <c:out
                         value="${ticket.flight.arrivalAirport.cityEng}"/><br/>
                     <spring:message code="lang.departureAt"/> <c:out value="${ticket.flight.departureDate}"/><br/>
                     <spring:message code="lang.arriveAt"/> <c:out value="${ticket.flight.arrivalDate}"/><br/>
