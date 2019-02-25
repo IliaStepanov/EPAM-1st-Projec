@@ -21,7 +21,7 @@
     <a href="<%=EndPoints.ENTRY + EndPoints.LOG_OUT%>"><spring:message code="lang.logOut"/></a>
     </div>
     <div class="topnav">
-        <a class=" navbarLink " href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.ticket"/></a>
+        <a class=" navbarLink " href="<%=EndPoints.TICKETS + EndPoints.SELF%>"><spring:message code="lang.personalCabinet"/></a>
 
         <c:if test="${sessionUser.isAdmin()}"> |<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.userDAO"/></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.planeDAO" /></a>|</c:if>

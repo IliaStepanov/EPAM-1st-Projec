@@ -22,10 +22,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
 
-
-            <spring:message code="lang.changePersonalData"/><br/>
 
         <div class="col-md-3 changeDataTitle">
             <spring:message code="lang.changePersonalData"/>

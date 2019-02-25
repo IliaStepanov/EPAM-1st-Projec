@@ -34,22 +34,26 @@
     <div class="row">
         <div class="col-md-3">
             <form></form>
-            <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
+            <form action="<%=EndPoints.USER + EndPoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="3"/>
-                <input type="submit"  class="btn btn-link numOfUsersBtn" value="3"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
             </form>
-        <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
-            <input type="hidden" name="number" value="5"/>
-            <input type="submit"  class="btn btn-link numOfUsersBtn" value="5"/>
-        </form>
-        <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
-            <input type="hidden" name="number" value="10"/>
-            <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
-        </form>
-        <form action="<%=EndPoints.USER + EndPoints.SET_USERS_BY_PAGE%>" method="get">
-            <input type="hidden" name="number" value="20"/>
-            <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
-        </form>
+            <form action="<%=EndPoints.USER + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="5"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
+            </form>
+            <form action="<%=EndPoints.USER + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="10"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
+            </form>
+            <form action="<%=EndPoints.USER + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="20"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.USER + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
+            </form>
         </div>
     </div>
 
@@ -64,7 +68,7 @@
                     <th scope="col"><spring:message code="lang.document"/></th>
                     <th scope="col"><spring:message code="lang.birthday"/></th>
 
-                    <th>                    </th>
+                    <th></th>
                 </tr>
 
                 </thead>
@@ -83,11 +87,13 @@
                             <c:if test="${sessionUser.isAdmin()}">
                                 <form action="<%=EndPoints.PLANE%>" method="get">
                                     <input type="hidden" name="id" value="${user.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.updateUser"/>" class="btn btn-outline-primary updatePlaneBtn"/>
+                                    <input type="submit" value="<spring:message code="lang.updateUser"/>"
+                                           class="btn btn-outline-primary updatePlaneBtn"/>
                                 </form>
                                 <form action="<%=EndPoints.PLANE + EndPoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${plane.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.deleteUser"/>" class="btn btn-outline-danger deletePlaneBtn"/>
+                                    <input type="submit" value="<spring:message code="lang.deleteUser"/>"
+                                           class="btn btn-outline-danger deletePlaneBtn"/>
                                 </form>
 
                             </c:if>
@@ -103,17 +109,16 @@
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
             </form>
             <c:forEach var="page" begin="1" end="${pagesNum}">
-            <form action="<%=EndPoints.USER + EndPoints.ALL%>/${page}">
+                <form action="<%=EndPoints.USER + EndPoints.ALL%>/${page}">
 
                     <input type="submit" class="btn btn-link paginationBtn" value="${page}">
 
-            </form>
+                </form>
             </c:forEach>
             <form action="<%=EndPoints.USER + EndPoints.ALL%>/${pageId+1}">
                 <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
             </form>
 
-            <h4>${message}</h4>
         </div>
     </div>
 </div>

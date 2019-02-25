@@ -77,8 +77,17 @@
     <td>   <c:out value="${flight.departureDate}"/></td>
     <td>  <c:out value="${flight.arrivalDate}"/></td>
     <td>  <c:out value="${flight.initialPrice}"/></td>
+    <td>
+        <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
+            <input type="hidden" name="id" value="${flight.id}"/>
+            <input type="submit" value="<spring:message code="lang.buy"/>" class="btn btn-outline-primary"/>
 
-
+        </form>
+    </td>
+</tr>
+</c:forEach>
+                </tbody>
+            </table>
 <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${pageId-1}">Previous</a>
 <c:forEach var="page" begin="1" end="${pagesNum}">
     <a href="<%=EndPoints.FLIGHTS + EndPoints.FLIGHT%>/${page}">${page}</a>
@@ -97,18 +106,10 @@
     </form>
 
 
-<td>
-    <form action="<%=EndPoints.FLIGHTS + EndPoints.NEW_TICKET%>" method="get">
-        <input type="hidden" name="id" value="${flight.id}"/>
-        <input type="submit" value="<spring:message code="lang.buy"/>" class="btn btn-outline-primary"/>
 
-    </form>
-</td>
-</tr>
 
-</c:forEach>
-                </tbody>
-            </table>
+
+
         </div>
     </div>
 

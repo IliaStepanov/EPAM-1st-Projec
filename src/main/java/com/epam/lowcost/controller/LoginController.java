@@ -26,11 +26,6 @@ public class LoginController {
         return SEARCHPAGE;
     }
 
-//    @GetMapping(value = ADMIN_PANEL)
-//    public String toAdminPanel(@ModelAttribute("sessionUser") User sessionUser) {
-//        return ADMIN;
-//    }
-
 
     @GetMapping(value = REGISTRATION)
     public String toRegistrationPage() {

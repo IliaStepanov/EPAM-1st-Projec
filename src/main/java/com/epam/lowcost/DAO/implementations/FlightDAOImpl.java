@@ -96,7 +96,7 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
                         " FLIGHTS.departureDate BETWEEN '%s' AND '%s' " +
                         "AND FLIGHTS.isDeleted=FALSE",
                 departureAirport.toUpperCase(), arrivalAirport.toUpperCase(),
-                DateFormatter.format(departureDateFrom), DateFormatter.format(departureDateTo.plusDays(1)));
+                DateFormatter.format(departureDateFrom), DateFormatter.format(departureDateTo.plusDays(1).plusYears(1)));
         return executeSqlSelect(sql);
     }
 
