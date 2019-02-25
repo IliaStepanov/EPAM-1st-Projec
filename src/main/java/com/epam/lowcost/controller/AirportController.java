@@ -1,21 +1,22 @@
 package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.Airport;
+import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_AIRPORTS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = AIRPORT)
+@SessionAttributes({"sessionUser", "number"})
 public class AirportController {
     AirportService airportService;
 
@@ -24,10 +25,26 @@ public class AirportController {
         this.airportService = airportService;
     }
 
-    @GetMapping(value = ALL)
-    public String getAllAirports(Model model) {
-        model.addAttribute("airports", airportService.getAllAirports());
+    @GetMapping(value = ALL + "/{pageId}")
+    public String getAllAirports(@PathVariable int pageId, @ModelAttribute(value = "sessionUser") User sessionUser, ModelMap model) {
+        if (!sessionUser.isAdmin()) {
+            return "redirect:" + TICKETS + SELF;
+        }
+
+        int numberOfUsersOnPage = (int) model.getOrDefault("number", DEFAULT_NUMBER_OF_AIRPORTS_ON_PAGE);
+
+        Map<String, Object> pageRepresentation = airportService.getAirportsByPage(pageId, numberOfUsersOnPage);
+
+        model.addAttribute("pagesNum", pageRepresentation.get("pagesNum"));
+        model.addAttribute("airports", pageRepresentation.get("airports"));
+        model.addAttribute("pageId", pageRepresentation.get("pageId"));
         return AIRPORTSPAGE;
+    }
+
+    @GetMapping(value = PAGE)
+    public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
+        model.addAttribute("number", Integer.parseInt(number));
+        return "redirect:" + fromPage + FIRST_PAGE;
     }
 
     @GetMapping

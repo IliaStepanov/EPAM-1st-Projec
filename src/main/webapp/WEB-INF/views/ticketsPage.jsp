@@ -15,22 +15,22 @@
 
 
 <div>
-    <form action="<%=EndPoints.TICKETS + EndPoints.SET_TICKETS_BY_PAGE%>" method="get">
+    <form action="<%=EndPoints.TICKETS + EndPoints.PAGE%>" method="get">
         <input type="hidden" name="number" value="1"/>
         <input type="hidden" name="fromPage" value="<%=EndPoints.TICKETS + EndPoints.ALL%>"/>
         <input type="submit" value="Show Tickets by 1"/>
     </form>
-    <form action="<%=EndPoints.TICKETS + EndPoints.SET_TICKETS_BY_PAGE%>" method="get">
+    <form action="<%=EndPoints.TICKETS + EndPoints.PAGE%>" method="get">
         <input type="hidden" name="number" value="3"/>
         <input type="hidden" name="fromPage" value="<%=EndPoints.TICKETS + EndPoints.ALL%>"/>
         <input type="submit" value="Show Tickets by 3"/>
     </form>
-    <form action="<%=EndPoints.TICKETS + EndPoints.SET_TICKETS_BY_PAGE%>" method="get">
+    <form action="<%=EndPoints.TICKETS + EndPoints.PAGE%>" method="get">
         <input type="hidden" name="number" value="5"/>
         <input type="hidden" name="fromPage" value="<%=EndPoints.TICKETS + EndPoints.ALL%>"/>
         <input type="submit" value="Show Tickets by 5"/>
     </form>
-    <form action="<%=EndPoints.TICKETS + EndPoints.SET_TICKETS_BY_PAGE%>" method="get">
+    <form action="<%=EndPoints.TICKETS + EndPoints.PAGE%>" method="get">
         <input type="hidden" name="number" value="20"/>
         <input type="hidden" name="fromPage" value="<%=EndPoints.TICKETS + EndPoints.ALL%>"/>
         <input type="submit" value="Show Tickets by 20"/>

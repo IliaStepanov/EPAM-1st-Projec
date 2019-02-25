@@ -20,9 +20,47 @@
 <br/><br/>
 <a href="<%=EndPoints.AIRPORT + EndPoints.ALL%>"><spring:message code="lang.allAirports"/></a><br/><br/>
 
-<c:forEach items="${airports}" var="airport">
-    <c:out value="${airport.toString()}"/><br/>
+
+<a href="<%=EndPoints.AIRPORT + EndPoints.ALL + EndPoints.FIRST_PAGE%>"><spring:message code="lang.allPlanes"/></a><br/><br/>
+<div>
+
+    </form>
+    <form action="<%=EndPoints.AIRPORT + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="10"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.AIRPORT + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Airports by 10"/>
+    </form>
+    <form action="<%=EndPoints.AIRPORT + EndPoints.PAGE%>" method="get">
+        <input type="hidden" name="number" value="20"/>
+        <input type="hidden" name="fromPage" value="<%=EndPoints.AIRPORT + EndPoints.ALL%>"/>
+        <input type="submit" value="Show Airports by 20"/>
+    </form>
+</div>
+<h1>All Planes</h1>
+<table border="12" width="70%" cellpadding="2">
+    <tr>
+        <th>Iata Code</th>
+        <th>City Eng / City Rus</th>
+        <th>Name Eng / Name Rus</th>
+        <th>Country Eng / Country Rus</th>
+
+    </tr>
+    <c:forEach var="airport" items="${airports}">
+        <tr>
+            <td>${airport.code}</td>
+            <td>${airport.cityEng} / ${airport.cityRus}</td>
+            <td>${airport.nameEng} / ${airport.nameRus}</td>
+            <td>${airport.countryEng} / ${airport.countryRus}</td>
+
+        </tr>
+    </c:forEach>
+
+</table>
+<a href="<%=EndPoints.AIRPORT + EndPoints.ALL%>/${pageId-1}">Previous</a>
+<c:forEach var="page" begin="1" end="${pagesNum}">
+    <a href="<%=EndPoints.AIRPORT + EndPoints.ALL%>/${page}">${page}</a>
 </c:forEach>
+<a href="<%=EndPoints.AIRPORT + EndPoints.ALL%>/${pageId+1}">Next</a>
 
 
 <br/>
