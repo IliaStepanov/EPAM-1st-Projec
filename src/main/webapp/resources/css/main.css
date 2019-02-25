@@ -116,8 +116,6 @@ body{
 
 .OneTicket{
     margin-top: 10px;
-
-
 }
 .backgroundTicket{
     padding: 1rem;
@@ -250,3 +248,40 @@ body{
 .mainContentAdd{
     margin-top: 20px;
 }
+
+/*----------------------------------airports page--------------------------------*/
+.okBtnAirports{
+    margin-top: 10px;
+}
+.addAirportBtn {
+    margin-top: 10px;
+}
+.updateAirportBtn {
+    margin-top: 10px;
+}
+/*-----------------------------------planes Page-------------------------*/
+.findPlaneBtn {
+    margin-top: 10px;
+}
+.addPlaneBtn {
+    margin-top: 10px;
+}
+
+.updatePlaneBtn
+{
+    margin-top: 10px;
+}
+
+.deletePlaneBtn {
+    margin-top: 10px;
+}
+/*---------------------------------settings page------------------------------------*/
+.changeDataBtn {
+    margin-top: 10px;
+}
+.changePassBtn {
+    margin-top: 10px;
+
+}
+
+
