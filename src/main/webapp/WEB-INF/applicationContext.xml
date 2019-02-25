@@ -26,11 +26,9 @@
     </bean>
 
 
-
-
     <bean id="ticketRowMapper" class="com.epam.lowcost.util.TicketRowMapper" c:flightRowMapper-ref="flightrowMapper"
           c:userRowMapper-ref="userowMapper"/>
-    <bean id="airportRowMapper" class="com.epam.lowcost.util.AirportRowMapper" />
+    <bean id="airportRowMapper" class="com.epam.lowcost.util.AirportRowMapper"/>
 
     <bean id="dateTimeFormatter" class="java.time.format.DateTimeFormatter" factory-method="ofPattern">
         <constructor-arg value="yyyy-MM-dd hh:mm:ss"/>
@@ -44,7 +42,6 @@
         <constructor-arg ref="userDAO"/>
         <property name="ticketService" ref="ticketService"/>
     </bean>
-
 
 
     <bean id="planeDAO" class="com.epam.lowcost.DAO.implementations.PlaneDAOImpl" c:dataSource-ref="dataSource"
@@ -77,10 +74,10 @@
         <property name="flightService" ref="flightService"/>
     </bean>
 
-   <bean id="airportDAO" class="com.epam.lowcost.DAO.implementations.AirportDAOImpl">
-       <constructor-arg ref="dataSource"/>
-       <constructor-arg ref="airportRowMapper"/>
-   </bean>
+    <bean id="airportDAO" class="com.epam.lowcost.DAO.implementations.AirportDAOImpl">
+        <constructor-arg ref="dataSource"/>
+        <constructor-arg ref="airportRowMapper"/>
+    </bean>
 
     <bean id="airportService" class="com.epam.lowcost.service.implementations.AirportServiceImpl">
         <constructor-arg ref="airportDAO"/>

@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
@@ -32,13 +31,14 @@ public class FlightServiceImpl implements FlightService {
         this.ticketService = ticketService;
     }
 
-    public  Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage) {
-        Map<String, Object> pageInfo = getFlightsByPage(pageId,numberOfFlightsOnPage);
+    @Override
+    public Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage) {
+        Map<String, Object> pageInfo = getFlightsByPage(pageId, numberOfFlightsOnPage);
         List<Flight> flights = (List<Flight>) pageInfo.get("flights");
         flights.forEach(this::updateFlightPrice);
         flights.forEach(f -> f.getPlane().setEconomPlacesNumber(getNumberOfFreeEconomyPlaces(f)));
         flights.forEach(f -> f.getPlane().setBusinessPlacesNumber(getNumberOfFreeBusinessPlaces(f)));
-        pageInfo.put("flights",flights);
+        pageInfo.put("flights", flights);
         return pageInfo;
     }
 
@@ -60,10 +60,6 @@ public class FlightServiceImpl implements FlightService {
         return flight;
     }
 
-    @Override
-    public List<Flight> getAllFlights() {
-        return flightDAO.getAllFlights();
-    }
 
     @Override
     public Flight addNewFlight(Flight flight) {
@@ -77,7 +73,6 @@ public class FlightServiceImpl implements FlightService {
         return flightDAO.getById(id);
 
     }
-
 
     @Override
     public Flight updateFlight(Flight flight) {
@@ -151,7 +146,6 @@ public class FlightServiceImpl implements FlightService {
     }
 
 
-}
     @Override
     public Map<String, Object> getFlightsByPage(int pageId, int numberOfFlightsOnPage) {
         if (pageId <= 0) {

@@ -47,10 +47,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String deleteUser(long userId) {
-       if (ticketService.deleteTicketsByUserId(userId)) {
-           return userDAO.deleteUser(userId);
-       }
-       return null;
+        if (ticketService.deleteTicketsByUserId(userId)) {
+            return userDAO.deleteUser(userId);
+        }
+        return null;
 
     }
 

@@ -7,13 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface FlightService {
-    List<Flight> getAllFlightsWithUpdatedPrice();
 
     List<Flight> getFilteredFlightsWithUpdatedPrice(String departureAirport, String arrivalAirport, LocalDateTime departureDateFrom, LocalDateTime departureDateTo);
 
     Flight getFlightByIdWithUpdatedPrice(Long id);
-
-    List<Flight> getAllFlights();
 
     Flight getById(Long id);
 
@@ -25,7 +22,7 @@ public interface FlightService {
 
     List<Flight> getByFromToDate(String departureAirport, String arrivalAirport, LocalDateTime departureDate, LocalDateTime arrivalDate);
 
-    Map<String,Object> getFlightsByPage(int pageId, int flightsByPage);
+    Map<String, Object> getFlightsByPage(int pageId, int flightsByPage);
 
     Map<String, Object> getAllFlightsWithUpdatedPrice(int pageId, int numberOfFlightsOnPage);
 

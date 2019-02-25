@@ -3,7 +3,6 @@ package com.epam.lowcost.controller;
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.model.Flight;
 import com.epam.lowcost.model.Plane;
-import com.epam.lowcost.service.implementations.FlightServiceImpl;
 import com.epam.lowcost.service.interfaces.AirportService;
 import com.epam.lowcost.service.interfaces.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,8 @@ import static com.epam.lowcost.util.EndPoints.*;
 @SessionAttributes(value = "number")
 public class FlightController {
 
-   private FlightService flightService;
-   private AirportService airportService;
+    private FlightService flightService;
+    private AirportService airportService;
 
     @Autowired
     public FlightController(FlightService flightService, AirportService airportService) {
@@ -50,7 +49,7 @@ public class FlightController {
     }
 
     @GetMapping(value = PAGE)
-    public String setFlightsByPage(@RequestParam String number,@RequestParam String fromPage, ModelMap model) {
+    public String setFlightsByPage(@RequestParam String number, @RequestParam String fromPage, ModelMap model) {
         model.addAttribute("number", Integer.parseInt(number));
 
         return "redirect:" + fromPage + FIRST_PAGE;
@@ -78,7 +77,7 @@ public class FlightController {
 
     public String addNewFlight(Model model) {
         model.addAttribute("airports", airportService.getAllAirports());
-            return ADDFLIGHT;
+        return ADDFLIGHT;
     }
 
     @GetMapping(value = FLIGHT + "/{pageId}")
@@ -98,8 +97,8 @@ public class FlightController {
     @GetMapping(value = SEARCH)
     public String findFlightByFromToDate(@RequestParam Map<String, String> params, Model model) {
         if (params.get("departureDateTo").equals(""))
-            params.put(("departureDateTo"),params.get("departureDateFrom"));
-        model.addAttribute("flights",  flightService.getFilteredFlightsWithUpdatedPrice
+            params.put(("departureDateTo"), params.get("departureDateFrom"));
+        model.addAttribute("flights", flightService.getFilteredFlightsWithUpdatedPrice
                 (params.get("departureAirport"), params.get("arrivalAirport"),
                         LocalDate.parse(params.get("departureDateFrom")).atStartOfDay(),
                         LocalDate.parse(params.get("departureDateTo")).atStartOfDay()));

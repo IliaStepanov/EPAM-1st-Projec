@@ -10,18 +10,18 @@ public class AirportRowMapper implements RowMapper<Airport> {
 
     @Override
     public Airport mapRow(ResultSet rs, int rowNum) throws SQLException {
-        int table=0;
-        if (rowNum ==0) table=7;
+        int table = 0;
+        if (rowNum == 0) table = 7;
         int column = rs.findColumn("AIRPORTS.code");
-        if (column!=1) column+=table;
+        if (column != 1) column += table;
         return Airport.builder()
                 .code(rs.getString(column))
-                .nameEng(rs.getString(column+1))
-                .nameRus(rs.getString(column+2))
-                .cityEng(rs.getString(column+3))
-                .cityRus(rs.getString(column+4))
-                .countryEng(rs.getString(column+5))
-                .countryRus(rs.getString(column+6))
+                .nameEng(rs.getString(column + 1))
+                .nameRus(rs.getString(column + 2))
+                .cityEng(rs.getString(column + 3))
+                .cityRus(rs.getString(column + 4))
+                .countryEng(rs.getString(column + 5))
+                .countryRus(rs.getString(column + 6))
                 .build();
     }
 }

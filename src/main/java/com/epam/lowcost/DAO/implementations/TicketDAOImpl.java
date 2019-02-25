@@ -84,7 +84,7 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
 
     @Override
     public boolean deleteTicketsByUserId(long id) {
-      try {
+        try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
             String sql = "UPDATE TICKETS SET isDeleted =TRUE WHERE TICKETS.userId = ?";
             jdbcTemplate.update(sql, id);

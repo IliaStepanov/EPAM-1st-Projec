@@ -50,16 +50,17 @@ ${airport}<br/> <h4>${message}</h4>
 <br/><br/>
 <h4><spring:message code="lang.updateAirport"/></h4>
 <form action="<%=EndPoints.AIRPORT + EndPoints.UPDATE%>" method="post">
-    <input type="text"  name="code" value="${airport.code}"/> <spring:message code="lang.airportCode"/><br/>
+    <input type="text" name="code" value="${airport.code}"/> <spring:message code="lang.airportCode"/><br/>
     <input type="text" required name="cityEng" value="${airport.cityEng}"/> <spring:message code="lang.cityEng"/><br/>
     <input type="text" required name="cityRus" value="${airport.cityRus}"/> <spring:message code="lang.cityRus"/><br/>
     <input type="text" required name="nameEng" value="${airport.nameEng}"/> <spring:message code="lang.nameEng"/><br/>
     <input type="text" required name="nameRus" value="${airport.nameRus}"/> <spring:message code="lang.nameRus"/><br/>
-    <input type="text" required name="countryEng" value="${airport.countryEng}"/> <spring:message code="lang.countryEng"/><br/>
-    <input type="text" required name="countryRus" value="${airport.countryRus}"/> <spring:message code="lang.countryRus"/><br/>
+    <input type="text" required name="countryEng" value="${airport.countryEng}"/> <spring:message
+        code="lang.countryEng"/><br/>
+    <input type="text" required name="countryRus" value="${airport.countryRus}"/> <spring:message
+        code="lang.countryRus"/><br/>
     <input type="submit" value="OK"/>
 </form>
-
 
 
 </body>
