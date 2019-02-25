@@ -58,6 +58,35 @@
 
 <div class="container mainSerchPage">
     <div class="row">
+        <div class="col-md-10">
+
+        </div>
+        <div class="col-md-2 numOfUsers">
+            <form></form>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="3"/>
+
+                <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
+            </form>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="5"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
+            </form>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="10"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
+            </form>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.PAGE%>" method="get">
+                <input type="hidden" name="number" value="20"/>
+                <input type="hidden" name="fromPage" value="<%=EndPoints.FLIGHTS + EndPoints.ALL%>"/>
+                <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
+            </form>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <table class="table table-striped">
                 <thead>
@@ -106,6 +135,21 @@
 
                 </tbody>
             </table>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId-1}">
+                <input type="text" hidden name="adminPage" value="true"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
+            </form>
+            <c:forEach var="page" begin="1" end="${pagesNum}">
+                <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${page}">
+
+                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
+                    <input type="text" hidden name="adminPage" value="true"/>
+                </form>
+            </c:forEach>
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.ALL%>/${pageId+1}">
+                <input type="text" hidden name="adminPage" value="true"/>
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
+            </form>
         </div>
     </div>
 </div>

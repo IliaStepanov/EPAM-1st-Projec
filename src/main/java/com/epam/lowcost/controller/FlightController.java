@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_FLIGHTS_ON_PAGE;
@@ -144,8 +145,8 @@ public class FlightController {
                                         .id(Long.valueOf(params.get("planeId")))
                                         .build()
                                 )
-                                .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
-                                .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
+                                .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                                .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
                                 .departureAirport(Airport.builder()
                                         .code(params.get("departureAirport"))
                                         .build())

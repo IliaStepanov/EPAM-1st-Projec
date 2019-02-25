@@ -32,7 +32,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-10">
+
+        </div>
+        <div class="col-md-2 numOfUsers">
             <form></form>
             <form action="<%=EndPoints.USER + EndPoints.PAGE%>" method="get">
                 <input type="hidden" name="number" value="3"/>
