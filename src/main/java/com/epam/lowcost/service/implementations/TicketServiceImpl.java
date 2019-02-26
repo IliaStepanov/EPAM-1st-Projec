@@ -106,12 +106,12 @@ public class TicketServiceImpl implements TicketService {
         if (pageId <= 0) {
             pageId = 1;
         }
-        int users = ticketDAO.countTickets();
+        int tickets = ticketDAO.countTickets();
         int pagesNum;
-        if (users % numberOfTicketsOnPage != 0) {
-            pagesNum = (users / numberOfTicketsOnPage + 1);
+        if (tickets % numberOfTicketsOnPage != 0) {
+            pagesNum = (tickets / numberOfTicketsOnPage + 1);
         } else {
-            pagesNum = (users / numberOfTicketsOnPage);
+            pagesNum = (tickets / numberOfTicketsOnPage);
         }
         if (pageId >= pagesNum) {
             pageId = pagesNum;

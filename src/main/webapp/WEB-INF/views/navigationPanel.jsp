@@ -26,7 +26,7 @@
         <c:if test="${sessionUser.isAdmin()}"> |<a href="<%=EndPoints.USER + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.users"/></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.PLANE + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.planes" /></a>|</c:if>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.FLIGHTS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.flights"/></a>|</c:if>
-        <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.tickets"/></a>|</c:if>
+        <%--<c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.TICKETS + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.tickets"/></a>|</c:if>--%>
         <c:if test="${sessionUser.isAdmin()}"> <a href="<%=EndPoints.AIRPORT + EndPoints.ALL + EndPoints.FIRST_PAGE%>" class="navbarLink"> <spring:message code="lang.airports"/></a>|</c:if>
 
     </div>
