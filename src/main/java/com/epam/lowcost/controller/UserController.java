@@ -159,7 +159,7 @@ public class UserController {
             return "redirect:" + TICKETS + SELF;
         }
         if (sessionUser.getId() == id) {
-            model.addAttribute("message", "You cant delete yourself!");
+           // model.addAttribute("message", "You cant delete yourself!");
             return "redirect:" + USER + ALL + FIRST_PAGE;
         }
         model.addAttribute("message", userService.deleteUser(id));
