@@ -2,7 +2,6 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.UserService;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,23 +82,30 @@ public class UserController {
     @PostMapping(value = UPDATE)
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
 
-        User userToUpdate = userService.verifyUser(params.get("email"), params.get("password"));
-        //s=Сделай верифай бай айди
+        User userToUpdate = userService.verifyUser(userService.getById(Long.parseLong(params.get("id"))).getEmail(), params.get("password"));
+
         if (userToUpdate == null) {
-            model.addAttribute("message", "No such user or it has been deleted!");
-        } else {
-            userToUpdate.setEmail(params.get("email"));
-            userToUpdate.setFirstName(params.get("firstName"));
-            userToUpdate.setLastName(params.get("lastName"));
-            userToUpdate.setDocumentInfo(params.get("documentInfo"));
-            userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
-            userToUpdate.setPassword(params.get("password"));
-            System.out.println(userToUpdate);
-            userService.updateUser(userToUpdate);
-            model.addAttribute("user", userToUpdate);
-            model.addAttribute("message", "User successfully updated");
+            model.addAttribute("message", "Wrong password!");
+            return USERSPAGE;
         }
-        return USERSPAGE;
+
+        userToUpdate.setEmail(params.get("email"));
+        userToUpdate.setFirstName(params.get("firstName"));
+        userToUpdate.setLastName(params.get("lastName"));
+        userToUpdate.setDocumentInfo(params.get("documentInfo"));
+        userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+        userToUpdate.setPassword(params.get("password"));
+        System.out.println(userToUpdate);
+        userService.updateUser(userToUpdate);
+
+
+        if ("user".equals(params.get("updateFrom"))) {
+            model.addAttribute("sessionUser", userToUpdate);
+            return "redirect:" + TICKETS + SELF;
+        } else {
+            return USERSPAGE;
+        }
+
     }
 
     @PostMapping(value = CHANGE_PASSWORD)

@@ -51,7 +51,7 @@
 
                 Enter password for confirmation
                 <input type="password" name="password" />
-
+                <input type="hidden" name="updateFrom" value="user"/>
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
             </form>
         </div>
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col-md-3 changePass">
 
-
+            <div class="d-xl-inline-block"><h5>${message}</h5></div>
             <form action="<%=EndPoints.USER + EndPoints.CHANGE_PASSWORD%>" method="post">
                 <spring:message code="lang.oldPassword"/> <br/><input required class="form-control input"
                                                                       type="password" name="oldPassword">
