@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_FLIGHTS_ON_PAGE;
@@ -118,8 +119,8 @@ public class FlightController {
                         .plane(Plane.builder()
                                 .id(Long.valueOf(params.get("planeId")))
                                 .build())
-                        .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
-                        .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
+                        .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                        .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
                         .departureAirport(Airport.builder()
                                 .code(params.get("departureAirport"))
                                 .build())
@@ -130,7 +131,7 @@ public class FlightController {
                         .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                         .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
                         .build()));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + FLIGHTS + ALL+FIRST_PAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -144,8 +145,8 @@ public class FlightController {
                                         .id(Long.valueOf(params.get("planeId")))
                                         .build()
                                 )
-                                .departureDate(LocalDate.parse(params.get("departureDate")).atStartOfDay())
-                                .arrivalDate(LocalDate.parse(params.get("arrivalDate")).atStartOfDay())
+                                .departureDate(LocalDateTime.parse(params.get("departureDate")))
+                                .arrivalDate(LocalDateTime.parse(params.get("arrivalDate")))
                                 .departureAirport(Airport.builder()
                                         .code(params.get("departureAirport"))
                                         .build())
@@ -162,7 +163,7 @@ public class FlightController {
     @PostMapping(value = DELETE)
     public String deleteFlight(@RequestParam Long id, Model model) {
         model.addAttribute("flight", flightService.deleteFlight(id));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
     }
 
 }

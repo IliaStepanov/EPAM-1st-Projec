@@ -43,10 +43,17 @@ public class PlaneController {
         return "redirect:" + fromPage + FIRST_PAGE;
     }
 
+    @GetMapping (value = ADD)
+    public String addNewPlane() {
+        return ADDPLANE;
+    }
+
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
-        return PLANESPAGE;
+
+//        model.addAttribute("message", "Here is your Plane!");
+        return PLANESSETTINGS;
     }
 
     @PostMapping
@@ -60,7 +67,7 @@ public class PlaneController {
                         .build()));
 
         model.addAttribute("message", "Plane successfully added");
-        return PLANESPAGE;
+        return "redirect:" + PLANE+ ALL+ FIRST_PAGE;
     }
 
     @PostMapping(value = UPDATE)
@@ -73,9 +80,13 @@ public class PlaneController {
                         .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
                         .build());
 
-        model.addAttribute("plane", plane);
-
-        return PLANESPAGE;
+        if (plane == null) {
+            model.addAttribute("message", "No such plane or it has been deleted!");
+        } else {
+            model.addAttribute("plane", plane);
+            model.addAttribute("message", "Plane seccessfully updated");
+        }
+        return "redirect:" + PLANE + ALL + FIRST_PAGE;
     }
 
     @PostMapping(value = DELETE)

@@ -22,11 +22,40 @@
     <div class="row">
         <div class="col-md-4 addPlaneBtn">
 
-            <form action="<%=EndPoints.PLANE%>" method="post">
+            <form action="<%=EndPoints.PLANE + EndPoints.ADD%>" method="get">
                 <input type="submit" class="btn btn-outline-primary addPlaneBtn" value="<spring:message code="lang.addNewPlane"/> "/>
             </form>
 
         </div>
+    </div>
+    <div class="row">
+    <div class="col-md-10">
+
+    </div>
+    <div class="col-md-2 numOfUsers">
+        <form></form>
+        <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
+            <input type="hidden" name="number" value="3"/>
+
+            <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+            <input type="submit" class="btn btn-link numOfUsersBtn" value="3"/>
+        </form>
+        <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
+            <input type="hidden" name="number" value="5"/>
+            <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+            <input type="submit" class="btn btn-link numOfUsersBtn" value="5"/>
+        </form>
+        <form action="<%=EndPoints.PLANE+ EndPoints.PAGE%>" method="get">
+            <input type="hidden" name="number" value="10"/>
+            <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+            <input type="submit" class="btn btn-link numOfUsersBtn" value="10"/>
+        </form>
+        <form action="<%=EndPoints.PLANE + EndPoints.PAGE%>" method="get">
+            <input type="hidden" name="number" value="20"/>
+            <input type="hidden" name="fromPage" value="<%=EndPoints.PLANE + EndPoints.ALL%>"/>
+            <input type="submit" class="btn btn-link numOfUsersBtn" value="20"/>
+        </form>
+    </div>
     </div>
 
     <div class="row">
@@ -70,11 +99,21 @@
                 </tbody>
 
             </table>
+            <form action="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId-1}">
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.previous"/>">
+            </form>
+            <c:forEach var="page" begin="1" end="${pagesNum}">
+                <form action="<%=EndPoints.PLANE + EndPoints.ALL%>/${page}">
+                    <input type="submit" class="btn btn-link paginationBtn" value="${page}">
+                </form>
+            </c:forEach>
+            <form action="<%=EndPoints.PLANE + EndPoints.ALL%>/${pageId+1}">
+                <input type="submit" class="btn btn-link paginationBtn" value="<spring:message code="lang.next"/>">
+            </form>
 
         </div>
     </div>
     <br/>
-
 
 
 
