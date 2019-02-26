@@ -81,7 +81,7 @@
                                                                     onclick="updatePrice()"/> + <c:out
                     value="${flight.luggagePrice}"/><br/>
                 <input type="hidden" name="flightId" value="${flight.id}"/>
-                <spring:message code="lang.price"/> <output id="price">${flight.initialPrice}</output>
+                <spring:message code="lang.total"/> <output id="price">${flight.initialPrice}</output>
                 </br> <input type="submit" value="<spring:message code="lang.buy"/>" class="buyButtonBuyPage btn btn-outline-success"/>
             </form>
             <form action="<%=EndPoints.FLIGHTS + EndPoints.RETURN%>" method="get">

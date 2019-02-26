@@ -49,7 +49,7 @@
             </form>
             <c:if test="${sessionUser.isAdmin()}">
                 <form action="<%=EndPoints.FLIGHTS + EndPoints.ADD%>" method="get">
-                    <input type="submit" value="<spring:message code="lang.addNewFlight"/>" class="flightAddBtn btn btn-outline-warning"/>
+                    <input type="submit" value="<spring:message code="lang.addNewFlight"/>" class="flightAddBtn btn btn-outline-success"/>
                 </form>
             </c:if>
         </div>
