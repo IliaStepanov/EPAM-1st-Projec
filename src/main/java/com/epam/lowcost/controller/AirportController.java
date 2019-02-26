@@ -60,7 +60,7 @@ public class AirportController {
     @PostMapping(value = ADD)
     public String addAirport(@RequestParam Map<String, String> params, Model model) {
         model.addAttribute("airport", airportService.addNewAirport(params));
-        model.addAttribute("message", "Airport successfully added");
+        //model.addAttribute("message", "Airport successfully added");
         return AIRPORTSPAGE;
     }
 
@@ -68,10 +68,10 @@ public class AirportController {
     public String updateAirport(@RequestParam Map<String, String> params, Model model) {
         Airport airport = airportService.updateAirport(params);
         if (airport == null) {
-            model.addAttribute("message", "No such airport or it has been deleted!");
+           // model.addAttribute("message", "No such airport or it has been deleted!");
         } else {
             model.addAttribute("airport", airport);
-            model.addAttribute("message", "Airport successfully added");
+           // model.addAttribute("message", "Airport successfully added");
         }
         return AIRPORTSPAGE;
     }

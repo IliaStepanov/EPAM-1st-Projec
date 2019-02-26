@@ -32,10 +32,10 @@
         <div class="col-md-3 changeData">
             <form action="<%=EndPoints.USER + EndPoints.UPDATE%>" method="post">
                 <input type="hidden" name="id" value="${sessionUser.id}"/>
+
                 <spring:message code="lang.newEmail"/> <br/><input type="email" class="form-control input"
                                                                    value="${sessionUser.email}"
                                                                    name="email"/>
-                <input type="hidden" name="password" value="${sessionUser.password}"/>
                 <input type="hidden" name="isAdmin" value="${sessionUser.admin}"/>
                 <spring:message code="lang.newFirstName"/> <br/><input type="text" class="form-control input"
                                                                        name="firstName"
@@ -48,7 +48,10 @@
                                                                       value="${sessionUser.documentInfo}"/>
                 <spring:message code="lang.newDateBirth"/><br/><input type="date" class="form-control input"
                                                                       name="birthday" value="${sessionUser.birthday}"/>
-                <input type="hidden" name="userUpdate" value="fromUser"/>
+
+                Enter password for confirmation
+                <input type="password" name="password" />
+
                 <input type="submit" class="btn btn-outline-primary changeDataBtn" value="ОК"/>
             </form>
         </div>

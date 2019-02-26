@@ -23,7 +23,7 @@ public class PlaneController {
     PlaneService planeService;
 
     @GetMapping(value = ALL + "/{pageId}")
-    public String getAllPlanes(@PathVariable int pageId, ModelMap model ) {
+    public String getAllPlanes(@PathVariable int pageId, ModelMap model) {
         if (!((User) model.get("sessionUser")).isAdmin()) {
             return "redirect:" + TICKETS + SELF;
         }
@@ -36,6 +36,7 @@ public class PlaneController {
 
         return PLANESPAGE;
     }
+
     @GetMapping(value = PAGE)
     public String setUsersByPage(@RequestParam String number, @RequestParam String fromPage, Model model) {
         model.addAttribute("number", Integer.parseInt(number));
@@ -50,6 +51,7 @@ public class PlaneController {
     @GetMapping
     public String getById(@RequestParam long id, Model model) {
         model.addAttribute("plane", planeService.getById(id));
+
 //        model.addAttribute("message", "Here is your Plane!");
         return PLANESSETTINGS;
     }
@@ -77,6 +79,7 @@ public class PlaneController {
                         .businessPlacesNumber(Integer.valueOf(params.get("businessPlacesNumber")))
                         .economPlacesNumber(Integer.valueOf(params.get("economPlacesNumber")))
                         .build());
+
         if (plane == null) {
             model.addAttribute("message", "No such plane or it has been deleted!");
         } else {
@@ -84,12 +87,11 @@ public class PlaneController {
             model.addAttribute("message", "Plane seccessfully updated");
         }
         return "redirect:" + PLANE + ALL + FIRST_PAGE;
-
     }
 
     @PostMapping(value = DELETE)
     public String deletePlane(@RequestParam long id, Model model) {
-        model.addAttribute("message", planeService.deletePlane(id));
+        planeService.deletePlane(id);
         return "redirect:" + PLANE + ALL + FIRST_PAGE;
     }
 }

@@ -91,8 +91,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col"><spring:message code="lang.from"/></th>
-                    <th scope="col"><spring:message code="lang.to"/></th>
+                    <th scope="col"><spring:message code="lang.departureAirport"/></th>
+                    <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
                     <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col">  <spring:message code="lang.price"/></th>
@@ -117,11 +117,11 @@
                             <c:if test="${sessionUser.isAdmin()}">
                                 <form action="<%=EndPoints.FLIGHTS%>" method="get">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.updateFlight"/>" class="btn btn-outline-primary updateFlight"/>
+                                    <input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateFlight"/>
                                 </form>
                                 <form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">
                                     <input type="hidden" name="id" value="${flight.id}"/>
-                                    <input type="submit" value="<spring:message code="lang.deleteFlight"/>" class="btn btn-outline-danger deleteFlight"/>
+                                    <input type="submit" value="<spring:message code="lang.delete"/>" class="btn btn-outline-danger deleteFlight"/>
                                 </form>
 
 

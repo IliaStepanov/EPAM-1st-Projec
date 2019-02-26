@@ -86,8 +86,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="col"><spring:message code="lang.from"/></th>
-                    <th scope="col"><spring:message code="lang.to"/></th>
+                    <th scope="col"><spring:message code="lang.departureAirport"/></th>
+                    <th scope="col"><spring:message code="lang.arrivalAirport"/></th>
                     <th scope="col"><spring:message code="lang.departureDateFrom"/></th>
                     <th scope="col"> <spring:message code="lang.arriveAt"/></th>
                     <th scope="col">  <spring:message code="lang.price"/></th>

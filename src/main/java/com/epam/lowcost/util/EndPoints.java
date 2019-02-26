@@ -46,6 +46,7 @@ public final class EndPoints {
     public static final String SETTINGS = "/settings";
     public static final String CHANGE_PASSWORD = "/change-password";
     public static final String FIRST_PAGE = "/1";
+    public static final String CHANGE_PERSONAL_DATA = "/change-personal-data";
 
     // View endpoints
     public static final String ADDFLIGHT = "addFlight";

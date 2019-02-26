@@ -2,6 +2,7 @@ package com.epam.lowcost.controller;
 
 import com.epam.lowcost.model.User;
 import com.epam.lowcost.service.interfaces.UserService;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,10 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import static com.epam.lowcost.util.Constants.DEFAULT_NUMBER_OF_USERS_ON_PAGE;
 import static com.epam.lowcost.util.EndPoints.*;
@@ -81,51 +82,24 @@ public class UserController {
 
     @PostMapping(value = UPDATE)
     public String updateUser(@RequestParam Map<String, String> params, Model model) {
-        User user = userService.updateUser(
-                User.builder()
-                        .id(Long.valueOf(params.get("id")))
-                        .email(params.get("email"))
-                        .password(params.get("password"))
-                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
-                        .firstName(params.get("firstName"))
-                        .lastName(params.get("lastName"))
-                        .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
-                        .build());
-        if (user == null) {
+
+        User userToUpdate = userService.verifyUser(params.get("email"), params.get("password"));
+        //s=Сделай верифай бай айди
+        if (userToUpdate == null) {
             model.addAttribute("message", "No such user or it has been deleted!");
-        }
-        if (params.get("userUpdate").equals("fromUser")) {
-            model.addAttribute("sessionUser", user);
-            return "redirect:" + TICKETS + SELF;
         } else {
-            model.addAttribute("user", user);
+            userToUpdate.setEmail(params.get("email"));
+            userToUpdate.setFirstName(params.get("firstName"));
+            userToUpdate.setLastName(params.get("lastName"));
+            userToUpdate.setDocumentInfo(params.get("documentInfo"));
+            userToUpdate.setBirthday(LocalDate.parse(params.get("birthday")).atStartOfDay());
+            userToUpdate.setPassword(params.get("password"));
+            System.out.println(userToUpdate);
+            userService.updateUser(userToUpdate);
+            model.addAttribute("user", userToUpdate);
             model.addAttribute("message", "User successfully updated");
         }
         return USERSPAGE;
-    }
-
-    @PostMapping(value = ENROLL)
-    public String createUser(@RequestParam Map<String, String> params, Model model) {
-        userService.addUser(
-                User.builder()
-                        .email(params.get("email"))
-                        .password(params.get("password"))
-                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
-                        .firstName(params.get("firstName"))
-                        .lastName(params.get("lastName"))
-                        .documentInfo(params.get("documentInfo"))
-                        .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
-                        .isDeleted(false)
-                        .build());
-        model.addAttribute("message", "Successfully registered. Please Log in. ");
-        return LOGIN;
-
-    }
-
-    @GetMapping(value = SETTINGS)
-    public String settings(@ModelAttribute("sessionUser") User sessionUser) {
-        return SETTINGSPAGE;
     }
 
     @PostMapping(value = CHANGE_PASSWORD)
@@ -144,6 +118,33 @@ public class UserController {
         model.addAttribute("message", "Passwords changed successfully!");
         return SETTINGSPAGE;
     }
+
+    @PostMapping(value = ENROLL)
+    public String createUser(@RequestParam Map<String, String> params, Model model) {
+        ResourceBundle bundle = ResourceBundle.getBundle("lang");
+        userService.addUser(
+                User.builder()
+                        .email(params.get("email"))
+                        .password(params.get("password"))
+                        .isAdmin(Boolean.valueOf(params.get("isAdmin")))
+                        .firstName(params.get("firstName"))
+                        .lastName(params.get("lastName"))
+                        .documentInfo(params.get("documentInfo"))
+                        .birthday(LocalDate.parse(params.get("birthday")).atStartOfDay())
+                        .isDeleted(false)
+                        .build());
+        model.addAttribute("message", bundle.getString("lang.successfullRegistration"));
+        return LOGIN;
+
+    }
+
+    @GetMapping(value = SETTINGS)
+    public String settings(ModelMap modelMap) {
+        User sessionUser = (User) modelMap.get("sessionUser");
+        modelMap.addAttribute("sessionUser", sessionUser);
+        return SETTINGSPAGE;
+    }
+
 
     @PostMapping(value = DELETE)
     public String deleteUser(@RequestParam long id, ModelMap model) {

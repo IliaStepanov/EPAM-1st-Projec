@@ -45,7 +45,7 @@
                         <%--<c:if test="${sessionUser.isAdmin()}">--%>
                             <%--<form action="<%=EndPoints.TICKETS%>" method="get">--%>
                                 <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
-                                <%--<input type="submit" value="<spring:message code="lang.updateTicket"/>" class="btn btn-outline-primary updateTicket"/>--%>
+                                <%--<input type="submit" value="<spring:message code="lang.update"/>" class="btn btn-outline-primary updateTicket"/>--%>
                             <%--</form>--%>
                             <%--<form action="<%=EndPoints.FLIGHTS + EndPoints.DELETE%>" method="post">--%>
                                 <%--<input type="hidden" name="id" value="${ticket.id}"/>--%>
