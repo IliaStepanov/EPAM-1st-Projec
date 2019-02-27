@@ -3,6 +3,7 @@ package com.epam.lowcost.DAO.implementations;
 import com.epam.lowcost.DAO.interfaces.PlaneDAO;
 import com.epam.lowcost.exceptions.DatabaseErrorException;
 import com.epam.lowcost.model.Plane;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
@@ -48,5 +49,20 @@ public class PlaneDAOImpl extends AbstractDAOImpl<Plane> implements PlaneDAO {
         String sql = String.format("UPDATE PLANES SET isDeleted=true WHERE id=%d", planeId);
         return executeSqlUpdate(sql) == 1 ? String.format("UPDATE PLANES SET isDeleted=true WHERE id=%d", planeId)
                 : "Plane was not deleted";
+    }
+
+    @Override
+    public List<Plane> getPlanesByPage(int pageId, int numberOfPlanesOnPage) {
+        pageId = pageId - 1;
+        if (pageId > 0) {
+            pageId = pageId * numberOfPlanesOnPage;
+        }
+        return executeSqlSelect("SELECT * FROM PLANES WHERE isDeleted=false LIMIT " + (pageId) + "," + numberOfPlanesOnPage);
+    }
+
+    @Override
+    public int countPlanes() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM PLANES WHERE isDeleted=false", Integer.class);
     }
 }

@@ -15,4 +15,8 @@ public interface AirportDAO {
 
     Airport updateAirport(Airport airport);
 
+    List<Airport> getAirportsByPage(int pageId, int numberOfAirportsOnPage);
+
+    int countAirports();
+
 }

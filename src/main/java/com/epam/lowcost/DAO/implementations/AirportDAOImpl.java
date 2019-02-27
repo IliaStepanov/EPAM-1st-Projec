@@ -100,4 +100,21 @@ public class AirportDAOImpl implements AirportDAO {
         return null;
 
     }
+
+    @Override
+    public List<Airport> getAirportsByPage(int pageId, int numberOfAirportsOnPage) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        pageId = pageId - 1;
+        if (pageId > 0) {
+            pageId = pageId * numberOfAirportsOnPage;
+        }
+
+        return jdbcTemplate.query("SELECT * FROM AIRPORTS LIMIT " + (pageId) + "," + numberOfAirportsOnPage, airportRowMapper);
+    }
+
+    @Override
+    public int countAirports() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.queryForObject("SELECT COUNT(code) FROM AIRPORTS", Integer.class);
+    }
 }

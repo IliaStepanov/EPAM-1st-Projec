@@ -4,6 +4,7 @@ import com.epam.lowcost.DAO.interfaces.AirportDAO;
 import com.epam.lowcost.model.Airport;
 import com.epam.lowcost.service.interfaces.AirportService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,32 @@ public class AirportServiceImpl implements AirportService {
         return airport;
     }
 
+    @Override
+    public Map<String, Object> getAirportsByPage(int pageId, int numberOfAirportsOnPage) {
+        if (pageId <= 0) {
+            pageId = 1;
+        }
+        int users = airportDAO.countAirports();
+        int pagesNum;
+        if (users % numberOfAirportsOnPage != 0) {
+            pagesNum = (users / numberOfAirportsOnPage + 1);
+        } else {
+            pagesNum = (users / numberOfAirportsOnPage);
+        }
+        if (pageId >= pagesNum) {
+            pageId = pagesNum;
+        }
 
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("airports", airportDAO.getAirportsByPage(pageId, numberOfAirportsOnPage));
+        pageInfo.put("pagesNum", pagesNum);
+        pageInfo.put("pageId", pageId);
+
+        return pageInfo;
+    }
+
+    @Override
+    public int countAirports() {
+        return airportDAO.countAirports();
+    }
 }

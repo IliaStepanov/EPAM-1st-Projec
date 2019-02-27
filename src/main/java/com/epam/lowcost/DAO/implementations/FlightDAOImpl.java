@@ -108,7 +108,7 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         }
         String sql = "SELECT * FROM FLIGHTS JOIN  PLANES ON FLIGHTS.planeId = PLANES.id JOIN AIRPORTS AS " +
                 "a ON FLIGHTS.DEPARTUREAIRPORT=a.code JOIN AIRPORTS AS b ON FLIGHTS.ARRIVALAIRPORT=b.code WHERE  FLIGHTS.ISDELETED = false LIMIT " + (pageId) + "," + numberOfFlightsOnPage;
-        return executeSqlSelect(sql);
+            return executeSqlSelect(sql);
     }
 
     @Override
@@ -117,3 +117,4 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight> implements FlightDAO 
         return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM FLIGHTS WHERE isDeleted=false", Integer.class);
     }
 }
+

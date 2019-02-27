@@ -20,7 +20,7 @@ import static com.epam.lowcost.util.EndPoints.*;
 
 @Controller
 @RequestMapping(value = FLIGHTS)
-@SessionAttributes(value = "number")
+@SessionAttributes({"sessionUser", "number"})
 public class FlightController {
 
     private FlightService flightService;
@@ -156,7 +156,7 @@ public class FlightController {
                                 .luggagePrice(Long.valueOf(params.get("luggagePrice")))
                                 .placePriorityPrice(Long.valueOf(params.get("placePriorityPrice")))
                                 .build()));
-        return "redirect:" + FLIGHTS + ALL;
+        return "redirect:" + FLIGHTS + ALL + FIRST_PAGE;
     }
 
     @PostMapping(value = DELETE)

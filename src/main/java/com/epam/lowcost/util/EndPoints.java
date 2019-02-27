@@ -38,6 +38,7 @@ public final class EndPoints {
     public static final String SELF = "/self";
     public static final String CANCEL = "/cancel";
 
+
 //  User Controller endpoints
 
     public static final String USER = "/user";

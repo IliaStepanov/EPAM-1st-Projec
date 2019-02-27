@@ -16,4 +16,8 @@ public interface AirportService {
     // Airport deleteAirport(Long id);
 
     Airport updateAirport(Map<String, String> params);
+
+    Map<String,Object> getAirportsByPage(int pageId, int numberOfAirportsOnPage);
+
+    int countAirports();
 }

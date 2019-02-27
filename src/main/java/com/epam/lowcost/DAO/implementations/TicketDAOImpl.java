@@ -128,4 +128,18 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket> implements TicketDAO 
                 "WHERE TICKETS.isDeleted=false ";
     }
 
+    @Override
+    public List<Ticket> getTicketsByPage(int pageId, int numberOfTicketsOnPage) {
+        pageId = pageId - 1;
+        if (pageId > 0) {
+            pageId = pageId * numberOfTicketsOnPage;
+        }
+        return executeSqlSelect(joinQuery() + "LIMIT " + (pageId) + "," + numberOfTicketsOnPage);
+    }
+
+    @Override
+    public int countTickets() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        return jdbcTemplate.queryForObject("SELECT COUNT(id) FROM TICKETS WHERE isDeleted=false", Integer.class);
+    }
 }
