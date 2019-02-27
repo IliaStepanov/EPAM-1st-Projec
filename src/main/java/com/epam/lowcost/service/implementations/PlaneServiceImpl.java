@@ -3,6 +3,7 @@ package com.epam.lowcost.service.implementations;
 import com.epam.lowcost.DAO.interfaces.PlaneDAO;
 import com.epam.lowcost.model.Plane;
 import com.epam.lowcost.service.interfaces.PlaneService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,11 +11,12 @@ import java.util.Map;
 
 public class PlaneServiceImpl implements PlaneService {
 
+    @Autowired
     private PlaneDAO planeDAO;
 
-    public PlaneServiceImpl(PlaneDAO planeDAO) {
-        this.planeDAO = planeDAO;
-    }
+//    public PlaneServiceImpl(PlaneDAO planeDAO) {
+//        this.planeDAO = planeDAO;
+//    }
 
     @Override
     public List<Plane> getAllPlanes() {

@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
     compile group: 'org.springframework', name: 'spring-context-support', version: '5.1.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.4.RELEASE'
