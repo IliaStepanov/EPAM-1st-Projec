@@ -12,35 +12,43 @@
 <html>
 <head>
     <title><spring:message code="lang.updateFlight"/></title>
+
+    <spring:url value="/resources/css/main.css" var="main_css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link href="${main_css}" rel="stylesheet">
+
 </head>
 <body>
 <jsp:include page="navigationPanel.jsp"/>
-<h4>Update flight.</h4>
+
+<div class="container">
+    <div class="row">
 
 
-<form action="<%=EndPoints.FLIGHTS + EndPoints.UPDATE%>" method="post">
-    <input type="hidden" name="id" value="${flight.id}"/>
-    <input type="text" required name="planeId" value="${flight.plane.id}"/> <spring:message code="lang.planeId"/><br/>
-    <input type="date" required name="departureDate" value="${flight.departureDate}"/> <spring:message
-        code="lang.departureAt"/><br/>
-    <input type="date" required name="arrivalDate" value="${flight.arrivalDate}"/> <spring:message
-        code="lang.arriveAt"/>. <br/>
-    <input type="text" required list="airport" name="departureAirport" value="${flight.departureAirport.code}"/>
-    <spring:message
-            code="lang.departureAirport"/> <br/>
-    <input type="text" required list="airport" name="arrivalAirport" value="${flight.arrivalAirport.code}"/>
-    <spring:message
-            code="lang.arrivalAirport"/> <br/>
-    <input type="text" required name="placePriorityPrice" value="${flight.placePriorityPrice}"/> <spring:message
-        code="lang.placePriorityPrice"/><br/>
-    <input type="text" required name="businessPrice" value="${flight.businessPrice}"/> <spring:message
-        code="lang.businessPrice"/><br/>
-    <input type="text" required name="luggagePrice" value="${flight.luggagePrice}"/> <spring:message
-        code="lang.luggagePrice"/><br/>
-    <input type="text" required name="initialPrice" value="${flight.initialPrice}"/> <spring:message code="lang.price"/>.<br/>
-    <input type="submit" value="<spring:message code="lang.updateFlight"/>"/>
-</form>
+        <div class="col-md-3 mainContentUpdate">
+            <h4><spring:message code="lang.updateFlight"/></h4>
 
+            <form action="<%=EndPoints.FLIGHTS + EndPoints.UPDATE%>" method="post">
+                <input type="hidden" name="id" value="${flight.id}"/>
+                <spring:message code="lang.planeId"/><br/>
+                <input type="text" required name="planeId" class="form-control input" value="${flight.plane.id}"/>
+                <spring:message code="lang.departureAt"/><br/><input type="text" required name="departureDate" class="form-control input" value="${flight.departureDate}"/>
+                <spring:message code="lang.arriveAt"/>. <br/> <input type="text" required name="arrivalDate" class="form-control input" value="${flight.arrivalDate}"/>
+                <spring:message code="lang.departureAirport"/> <br/><input type="text" required list="airport" class="form-control input" name="departureAirport" value="${flight.departureAirport.code}"/>
+                <spring:message code="lang.arrivalAirport"/> <br/><input type="text" class="form-control input" required list="airport" name="arrivalAirport" value="${flight.arrivalAirport.code}"/>
+                <spring:message code="lang.placePriorityPrice"/><br/><input type="text" class="form-control input" required name="placePriorityPrice" value="${flight.placePriorityPrice}"/>
+                <spring:message code="lang.businessPrice"/><br/><input type="text" class="form-control input" required name="luggagePrice"value="${flight.businessPrice}"/>
+                <spring:message code="lang.luggagePrice"/><br/><input type="text" class="form-control input" required name="businessPrice" value="${flight.luggagePrice}"/>
+                <spring:message code="lang.price"/>.<br/><input type="text" class="form-control input" required name="initialPrice" value="${flight.initialPrice}"/>
+                <input type="submit" value="<spring:message code="lang.updateFlight"/>"
+                       class="btn btn-outline-success updateBtn"/>
+            </form>
+        </div>
+
+    </div>
+</div>
 <datalist id="airport">
     <c:forEach items="${airports}" var="airport">
         <option hidden value="${airport.code}">${airport.cityEng},${airport.countryEng} </option>
